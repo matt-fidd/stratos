@@ -1,0 +1,35 @@
+@startuml
+skinparam actorStyle awesome
+
+package Students {
+	actor student1 as s1
+	actor student2 as s2
+	actor student3 as s3
+	actor student4 as s4
+	actor student5 as s5
+}
+
+package Classes {
+	usecase "Class 1" as c1
+	usecase "Class 2" as c2
+	usecase "Class 3" as c3
+	usecase "Class 4" as c4
+}
+
+s1 --> c1
+s2 --> c1
+s3 --> c1
+s4 --> c1
+s5 --> c1
+
+s1 --> c2
+s2 --> c2
+
+s1 --> c3
+s2 --> c3
+s3 --> c3
+
+s4 --> c4
+s5 --> c4
+
+@enduml

@@ -1,0 +1,132 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+User <|-- Account
+User <|-- Student
+User <|-- Parent
+
+User -- PasswordReset
+
+Student -- Parent
+Student -- Test
+Student -- Class
+
+Account -- Class
+Account -- TestTemplate
+
+Class -- Subject
+Class -- Test
+
+TestTemplate -- Test
+TestTemplate -- Class
+
+Test -- TestResult
+
+TestResult -- Student
+
+class User {
+	id: string
+	firstName: string
+	otherNames: string
+	lastName: string
+	email: string
+	password: string
+	type: string
+	getfullName(): string
+	verifyPassword(hash): boolean
+	changePassword(password): void
+	getPasswordReset(): PasswordReset
+	generatePasswordReset(): PasswordReset
+	{static} hashPassword(password): string
+	{static} createUser(...): Account|Student|Parent
+	{static} getUserByEmail(...): Account|Student|Parent
+}
+
+class Account {
+	getClasses(): Class[]
+	getTests(): TestTemplate[]
+	createTestTemplate(...): TestTemplate
+	createClass(...): Class
+}
+
+class Student {
+	getClasses(): Class[]
+	getTests(): Test[]
+	getParents(): Parent[]
+}
+
+class Parent {
+	getChildren(): Student[]
+}
+
+class PasswordReset {
+	userId: string
+	token: string
+	nonce: string
+	expires: Date
+	getUser(): User
+	{static} hashToken(): {string, string}
+	{static} generatePasswordReset(): PasswordReset
+}
+
+class Subject {
+	subjectId: int
+	name: string
+}
+
+class Class {
+	classId: string
+	subjectId: int
+	name: string
+	getSubject(): Subject
+	getTests(): Test[]
+	getTeachers(): Account[]
+	getTeacher(): Teacher
+	getStudents(): Student[]
+	getStudent(): Student
+	addTeacher(): void
+	removeTeacher(): void
+	addStudent(): void
+	removeStudent(): void
+	isAuthorised(User): boolean
+	calculateAverageMovement(): int
+	{static} createClass(): Class
+}
+
+class TestTemplate {
+	testTemplateId: string
+	accountId: string
+	name: string
+	maxMark: int
+	assignClass(): Test
+	getClasses(): Class[]
+	isAuthorised(User): boolean
+	{static} createTestTemplate(): TestTemplate
+}
+
+class Test {
+	testId: string
+	testTemplateId: string
+	classId: string
+	testDate: Date
+	getClass(): Class
+	getStudent(): TestResult
+	getStudents(): TestResult[]
+	getTestTemplate(): TestTemplate
+	calculateAverageScore(): int
+	calculateGradeBoundaries(): Object
+}
+
+class TestResult {
+	studentId: string
+	accountId: string
+	testId: string
+	setMark(): void
+	getMark(): int
+	getPercentage(): int
+	getGrade(): string
+	getStudent(): Student
+	getTest(): Test
+}
+
+@enduml

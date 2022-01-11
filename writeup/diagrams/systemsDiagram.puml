@@ -1,0 +1,49 @@
+@startwbs
+<style>
+wbsDiagram {
+	LineColor black
+	BackgroundColor white
+
+	leafNode {
+		'BackgroundColor SkyBlue
+		BackgroundColor #93ff75
+	}
+}
+</style>
++ Stratos Online Markbook
+	+ User accounts
+		+ Creating accounts
+		+ Logging in
+		+ Resetting passwords
+	+ Management
+		+ Teacher based
+			+ Accounts assigning teachers
+			+ Accounts adding classes
+			+ Assigning students to classes
+			+ Assigning tests to classes
+		+ Test based
+			+ Assigning scores to students
+			+ Calculating grade boundaries
+			+ Generating graphs
+			+ Setting global test values with reports generation
+		+ Student/Parent based
+			+ Contact teachers
+			+ Generate graphs per student
+			+ Generate local test values with reports generation
+		+ Display dashboard
+		+ Send emails
+	+ Handling data
+		+ Reports
+			+ Test reports
+				+ Average score
+				+ Grade boundary chart
+			+ Class reports
+				+ Score movement over time
+				+ Markbook
+			+ Teacher reports
+				+ Mass generate all classes/students
+			+ Student reports
+				+ Average score over time
+				+ Score movement
+				+ Average grade
+@endwbs

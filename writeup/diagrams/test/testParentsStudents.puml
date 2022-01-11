@@ -1,0 +1,29 @@
+@startuml
+skinparam actorStyle awesome
+
+package Parents {
+	actor parent1 as p1
+	actor parent2 as p2
+	actor parent3 as p3
+	actor parent4 as p4
+	actor parent5 as p5
+}
+
+package Students {
+	actor student1 as s1
+	actor student2 as s2
+	actor student3 as s3
+	actor student4 as s4
+	actor student5 as s5
+}
+
+p1 --> s1
+p2 --> s2
+p3 --> s2
+p4 --> s3
+p4 --> s4
+p5 --> s4
+p5 --> s5
+
+
+@enduml

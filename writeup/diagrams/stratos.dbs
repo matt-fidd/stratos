@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project name="Stratos new_mysql_create.sql" id="Project-199e" database="MySql" >
+	<schema name="public" >
+		<table name="account" spec="" >
+			<column name="accountId" type="varchar" length="36" jt="12" mandatory="y" />
+			<column name="email" type="varchar" length="255" jt="12" mandatory="y" />
+			<column name="firstName" type="varchar" length="50" jt="12" mandatory="y" />
+			<column name="otherNames" type="varchar" length="255" jt="12" mandatory="y" />
+			<column name="lastName" type="varchar" length="50" jt="12" mandatory="y" />
+			<column name="password" type="varchar" length="60" jt="12" mandatory="y" />
+			<index name="Unq_account_email" unique="UNIQUE_KEY" >
+				<column name="email" />
+			</index>
+			<index name="primarykey" unique="PRIMARY_KEY" >
+				<column name="accountId" />
+			</index>
+		</table>
+		<table name="accountClassLink" spec="" >
+			<column name="accountId" type="varchar" length="36" jt="12" mandatory="y" />
+			<column name="classId" type="varchar" length="36" jt="12" mandatory="y" />
+			<index name="primarykey" unique="PRIMARY_KEY" >
+				<column name="accountId" />
+				<column name="classId" />
+			</index>
+			<fk name="accountClassLink_fk0" to_schema="public" to_table="account" delete_action="cascade" >
+				<fk_column name="accountId" pk="accountId" />
+			</fk>
+			<fk name="accountClassLink_fk1" to_schema="public" to_table="class" delete_action="cascade" >
+				<fk_column name="classId" pk="classId" />
+			</fk>
+		</table>
+		<table name="class" spec="" >
+			<column name="classId" type="varchar" length="36" jt="12" mandatory="y" />
+			<column name="name" type="varchar" length="50" jt="12" mandatory="y" />
+			<column name="subjectId" type="int" jt="4" mandatory="y" />
+			<index name="primarykey" unique="PRIMARY_KEY" >
+				<column name="classId" />
+			</index>
+			<fk name="class_fk0" to_schema="public" to_table="subject" >
+				<fk_column name="subjectId" pk="subjectId" />
+			</fk>
+		</table>
+		<table name="parent" spec="" >
+			<column name="parentId" prior="parentid" type="varchar" length="36" jt="12" mandatory="y" />
+			<column name="email" type="varchar" length="255" jt="12" mandatory="y" />
+			<column name="firstName" type="varchar" length="50" jt="12" mandatory="y" />
+			<column name="otherNames" type="varchar" length="50" jt="12" mandatory="y" />
+			<column name="lastName" type="varchar" length="50" jt="12" mandatory="y" />
+			<column name="password" type="varchar" length="60" jt="12" mandatory="y" />
+			<index name="primarykey" unique="PRIMARY_KEY" >
+				<column name="parentId" />
+			</index>
+			<index name="Unq_parent" unique="UNIQUE_KEY" >
+				<column name="email" />
+			</index>
+		</table>
+		<table name="passwordReset" spec="" >
+			<column name="accountId" type="varchar" length="36" jt="12" mandatory="y" />
+			<column name="token" type="varchar" length="60" jt="12" mandatory="y" />
+			<column name="nonce" type="varchar" length="16" jt="12" mandatory="y" />
+			<column name="expires" type="datetime" jt="93" mandatory="y" />
+			<index name="primarykey" unique="PRIMARY_KEY" >
+				<column name="accountId" />
+			</index>
+			<fk name="fk_passwordreset_account" to_schema="public" to_table="account" delete_action="cascade" >
+				<fk_column name="accountId" pk="accountId" />
+			</fk>
+			<fk name="fk_passwordreset_parent" to_schema="public" to_table="parent" delete_action="cascade" >
+				<fk_column name="accountId" pk="parentId" />
+			</fk>
+			<fk name="fk_passwordreset_student" to_schema="public" to_table="student" delete_action="cascade" >
+				<fk_column name="accountId" pk="studentId" />
+			</fk>
+		</table>
+		<table name="student" spec="" >
+			<column name="studentId" prior="studentid" type="varchar" length="36" jt="12" mandatory="y" />
+			<column name="email" type="varchar" length="255" jt="12" mandatory="y" />
+			<column name="firstName" type="varchar" length="50" jt="12" mandatory="y" />
+			<column name="otherNames" type="varchar" length="50" jt="12" mandatory="y" />
+			<column name="lastName" type="varchar" length="50" jt="12" mandatory="y" />
+			<column name="password" type="varchar" length="60" jt="12" mandatory="y" />
+			<index name="primarykey" unique="PRIMARY_KEY" >
+				<column name="studentId" />
+			</index>
+			<index name="Unq_student" unique="UNIQUE_KEY" >
+				<column name="email" />
+			</index>
+		</table>
+		<table name="studentClassLink" prior="Tbl" >
+			<column name="studentId" type="varchar" length="36" jt="12" mandatory="y" />
+			<column name="classId" type="varchar" length="36" jt="12" mandatory="y" />
+			<index name="Pk_studentClassLink_studentId" unique="PRIMARY_KEY" >
+				<column name="studentId" />
+				<column name="classId" />
+			</index>
+			<fk name="fk_studentclasslink_student" to_schema="public" to_table="student" delete_action="cascade" >
+				<fk_column name="studentId" pk="studentId" />
+			</fk>
+			<fk name="fk_studentclasslink_class" to_schema="public" to_table="class" delete_action="cascade" >
+				<fk_column name="classId" pk="classId" />
+			</fk>
+			<options><![CDATA[engine=InnoDB]]></options>
+		</table>
+		<table name="studentParentLink" spec="" >
+			<column name="studentid" prior="studentId" type="varchar" length="36" jt="12" mandatory="y" />
+			<column name="parentId" type="varchar" length="36" jt="12" mandatory="y" />
+			<index name="pk_studentparentlink_studentid" unique="PRIMARY_KEY" >
+				<column name="studentid" />
+				<column name="parentId" />
+			</index>
+			<fk name="studentParentLink_fk0" to_schema="public" to_table="student" delete_action="cascade" >
+				<fk_column name="studentid" pk="studentId" />
+			</fk>
+			<fk name="studentParentLink_fk1" to_schema="public" to_table="parent" delete_action="cascade" >
+				<fk_column name="parentId" pk="parentId" />
+			</fk>
+		</table>
+		<table name="subject" spec="" >
+			<column name="subjectId" type="int" jt="4" mandatory="y" >
+				<identity><![CDATA[AUTO_INCREMENT]]></identity>
+			</column>
+			<column name="name" type="varchar" length="100" jt="12" mandatory="y" />
+			<index name="primarykey" unique="PRIMARY_KEY" >
+				<column name="subjectId" />
+			</index>
+		</table>
+		<table name="test" prior="classTestLink" spec="" >
+			<column name="testId" type="varchar" length="36" jt="12" mandatory="y" />
+			<column name="testTemplateId" type="varchar" length="36" jt="12" mandatory="y" />
+			<column name="classId" type="varchar" length="36" jt="12" mandatory="y" />
+			<column name="testDate" type="date" jt="91" mandatory="y" />
+			<index name="Pk_test_testId" unique="PRIMARY_KEY" >
+				<column name="testId" />
+			</index>
+			<index name="Unq_test" unique="UNIQUE_KEY" >
+				<column name="testTemplateId" />
+				<column name="classId" />
+				<column name="testDate" />
+			</index>
+			<fk name="fk_test_account" to_schema="public" to_table="class" >
+				<fk_column name="classId" pk="classId" />
+			</fk>
+			<fk name="fk_test_testtemplate" to_schema="public" to_table="testTemplate" >
+				<fk_column name="testTemplateId" pk="testTemplateId" />
+			</fk>
+		</table>
+		<table name="testResult" spec="" >
+			<column name="studentId" type="varchar" length="36" jt="12" mandatory="y" />
+			<column name="testId" type="varchar" length="36" jt="12" mandatory="y" />
+			<column name="accountId" type="varchar" length="36" jt="12" mandatory="y" />
+			<column name="mark" type="int" jt="4" mandatory="y" />
+			<index name="primarykey" unique="PRIMARY_KEY" >
+				<column name="studentId" />
+				<column name="testId" />
+			</index>
+			<fk name="testResult_fk0" to_schema="public" to_table="student" delete_action="cascade" >
+				<fk_column name="studentId" pk="studentId" />
+			</fk>
+			<fk name="fk_testresult_test" to_schema="public" to_table="test" >
+				<fk_column name="testId" pk="testId" />
+			</fk>
+			<fk name="fk_testresult_account" to_schema="public" to_table="account" >
+				<fk_column name="accountId" pk="accountId" />
+			</fk>
+		</table>
+		<table name="testTemplate" prior="test" spec="" >
+			<column name="testTemplateId" prior="testId" type="varchar" length="36" jt="12" mandatory="y" />
+			<column name="accountId" type="varchar" length="36" jt="12" mandatory="y" />
+			<column name="name" type="varchar" length="100" jt="12" mandatory="y" />
+			<column name="maxMark" type="int" jt="4" mandatory="y" />
+			<index name="primarykey" unique="PRIMARY_KEY" >
+				<column name="testTemplateId" />
+			</index>
+			<fk name="test_fk0" to_schema="public" to_table="account" delete_action="setNull" >
+				<fk_column name="accountId" pk="accountId" />
+			</fk>
+		</table>
+	</schema>
+	<layout name="main" id="Layout-dd6" show_column_type="y" show_relation="columns" >
+		<entity schema="public" name="account" color="C7F4BE" x="832" y="368" />
+		<entity schema="public" name="accountClassLink" color="C7F4BE" x="784" y="192" />
+		<entity schema="public" name="class" color="3986C1" x="544" y="48" />
+		<entity schema="public" name="parent" color="BED3F4" x="416" y="368" />
+		<entity schema="public" name="passwordReset" color="3986C1" x="688" y="576" />
+		<entity schema="public" name="student" color="BED3F4" x="624" y="368" />
+		<entity schema="public" name="studentClassLink" color="C1D8EE" x="576" y="208" />
+		<entity schema="public" name="studentParentLink" color="BED3F4" x="448" y="624" />
+		<entity schema="public" name="subject" color="C7F4BE" x="288" y="80" />
+		<entity schema="public" name="test" color="C7F4BE" x="352" y="176" />
+		<entity schema="public" name="testResult" color="BED3F4" x="176" y="416" />
+		<entity schema="public" name="testTemplate" color="C7F4BE" x="48" y="208" />
+		<script name="SQL_Editor" id="Editor-12ab" language="SQL" >
+			<string><![CDATA[CREATE SCHEMA public;
+
+CREATE TABLE public.account ( 
+	accountId            varchar(36)  NOT NULL    PRIMARY KEY,
+	email                varchar(255)  NOT NULL    ,
+	firstName            varchar(50)  NOT NULL    ,
+	otherNames           varchar(255)  NOT NULL    ,
+	lastName             varchar(50)  NOT NULL    ,
+	password             varchar(60)  NOT NULL    ,
+	CONSTRAINT Unq_account_email UNIQUE ( email ) 
+ );
+
+CREATE TABLE public.parent ( 
+	parentId             varchar(36)  NOT NULL    PRIMARY KEY,
+	email                varchar(255)  NOT NULL    ,
+	firstName            varchar(50)  NOT NULL    ,
+	otherNames           varchar(50)  NOT NULL    ,
+	lastName             varchar(50)  NOT NULL    ,
+	password             varchar(60)  NOT NULL    
+ );
+
+CREATE TABLE public.student ( 
+	studentId            varchar(36)  NOT NULL    PRIMARY KEY,
+	email                varchar(255)  NOT NULL    ,
+	firstName            varchar(50)  NOT NULL    ,
+	otherNames           varchar(50)  NOT NULL    ,
+	lastName             varchar(50)  NOT NULL    ,
+	password             varchar(60)  NOT NULL    
+ );
+
+CREATE TABLE public.studentParentLink ( 
+	studentid            varchar(36)  NOT NULL    ,
+	parentId             varchar(36)  NOT NULL    ,
+	CONSTRAINT pk_studentparentlink_studentid PRIMARY KEY ( studentid, parentId )
+ );
+
+CREATE TABLE public.subject ( 
+	subjectId            int  NOT NULL  AUTO_INCREMENT  PRIMARY KEY,
+	name                 varchar(100)  NOT NULL    
+ );
+
+CREATE TABLE public.test ( 
+	testId               varchar(36)  NOT NULL    PRIMARY KEY,
+	accountId            varchar(36)  NOT NULL    ,
+	name                 varchar(100)  NOT NULL    ,
+	maxMark              int  NOT NULL    
+ );
+
+CREATE TABLE public.testResult ( 
+	studentId            varchar(36)  NOT NULL    ,
+	testId               varchar(36)  NOT NULL    ,
+	mark                 int  NOT NULL    ,
+	percentage           int  NOT NULL    ,
+	CONSTRAINT primarykey PRIMARY KEY ( studentId, testId )
+ );
+
+CREATE TABLE public.class ( 
+	classId              varchar(36)  NOT NULL    PRIMARY KEY,
+	name                 varchar(50)  NOT NULL    ,
+	subjectId            int  NOT NULL    ,
+	invitationCode       varchar(9)  NOT NULL    
+ );
+
+CREATE TABLE public.classTestLink ( 
+	classId              varchar(36)  NOT NULL    ,
+	testId               varchar(36)  NOT NULL    ,
+	`date`               date  NOT NULL    ,
+	CONSTRAINT primarykey PRIMARY KEY ( classId, testId, `date` )
+ );
+
+CREATE TABLE public.passwordReset ( 
+	accountId            varchar(36)  NOT NULL    PRIMARY KEY,
+	token                varchar(60)  NOT NULL    ,
+	nonce                varchar(16)  NOT NULL    ,
+	expires              datetime  NOT NULL    
+ );
+
+CREATE TABLE public.studentClassLink ( 
+	studentId            varchar(36)  NOT NULL    ,
+	classId              varchar(36)  NOT NULL    ,
+	CONSTRAINT Pk_studentClassLink_studentId PRIMARY KEY ( studentId, classId )
+ ) engine=InnoDB;
+
+CREATE TABLE public.accountClassLink ( 
+	accountId            varchar(36)  NOT NULL    ,
+	classId              varchar(36)  NOT NULL    ,
+	CONSTRAINT primarykey PRIMARY KEY ( accountId, classId )
+ );
+
+ALTER TABLE public.accountClassLink ADD CONSTRAINT accountClassLink_fk0 FOREIGN KEY ( accountId ) REFERENCES public.account( accountId ) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+ALTER TABLE public.accountClassLink ADD CONSTRAINT accountClassLink_fk1 FOREIGN KEY ( classId ) REFERENCES public.class( classId ) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+ALTER TABLE public.class ADD CONSTRAINT class_fk0 FOREIGN KEY ( subjectId ) REFERENCES public.subject( subjectId ) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+ALTER TABLE public.classTestLink ADD CONSTRAINT classTestLink_fk0 FOREIGN KEY ( classId ) REFERENCES public.class( classId ) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+ALTER TABLE public.classTestLink ADD CONSTRAINT classTestLink_fk1 FOREIGN KEY ( testId ) REFERENCES public.test( testId ) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+ALTER TABLE public.passwordReset ADD CONSTRAINT fk_passwordreset_account FOREIGN KEY ( accountId ) REFERENCES public.account( accountId ) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+ALTER TABLE public.passwordReset ADD CONSTRAINT fk_passwordreset_parent FOREIGN KEY ( accountId ) REFERENCES public.parent( parentId ) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+ALTER TABLE public.passwordReset ADD CONSTRAINT fk_passwordreset_student FOREIGN KEY ( accountId ) REFERENCES public.student( studentId ) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+ALTER TABLE public.studentClassLink ADD CONSTRAINT fk_studentclasslink_student FOREIGN KEY ( studentId ) REFERENCES public.student( studentId ) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+ALTER TABLE public.studentClassLink ADD CONSTRAINT fk_studentclasslink_class FOREIGN KEY ( classId ) REFERENCES public.class( classId ) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+ALTER TABLE public.studentParentLink ADD CONSTRAINT studentParentLink_fk0 FOREIGN KEY ( studentid ) REFERENCES public.student( studentId ) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+ALTER TABLE public.studentParentLink ADD CONSTRAINT studentParentLink_fk1 FOREIGN KEY ( parentId ) REFERENCES public.parent( parentId ) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+ALTER TABLE public.test ADD CONSTRAINT test_fk0 FOREIGN KEY ( accountId ) REFERENCES public.account( accountId ) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+ALTER TABLE public.testResult ADD CONSTRAINT testResult_fk0 FOREIGN KEY ( studentId ) REFERENCES public.student( studentId ) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+ALTER TABLE public.testResult ADD CONSTRAINT testResult_fk1 FOREIGN KEY ( testId ) REFERENCES public.test( testId ) ON DELETE NO ACTION ON UPDATE NO ACTION;
+]]></string>
+		</script>
+	</layout>
+</project>

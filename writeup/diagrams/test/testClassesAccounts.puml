@@ -1,0 +1,28 @@
+@startuml
+skinparam actorStyle awesome
+
+package Classes {
+	usecase "Class 1" as c1
+	usecase "Class 2" as c2
+	usecase "Class 3" as c3
+	usecase "Class 4" as c4
+}
+
+package Accounts {
+	actor account1 as a1
+	actor account2 as a2
+	actor account3 as a3
+}
+
+c1 --> a1
+
+c2 --> a1
+c2 --> a2
+
+c3 --> a3
+
+c4 --> a1
+c4 --> a2
+c4 --> a3
+
+@enduml

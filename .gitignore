@@ -1,2 +1,8 @@
 static/assets/diagrams/
+
 node_modules/
+
+config/*.json
+!config/*_sample*
+
+*.swp

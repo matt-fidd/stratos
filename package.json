@@ -19,5 +19,8 @@
   "dependencies": {
     "bcrypt": "^5.0.1",
     "mysql2": "^2.3.3"
+  },
+  "devDependencies": {
+    "eslint": "^8.6.0"
   }
 }

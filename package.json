@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/matt-fidd/stratos#readme",
   "dependencies": {
+    "bcrypt": "^5.0.1",
     "mysql2": "^2.3.3"
   }
 }

@@ -3,5 +3,8 @@
         "port": 1111,
         "user": "username",
         "password": "password",
-        "database": "dbname"
+        "database": "dbname",
+	"waitForConnections": true,
+	"connectionLimit": 10,
+	"queueLimit": 0
 }

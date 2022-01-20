@@ -1,8 +1,11 @@
 'use strict';
 
 // Import required modules
-const mysql = require('mysql2/promise');
 const path = require('path');
+
+// Import user defined modules
+const DatabaseConnectionPool =
+	require(path.join(__dirname, '../../lib/DatabaseConnectionPool'));
 
 // Initialise maps for table creation and constraint queries
 const tableCreate = new Map();
@@ -272,25 +275,24 @@ tableConstraints.set('test_fk0', `
 	ON UPDATE NO ACTION;
 `);
 
+/**
+ * initialise() Initialises a database and applies the stratos schema to it
+ *
+ * @param {object} [dbOptions]
+ * 	- An object in the form found in config/db.json supplying the db to
+ * 	connect to
+ *
+ * @return {void}
+ */
 async function initialise(dbOptions) {
-	/*
-		Initialises a database using the options object provided
-		and applies schema to it
-
-		Arguments:
-			- database options object loaded in from
-				config/db.json
-	*/
-
-	// Connect to the database
-	const c = await mysql.createConnection(dbOptions);
+	const dbConnectionPool = await new DatabaseConnectionPool(dbOptions);
 
 	// Run the creation statment for each table
 	for (const [ tableName, sql ] of tableCreate) {
 		console.log(`Creating table ${tableName}`);
 
 		try {
-			await c.execute(sql);
+			await dbConnectionPool.runQuery(sql);
 		} catch (e) {
 			console.error(e);
 			throw new Error(`Unable to create table ${tableName}`);
@@ -304,7 +306,7 @@ async function initialise(dbOptions) {
 		console.log(`Creating constraint ${fkName}`);
 
 		try {
-			await c.execute(sql);
+			await dbConnectionPool.runQuery(sql);
 		} catch (e) {
 			console.error(e);
 			throw new Error('Unable to create constraint ' +
@@ -312,20 +314,7 @@ async function initialise(dbOptions) {
 		}
 	}
 
-	// Drop the database connection
-	c.end();
-
-	console.log('\nFinished initialising database');
+	await dbConnectionPool.close();
 }
 
-// Import data from config/db.json
-let dbOptions;
-try {
-	dbOptions = require(path.join(__dirname, '../../config/db.json'));
-	console.log('DB config loaded\n');
-} catch {
-	return console.error('Missing or malformed config ' +
-		'(config/db.json)');
-}
-
-initialise(dbOptions);
+initialise();

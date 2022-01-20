@@ -3,8 +3,11 @@
 // Import required modules
 const bcrypt = require('bcrypt');
 const crypto = require('crypto');
-const mysql = require('mysql2/promise');
 const path = require('path');
+
+// Import user defined modules
+const DatabaseConnectionPool =
+	require(path.join(__dirname, '../../lib/DatabaseConnectionPool'));
 
 // Object storing configurations for the db tables
 const tableDetails = {
@@ -281,7 +284,7 @@ const relationships = {
 	]
 };
 
-async function cleanDb(c) {
+async function cleanDb(dbConnectionPool) {
 	/*
 		Cleans the database of any existing records that will
 		conflict with the test data
@@ -303,22 +306,22 @@ async function cleanDb(c) {
 	];
 
 	for (const table of deletionList)
-		await c.execute(`DELETE FROM ${table};`);
+		await dbConnectionPool.runQuery(`DELETE FROM ${table};`);
 }
 
+/**
+ * insertData() Inserts test data into a database
+ *
+ * @param {object} [dbOptions]
+ * 	- An object in the form found in config/db.json supplying the db to
+ * 	connect to
+ *
+ * @return {void}
+ */
 async function insertData(dbOptions) {
-	/*
-		Inserts test data into the database defined in dbOptions
+	const dbConnectionPool = await new DatabaseConnectionPool(dbOptions);
 
-		Arguments:
-			- database options object loaded in from
-				config/db.json
-	*/
-
-	// Connect to the database
-	const c = await mysql.createConnection(dbOptions);
-
-	await cleanDb(c);
+	await cleanDb(dbConnectionPool);
 
 	// Run the creation statment for each table
 	for (const table of Object.keys(data)) {
@@ -354,7 +357,7 @@ async function insertData(dbOptions) {
 			console.log(sql);
 
 			try {
-				await c.execute(sql,
+				await dbConnectionPool.runQuery(sql,
 					Object.values(dataToInsert));
 			} catch (e) {
 				console.error(e);
@@ -405,7 +408,7 @@ async function insertData(dbOptions) {
 			console.log(sql);
 
 			try {
-				await c.execute(sql,
+				await dbConnectionPool.runQuery(sql,
 					Object.values(dataToInsert));
 			} catch (e) {
 				console.error(e);
@@ -413,18 +416,7 @@ async function insertData(dbOptions) {
 		}
 	}
 
-	// Drop the database connection
-	c.end();
+	await dbConnectionPool.close();
 }
 
-// Import data from config/db.json
-let dbOptions;
-try {
-	dbOptions = require(path.join(__dirname, '../../config/db.json'));
-	console.log('DB config loaded\n');
-} catch {
-	return console.error('Missing or malformed config ' +
-		'(config/db.json)');
-}
-
-insertData(dbOptions);
+insertData();

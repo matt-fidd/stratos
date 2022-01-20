@@ -1,5 +1,7 @@
 static/assets/diagrams/
 
+coverage/
+
 node_modules/
 
 config/*.json

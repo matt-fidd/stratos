@@ -1,0 +1,12 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+class DatabaseConnectionPool {
+	-dbOptions: Object
+	-connectionPool: Object
+	runQuery(sql, params): Object[] | Object
+	close(): void
+	{static} validateQuery(sql, params): string
+}
+
+@enduml

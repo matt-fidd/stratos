@@ -1,8 +1,12 @@
 'use strict';
 
 // Import required modules
+const bodyParser = require('body-parser');
 const express = require('express');
+const path = require('path');
 const session = require('express-session');
+const serveFavicon = require('serve-favicon');
+const serveStatic = require('serve-static');
 
 // Import user defined modules
 const DatabaseConnectionPool = require('./lib/DatabaseConnectionPool');
@@ -20,6 +24,15 @@ async function main() {
 
 	// Initialise express app
 	const app = express();
+
+	// Set up parsers to allow reading of POST form data
+	app.use(bodyParser.json());
+	app.use(bodyParser.urlencoded({ extended: true }));
+
+	// Set up routes for static files
+	app.use(serveFavicon(path.join(__dirname,
+		'public/assets/favicon.ico')));
+	app.use('/', serveStatic(path.join(__dirname, 'public')));
 
 	// Set up session middleware
 	app.use(session({

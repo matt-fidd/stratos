@@ -20,6 +20,7 @@
 	"homepage": "https://github.com/matt-fidd/stratos#readme",
 	"dependencies": {
 		"bcrypt": "^5.0.1",
+		"express": "^4.17.2",
 		"mysql2": "^2.3.3"
 	},
 	"devDependencies": {

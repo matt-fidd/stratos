@@ -6,6 +6,7 @@ class DatabaseConnectionPool {
 	-connectionPool: Object
 	runQuery(sql, params): Object[] | Object
 	close(): void
+	getPool(): Object
 	{static} validateQuery(sql, params): string
 }
 

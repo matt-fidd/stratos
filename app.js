@@ -25,6 +25,10 @@ async function main() {
 	// Initialise express app
 	const app = express();
 
+	// Set up templating language and path
+	app.set('view engine', 'ejs');
+	app.set('views', path.join(__dirname, '/views/pages'));
+
 	// Set up parsers to allow reading of POST form data
 	app.use(bodyParser.json());
 	app.use(bodyParser.urlencoded({ extended: true }));

@@ -7,5 +7,8 @@ module.exports = {
 	clearMocks: true,
 	collectCoverage: true,
 	coverageDirectory: 'coverage',
-	coverageProvider: 'v8'
+	coverageProvider: 'v8',
+	setupFilesAfterEnv: [
+		'jest-extended/all'
+	]
 };

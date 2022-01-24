@@ -50,6 +50,18 @@ async function main() {
 		}
 	}));
 
+	// If the request gets to the bottom of the route stack, it doesn't
+	// have a defined route and therefore a HTTP status code 404 is sent
+	// and an error page shown
+	app.use((req, res, next) => {
+		res.status(404).render('error', {
+			code: 404,
+			msg: 'Page Not Found'
+		});
+
+		next();
+	});
+
 	// Start the server
 	app.listen(serverOptions.port, () => {
 		console.log(`Server listening on :${serverOptions.port}`);

@@ -4,7 +4,7 @@
 	"description": "",
 	"main": "index.js",
 	"scripts": {
-		"test": "jest",
+		"test": "jest --max-workers=50%",
 		"lint": "eslint .",
 		"diag": "utility/uml/generateDiagrams.ksh"
 	},

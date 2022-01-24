@@ -50,6 +50,10 @@ async function main() {
 		}
 	}));
 
+	app.get('/', (req, res) => {
+		return res.render('index');
+	});
+
 	// If the request gets to the bottom of the route stack, it doesn't
 	// have a defined route and therefore a HTTP status code 404 is sent
 	// and an error page shown

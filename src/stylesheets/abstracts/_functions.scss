@@ -1,0 +1,5 @@
+@use 'sass:color';
+
+@function darken-colour($colour, $amount: 15) {
+	@return color.scale($colour, $lightness: $amount * -1%);
+}

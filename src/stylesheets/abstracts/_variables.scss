@@ -3,3 +3,15 @@ $text-font-stack: 'Roboto', 'Arial', sans-serif !default;
 
 // Colours
 $text-colour: rgb(34, 34, 34) !default;
+$primary-colour:  #d71433;
+$secondary-colour:  #46b43d;
+
+$primary-colour-dark: darken-colour($primary-colour);
+$secondary-colour-dark: darken-colour($secondary-colour);
+
+// Breakpoints
+$breakpoints: (
+	'small'  : 767px,
+	'medium' : 992px,
+	'large'  : 1200px
+);

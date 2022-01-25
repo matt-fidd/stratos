@@ -4,6 +4,9 @@ coverage/
 
 node_modules/
 
+*.css
+*.css.map
+
 config/*.json
 !config/*_sample*
 

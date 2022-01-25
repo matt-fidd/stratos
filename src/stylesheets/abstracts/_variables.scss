@@ -9,6 +9,11 @@ $secondary-colour:  #46b43d;
 $primary-colour-dark: darken-colour($primary-colour);
 $secondary-colour-dark: darken-colour($secondary-colour);
 
+$button-colours: (
+	'primary': $primary-colour,
+	'secondary': $secondary-colour
+);
+
 // Breakpoints
 $breakpoints: (
 	'small'  : 767px,

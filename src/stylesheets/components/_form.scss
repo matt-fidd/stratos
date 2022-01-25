@@ -1,0 +1,28 @@
+form.form {
+	input:not([type='submit']), textarea {
+		background: #E1E1E1;
+		border: none;
+		width: 100%;
+		resize: none;
+		box-sizing: border-box;
+		border-radius: .25rem;
+		margin: .5rem 0;
+		padding: 1rem;
+
+		&::placeholder {
+			color: #686868;
+		}
+
+		&:focus {
+		    outline: 1px solid grey;
+		}
+	}
+
+	@include respond-to('medium') {
+		.form__input-group {
+			display: grid;
+			grid-template-columns: 1fr 1fr;
+			gap: 1rem;
+		}
+	}
+}

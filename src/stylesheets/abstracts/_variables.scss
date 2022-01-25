@@ -5,6 +5,7 @@ $text-font-stack: 'Roboto', 'Arial', sans-serif !default;
 $text-colour: rgb(34, 34, 34) !default;
 $primary-colour:  #d71433;
 $secondary-colour:  #46b43d;
+$grey: #505050;
 
 $primary-colour-dark: darken-colour($primary-colour);
 $secondary-colour-dark: darken-colour($secondary-colour);
@@ -12,6 +13,11 @@ $secondary-colour-dark: darken-colour($secondary-colour);
 $button-colours: (
 	'primary': $primary-colour,
 	'secondary': $secondary-colour
+);
+
+$title-colours: (
+	'grey': $grey,
+	'white': white
 );
 
 // Breakpoints

@@ -1,0 +1,19 @@
+.title {
+	&--spaced {
+		font: normal 300 1em Roboto;
+		letter-spacing: 0.175em;
+		text-transform: uppercase;
+		color: $text-colour;
+	}
+
+	&--center {
+		display: flex;
+		justify-content: center;
+	}
+}
+
+@each $name, $colour in $title-colours {
+	.title.title--#{$name} {
+		color: $colour;
+	}
+}

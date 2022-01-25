@@ -1,0 +1,33 @@
+.testimonial {
+	color: black;
+	position: relative;
+	background: white;
+	border-radius: 0px 1rem;
+	padding: 1em;
+	box-shadow: 0px 8px 8px rgba(0, 0, 0, 0.25);
+
+	.testimonial__icon {
+		color: $primary-colour;
+	}
+
+	p, span {
+		font-weight: 300;
+		font-size: .7em;
+		letter-spacing: -0.005em;
+		margin: 1em 0;
+	}
+
+	.testimonial__separator {
+		display: block;
+		background: $primary-colour;
+		height: .2rem;
+	}
+
+	.testimonial__author {
+		margin-top: 1rem;
+
+		p {
+			margin: 0;
+		}
+	}
+}

@@ -3,6 +3,7 @@
 // Import required modules
 const bodyParser = require('body-parser');
 const express = require('express');
+const { engine } = require('express-handlebars');
 const path = require('path');
 const session = require('express-session');
 const serveFavicon = require('serve-favicon');
@@ -26,8 +27,14 @@ async function main() {
 	const app = express();
 
 	// Set up templating language and path
-	app.set('view engine', 'ejs');
-	app.set('views', path.join(__dirname, '/views/pages'));
+	app.engine(
+		'hbs',
+		engine({
+			extname: '.hbs'
+		})
+	);
+	app.set('view engine', 'hbs');
+	app.set('views', path.join(__dirname, 'views'));
 
 	// Set up parsers to allow reading of POST form data
 	app.use(bodyParser.json());
@@ -51,19 +58,20 @@ async function main() {
 	}));
 
 	app.get('/', (req, res) => {
-		return res.render('index');
+		return res.render('index', {
+			title: 'Stratos - Home'
+		});
 	});
 
 	// If the request gets to the bottom of the route stack, it doesn't
 	// have a defined route and therefore a HTTP status code 404 is sent
 	// and an error page shown
-	app.use((req, res, next) => {
+	app.use((req, res) => {
 		res.status(404).render('error', {
+			title: 'Stratos - Error',
 			code: 404,
 			msg: 'Page Not Found'
 		});
-
-		next();
 	});
 
 	// Start the server

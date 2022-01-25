@@ -1,0 +1,119 @@
+.hero {
+	background: $primary-colour;
+	padding: 0 0 .5rem 1rem;
+	overflow: hidden;
+
+	.hero__text {
+		padding: 2rem 2rem;
+		color: white;
+
+		h1 {
+			font-size: 3em;
+			margin-bottom: 2rem;
+		}
+
+		p {
+			font-size: 1.3rem;
+		}
+	}
+
+	.hero__circle {
+		display: none;
+	}
+
+	@include respond-to('medium') {
+		display: grid;
+		grid-template-columns: 65% 35%;
+
+		.hero__circle {
+			display: block;
+			width: 35rem;
+			height: 35rem;
+			margin-left: auto;
+			background-color: $primary-colour-dark;
+			border-radius: 0 0 0 100%;
+		}
+	}
+
+	@include respond-to('large') {
+		grid-template-columns: 50% 50%;
+	}
+}
+
+.features {
+	padding: 1rem 0;
+
+	.features__container {
+		width: 85vw;
+		margin: auto;
+
+		@include respond-to('large') {
+			width: 50vw;
+		}
+	}
+}
+
+.testimonials {
+	background: $primary-colour;
+	color: white;
+	padding: 1rem 0;
+
+
+	.testimonials__subtitle {
+		display: flex;
+		justify-content: center;
+		font-weight: 300;
+		font-size: 1em;
+		letter-spacing: -0.005em;
+		width: 85vw;
+		margin: auto;
+		text-align: center;
+	}
+
+	.testimonials__container {
+		display: grid;
+		gap: 1.5rem;
+		padding: 0 1.5rem;
+
+		@include respond-to('medium') {
+			grid-template-columns: repeat(2, 1fr);
+		}
+
+		@include respond-to('large') {
+			grid-template-columns: repeat(4, 1fr);
+		}
+	}
+}
+
+.contact {
+	padding: 1rem 0;
+
+	.contact__container {
+		display: grid;
+		margin: auto;
+		gap: 1rem;
+		width: 85vw;
+
+		.contact__content__heading {
+			font-weight: bold;
+			font-size: 1.5em;
+		}
+
+		.contact__content__details span {
+			display: block;
+		}
+	}
+
+	@include respond-to('medium') {
+		.contact__container {
+			grid-template-columns: 50% 50%;
+			width: 85vw;
+		}
+	}
+
+	@include respond-to('large') {
+		.contact__container {
+			width: 60vw;
+		}
+	}
+}

@@ -1,0 +1,92 @@
+{{> homeNav }}
+
+<section class='hero'>
+	<div class='hero__text'>
+		<h1>A new age of exam result tracking</h1>
+		<p>The world is moving on, why aren't you?</p>
+		<p>Step into the future with our revolutionary solution to end all of your exam admin woes. No more losing track of email threads or following endless paper trails for the data you need, have it at your fingertips at all times with Stratos.</p>
+		{{> button style='full' colour='secondary' to='/register' content='Sign Up' }}
+	</div>
+	<div>
+		<div class='hero__circle'>&nbsp;</div>
+	</div>
+</section>
+
+<section class='features'>
+	<h1 class='title title--spaced title--grey title--center'>Features</h1>
+
+	<div class='features__container'>
+		{{> feature
+			img='/assets/features/lightning-fast-data-retrieval.png'
+			alt='Team working together to build phone'
+			title='Lightning Fast Data Retrieval'
+			content='Our servers have a staggering 99.6% uptime, along with a blazing fast connection to the internet; Meaning you can get the data you need, when you need it.'
+		}}
+		{{> feature
+			img='/assets/features/close-collaboration.png'
+			alt='Multiple team members working remotely together'
+			title='Close Collaboration'
+			content='From the moment that the test is marked and submitted to us, we are working away in the background to make sure all communications get to those whi it matters to most; safely and always on time.'
+		}}
+		{{> feature
+			img='/assets/features/reports-made-easy.png'
+			alt='Team members in front of report screen'
+			title='Reports Made Easy'
+			content='Once test data is recieved by our servers, we instantly start work on processing and collating data into coherant and tidy reports, perfect for progress check-ups by the head of department, or for parents evening preparation.'
+		}}
+	</div>
+</section>
+
+<section class='testimonials'>
+	<h1 class='title title--spaced title--white title--center'>Testimonials</h1>
+	<h2 class='testimonials__subtitle'>Our clients love Stratos, but don't take our word for it... Have a look below to see what they're saying.<h2>
+
+	<div class='testimonials__container'>
+		{{> testimonial
+			content='You won\'t believe the impact Stratos has on the kids! And it makes my life easier too, I can generate my term reports with the click of a button and have a results summary for my class in my hand in under 5 minutes.'
+			author='Robert H. Genov'
+		}}
+		{{> testimonial
+			content='Stratos has revolutionised the way I teach and record data; Before I was surrounded in copies of exam reports, student progress reports and I could never produce them in a pinch, now it\'s all so easy.'
+			author='Angelina J. Olivieri'
+		}}
+		{{> testimonial
+			content='Easy as 1, 2, 3. I mark the exams, put the results into Stratos, send out the reports to the student and their parents, and voila! I can\'t begin to explain how much better the whole process is now.'
+			author='Jessica D. Cain'
+		}}
+		{{> testimonial
+			content='Before I started using Stratos, my department head was constantly checking up on me to see if I had the years reports ready for them to look at yet, with Stratos it\'s not a problem. I\'m first in line, every time.'
+			author='Richard M. Gallup'
+		}}
+	</div>
+</section>
+
+<section class='contact'>
+	<h1 class='title title--spaced title--grey title--center'>Contact</h1>
+	<div class='contact__container'>
+		<div class='contact__content'>
+			<p class='contact__content__heading'>Still not convinced?</p>
+			<p>
+				If you're still on the fence about Stratos, don't worry.<br>
+				It is a free service, so why not give it a try?
+			</p>
+			<p>
+				If you have any enquiries, please contact us using the information below, or by using the contact form on this page.
+			</p>
+			<div class='contact__content__details'>
+				<span>E: info@stratos.uk</span>
+				<span>P:07777 123456</span>
+				<span>Stratos HQ, HX9 9HN</span>
+			</div>
+		</div>
+		<form class='form' action='/contact' method='post'>
+			<div class='form__input-group'>
+				<input type='text' id='fname' name='fname' placeholder='First Name' required/>
+				<input type='text' id='lname' name='lname' placeholder='Last Name' required/>
+			</div>
+			<input type='email' id='email' name='email' placeholder='Email Address' required/>
+			<textarea id='body' name='body' placeholder='Message' required></textarea>
+			<input type='submit' class='btn btn--secondary btn--full'/>
+		</form>
+	</div>
+</section>

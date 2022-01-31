@@ -2,3 +2,12 @@ body {
 	font-family: $text-font-stack;
 	color: $text-colour;
 }
+
+a {
+	color: $primary-colour;
+	text-decoration: none;
+
+	@include on-event() {
+		text-decoration: underline;
+	}
+}

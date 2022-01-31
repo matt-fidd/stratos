@@ -73,6 +73,7 @@
 	.testimonials__container {
 		display: grid;
 		gap: 1.5rem;
+		margin-top: 1rem;
 		padding: 0 1.5rem;
 
 		@include respond-to('medium') {
@@ -90,13 +91,12 @@
 
 	.contact__container {
 		display: grid;
-		margin: auto;
+		margin: 2rem auto;
 		gap: 1rem;
 		width: 85vw;
 
 		.contact__content__heading {
-			font-weight: bold;
-			font-size: 1.5em;
+			margin: 0;
 		}
 
 		.contact__content__details span {

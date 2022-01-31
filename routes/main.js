@@ -13,6 +13,11 @@ router.get('/login', (req, res) => {
 	});
 });
 
+router.get('/register', (req, res) => {
+	return res.render('register', {
+		title: 'Stratos - Register'
+	});
+});
 
 module.exports = {
 	root: '/',

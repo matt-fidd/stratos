@@ -1,0 +1,11 @@
+{{> mainPageHeader name='Log In' }}
+
+<div class='mainFormContainer'>
+	<form class='mainForm' action='/login' method='post'>
+		<input type='email' id='email' name='email' placeholder='Email Address' required/>
+		<input type='password' id='password' name='password' placeholder='Password' required/>
+
+		<input type='submit' class='btn btn--primary' value='Log In'/>
+	</form>
+	<a href='/password-reset'>Forgotten your password?</a>
+</div>

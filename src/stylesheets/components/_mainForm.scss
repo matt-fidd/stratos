@@ -1,14 +1,4 @@
-form.mainForm {
-	@extend .form;
-
-	input[type='submit'] {
-		@extend .btn, .btn--primary, .btn--full;
-		width: 100%;
-		padding: 1rem 0;
-	}
-}
-
-.mainFormContainer {
+.mainForm {
 	margin: 2rem auto 0 auto;
 	width: 85vw;
 
@@ -17,6 +7,12 @@ form.mainForm {
 		text-align: center;
 		display: block;
 		font-size: 1.2em;
+	}
+
+	input[type='submit'] {
+		@extend .btn, .btn--primary, .btn--full;
+		width: 100%;
+		padding: 1rem 0;
 	}
 
 	@include respond-to('large') {

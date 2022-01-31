@@ -4,6 +4,7 @@
 const bodyParser = require('body-parser');
 const express = require('express');
 const { engine } = require('express-handlebars');
+const fs = require('fs');
 const path = require('path');
 const session = require('express-session');
 const serveFavicon = require('serve-favicon');
@@ -12,6 +13,28 @@ const serveStatic = require('serve-static');
 // Import user defined modules
 const DatabaseConnectionPool = require('./lib/DatabaseConnectionPool');
 const importJSON = require('./lib/importJSON');
+
+
+/**
+ * loadRoutes() Loads all of the routes from /routers into a map
+ *
+ * @return {Map<String, Object>} Map of all of the routes
+ */
+function loadRoutes() {
+	// Load route files
+	const routes = new Map();
+
+	const routeFiles =
+		fs.readdirSync(path.join(__dirname, 'routes'))
+			.filter(file => file.endsWith('.js'));
+
+	for (const file of routeFiles) {
+		const route = require(path.join(__dirname, 'routes', file));
+		routes.set(route.root, route.router);
+	}
+
+	return routes;
+}
 
 async function main() {
 	// Import config files
@@ -57,11 +80,8 @@ async function main() {
 		}
 	}));
 
-	app.get('/', (req, res) => {
-		return res.render('index', {
-			title: 'Stratos - Home'
-		});
-	});
+	for (const [ root, router ] of loadRoutes().entries())
+		app.use(root, router);
 
 	// If the request gets to the bottom of the route stack, it doesn't
 	// have a defined route and therefore a HTTP status code 404 is sent

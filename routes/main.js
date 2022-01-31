@@ -25,6 +25,13 @@ router.get('/password-reset', (req, res) => {
 	});
 });
 
+router.get('/logout', (req, res) => {
+	return res.render('logout', {
+		title: 'Stratos - Logout',
+		username: req.session.fullName
+	});
+});
+
 module.exports = {
 	root: '/',
 	router: router

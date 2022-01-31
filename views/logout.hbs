@@ -1,0 +1,8 @@
+{{> mainPageHeader name='Log Out' }}
+
+<div class='mainForm'>
+	<p style='text-align: center;'>You are logged in as <span class='hl'>{{ username }}</span></p>
+	<form action='/logout' method='post'>
+		<input type='submit' class='btn btn--primary' value='Log Out'/>
+	</form>
+</div>

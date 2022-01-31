@@ -19,6 +19,12 @@ router.get('/register', (req, res) => {
 	});
 });
 
+router.get('/password-reset', (req, res) => {
+	return res.render('password-reset', {
+		title: 'Stratos - Password Recovery'
+	});
+});
+
 module.exports = {
 	root: '/',
 	router: router

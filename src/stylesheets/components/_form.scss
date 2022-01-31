@@ -1,4 +1,7 @@
 form.form {
+	display: grid;
+	gap: 1rem;
+
 	input:not([type='submit']), textarea {
 		background: #E1E1E1;
 		border: none;
@@ -6,7 +9,6 @@ form.form {
 		resize: none;
 		box-sizing: border-box;
 		border-radius: .25rem;
-		margin: .5rem 0;
 		padding: 1rem;
 
 		&::placeholder {
@@ -26,3 +28,4 @@ form.form {
 		}
 	}
 }
+

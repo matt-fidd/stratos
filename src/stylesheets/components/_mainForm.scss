@@ -1,0 +1,25 @@
+form.mainForm {
+	@extend .form;
+
+	input[type='submit'] {
+		@extend .btn, .btn--primary, .btn--full;
+		width: 100%;
+		padding: 1rem 0;
+	}
+}
+
+.mainFormContainer {
+	margin: 2rem auto 0 auto;
+	width: 85vw;
+
+	a {
+		margin: 1rem;
+		text-align: center;
+		display: block;
+		font-size: 1.2em;
+	}
+
+	@include respond-to('large') {
+		width: 40vw;
+	}
+}

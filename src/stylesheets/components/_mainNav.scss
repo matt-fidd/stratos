@@ -5,8 +5,7 @@
 	padding: 0.5em 1em;
 
 	&__buttons {
-		display: grid;
-		grid-template-columns: repeat(2, 1fr);
+		display: flex;
 		align-items: center;
 		justify-items: end;
 		gap: 1em;

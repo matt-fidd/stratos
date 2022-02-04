@@ -80,6 +80,11 @@ async function main() {
 		}
 	}));
 
+	app.get('*', (req, res, next) => {
+		req.app.locals.layout = 'main';
+		next();
+	});
+
 	app.get('/admin/*', (req, res, next) => {
 		req.app.locals.layout = 'admin';
 		next();

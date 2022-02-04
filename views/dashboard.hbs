@@ -1,0 +1,109 @@
+<section class='dashboard'>
+	<div class='dashboard__row dashboard__stats'>
+		<div class='dashboard__stat dashboard__item'>
+			<h2>5</h2>
+			<span>Classes</span>
+		</div>
+		<div class='dashboard__stat dashboard__item'>
+			<h2>11</h2>
+			<span>Completed Tests</span>
+		</div>
+		<div class='dashboard__stat dashboard__item'>
+			<h2>1</h2>
+			<span>Upcoming Test</span>
+		</div>
+		<div class='dashboard__stat dashboard__item'>
+			<h2>90%</h2>
+			<span>Pass Rate</span>
+		</div>
+	</div>
+	<div class='dashboard__row'>
+		<div class='dashboard__item'>
+			<h2>Recent Tests</h2>
+			<div class='dashboard__table'>
+				<table>
+					<tr data-id='1'>
+						<td>
+							08/01/2022
+						</td>
+						<td>
+							Lagged homework 8
+						</td>
+					</tr>
+					<tr data-id='2'>
+						<td>
+							08/01/2022
+						</td>
+						<td>
+							Lagged homework 8
+						</td>
+					</tr>
+					<tr data-id='3'>
+						<td>
+							08/01/2022
+						</td>
+						<td>
+							Lagged homework 8
+						</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+	</div>
+	<div class='dashboard__row'>
+		<div class='dashboard__item'>
+			<h2>Upcoming Tests</h2>
+			<div class='dashboard__table'>
+				<table>
+					<tr data-id='1'>
+						<td>
+							08/01/2022
+						</td>
+						<td>
+							Lagged homework 8
+						</td>
+					</tr>
+					<tr data-id='2'>
+						<td>
+							08/01/2022
+						</td>
+						<td>
+							Lagged homework 8
+						</td>
+					</tr>
+					<tr data-id='3'>
+						<td>
+							08/01/2022
+						</td>
+						<td>
+							Lagged homework 8
+						</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+	</div>
+</section>
+
+<script>
+	const toggle = document.querySelector('.adminNav-toggle');
+	const nav = document.querySelector('.adminNav');
+
+	toggle.addEventListener('click', () => {
+		nav.style.display =
+			(nav.style.display === 'flex')
+				? 'none'
+				: 'flex';
+
+		toggle.classList.toggle('fa-bars');
+		toggle.classList.toggle('fa-close');
+	});
+
+	const tests = document.querySelectorAll('.dashboard__table tr');
+	tests.forEach(test => {
+		test.addEventListener('click', () => {
+			window.location.href =
+				`/tests/${test.getAttribute('data-id')}`;
+		});
+	});
+</script>

@@ -1,5 +1,5 @@
 .adminNav {
-	display: flex;
+	display: none;
 	flex-direction: column;
 	justify-content: space-between;
 	align-items: center;
@@ -11,8 +11,6 @@
 	padding: 3rem 0;
 	padding-top: 5rem;
 
-	display: none;
-
 	a {
 		color: white;
 	}
@@ -20,6 +18,7 @@
 	&__profile {
 		display: flex;
 		flex-direction: column;
+		padding-bottom: 4rem;
 
 		img {
 			border-radius: 100%;
@@ -35,6 +34,10 @@
 		.logout {
 			align-self: flex-end;
 			text-decoration: underline;
+		}
+
+		@include respond-to('large') {
+			padding-bottom: 0;
 		}
 	}
 

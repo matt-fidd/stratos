@@ -1,0 +1,77 @@
+.adminContent {
+	min-height: 91vh;
+	background-color: #E5E5E5;
+	padding: .5rem 2rem 0 2rem;
+
+	.dashboard__item {
+		padding: .7rem;
+		background-color: white;
+		border-radius: 15px;
+	}
+
+	.dashboard__row {
+		margin: 1rem 0;
+
+		&:last-child {
+			margin-bottom: 0;
+			padding-bottom: 1rem;
+		}
+
+		h2 {
+			color: $text-colour;
+			font-weight: normal;
+			margin-left: .5rem;
+		}
+	}
+
+	.dashboard__table {
+		background-color: #E5E5E5;
+		padding: 1rem;
+		border-radius: 15px;
+
+		table {
+			width: 100%;
+
+		}
+
+		tr {
+			@include on-event() {
+				background-color: white;
+				cursor: pointer;
+			}
+		}
+
+		td {
+			padding: .5rem;
+
+			&:last-child {
+				width: 100%;
+			}
+		}
+	}
+
+	.dashboard__stats {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		gap: 1rem;
+
+		.dashboard__stat {
+			text-align: center;
+			padding: 1rem;
+
+			h2 {
+				color: $primary-colour;
+				margin: .75rem 0;
+				font-weight: bold;
+			}
+		}
+
+		@include respond-to('medium') {
+			grid-template-columns: repeat(4, 1fr);
+		}
+	}
+
+	@include respond-to('large') {
+		margin-left: 20vw;
+	}
+}

@@ -1,0 +1,16 @@
+.adminNav__item {
+	display: flex;
+	justify-content: center;
+	gap: 1rem;
+	padding: 2rem 0;
+	border-bottom: 1px solid white;
+	width: 70%;
+
+	&:last-child {
+		border: none;
+	}
+
+	@include on-event() {
+		background-color: $primary-colour-dark;
+	}
+}

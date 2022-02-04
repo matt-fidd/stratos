@@ -1,0 +1,15 @@
+<nav class='adminNav'>
+	<div class='adminNav__items'>
+		{{> adminNavItem content='Dashboard' icon='gauge' to='dashboard' }}
+		{{> adminNavItem content='Classes' icon='chalkboard-user' to='classes' }}
+		{{> adminNavItem content='Tests' icon='book-open' to='tests' }}
+		{{> adminNavItem content='Reports' icon='chart-column' to='reports' }}
+	</div>
+	<div class='adminNav__profile'>
+		<div class='details'>
+			<img src='https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fpwco.com.sg%2Fwp-content%2Fuploads%2F2020%2F05%2FGeneric-Profile-Placeholder-v3.png&f=1&nofb=1' style='width: 50px;'/>
+			<span>Matthew Fiddaman</span>
+		</div>
+		<a class='logout' href='/logout'><i class='fa-solid fa-arrow-right-from-bracket'></i>Logout</a>
+	</div>
+</nav>

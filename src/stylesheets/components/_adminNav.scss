@@ -1,0 +1,53 @@
+.adminNav {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	align-items: center;
+	position: fixed;
+	top: 0;
+	width: 100vw;
+	height: 82vh;
+	background-color: $primary-colour;
+	padding: 3rem 0;
+	padding-top: 5rem;
+
+	display: none;
+
+	a {
+		color: white;
+	}
+
+	&__profile {
+		display: flex;
+		flex-direction: column;
+
+		img {
+			border-radius: 100%;
+		}
+
+		.details {
+			display: flex;
+			align-items: center;
+			gap: 1rem;
+			color: white;
+		}
+
+		.logout {
+			align-self: flex-end;
+			text-decoration: underline;
+		}
+	}
+
+	&__items {
+		display: flex;
+		align-items: center;
+		flex-direction: column;
+		width: 100%;
+	}
+
+	@include respond-to('large') {
+		display: flex;
+		width: 20vw;
+		height: 87vh;
+	}
+}

@@ -1,0 +1,19 @@
+.adminHeader {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: relative;
+	background-color: white;
+	z-index: 100;
+
+	.adminNav-toggle {
+		position: absolute;
+		left: 13%;
+		color: $primary-colour;
+		font-size: 1.3em;
+
+		@include respond-to('large') {
+			display: none;
+		}
+	}
+}

@@ -80,6 +80,11 @@ async function main() {
 		}
 	}));
 
+	app.get('/admin/*', (req, res, next) => {
+		req.app.locals.layout = 'admin';
+		next();
+	});
+
 	for (const [ root, router ] of loadRoutes().entries())
 		app.use(root, router);
 

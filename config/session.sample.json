@@ -1,0 +1,4 @@
+{
+	"sessionLifetime": 7200000,
+	"sessionSecret": "extra secret string"
+}

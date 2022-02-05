@@ -8,6 +8,6 @@ node_modules/
 *.css.map
 
 config/*.json
-!config/*_sample*
+!config/*sample*
 
 *.swp

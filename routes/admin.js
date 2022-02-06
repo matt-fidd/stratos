@@ -17,6 +17,12 @@ router.get('/classes', (req, res) => {
 	});
 });
 
+router.get('/tests', (req, res) => {
+	return res.render('tests', {
+		title: 'Stratos - Tests'
+	});
+});
+
 module.exports = {
 	root: '/admin',
 	router: router

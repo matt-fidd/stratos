@@ -1,0 +1,69 @@
+<section class='tests adminSection'>
+	<div class='adminItem'>
+		<h2>Tests</h2>
+		<div class='adminTable'>
+			<table>
+				<thead>
+					<tr>
+						<th>Name</th>
+						<th>Subject</th>
+						<th>Class</th>
+						<th>Date</th>
+					</tr>
+				</thead>
+				{{> test
+					id='1'
+					name='Organic Synthesis'
+					subject='Chemistry'
+					class='MKA_133'
+					date='01/08/2021'
+				}}
+				{{> test
+					id='2'
+					name='Organic Synthesis'
+					subject='Chemistry'
+					class='MKA_133'
+					date='01/08/2021'
+				}}
+				{{> test
+					id='3'
+					name='Organic Synthesis'
+					subject='Chemistry'
+					class='MKA_133'
+					date='01/08/2021'
+				}}
+				{{> test
+					id='4'
+					name='Organic Synthesis'
+					subject='Chemistry'
+					class='MKA_133'
+					date='01/08/2021'
+				}}
+				{{> test
+					id='5'
+					name='Organic Synthesis'
+					subject='Chemistry'
+					class='MKA_133'
+					date='01/08/2021'
+				}}
+				{{> test
+					id='6'
+					name='Organic Synthesis'
+					subject='Chemistry'
+					class='MKA_133'
+					date='01/08/2021'
+				}}
+			</table>
+		</div>
+	</div>
+</section>
+
+<script>
+	const tests = document.querySelectorAll('.tests tbody tr');
+	tests.forEach(t => {
+		t.addEventListener('click', () => {
+			window.location.href =
+				`/admin/test/${t.getAttribute('data-id')}`;
+		});
+	});
+</script>

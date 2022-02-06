@@ -20,27 +20,27 @@
 }
 
 .adminTable {
-	background-color: #E5E5E5;
+	background-color: $admin-bg;
 	padding: 1rem;
 	border-radius: 15px;
 
 	table {
 		width: 100%;
-
+		border-spacing: 0;
 	}
 
-	tr {
+	tbody tr {
 		@include on-event() {
 			background-color: white;
 			cursor: pointer;
 		}
 	}
 
-	td {
-		padding: .5rem;
+	th {
+		text-align: left;
+	}
 
-		&:last-child {
-			width: 100%;
-		}
+	td, th {
+		padding: .5rem 1rem;
 	}
 }

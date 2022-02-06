@@ -8,5 +8,19 @@
 			{{{ body }}}
 		</main>
 		{{> scripts }}
+		<script>
+			const toggle = document.querySelector('.adminNav-toggle');
+			const nav = document.querySelector('.adminNav');
+
+			toggle.addEventListener('click', () => {
+				nav.style.display =
+					(nav.style.display === 'flex')
+						? 'none'
+						: 'flex';
+
+				toggle.classList.toggle('fa-bars');
+				toggle.classList.toggle('fa-close');
+			});
+		</script>
 	</body>
 </html>

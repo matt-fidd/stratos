@@ -1,0 +1,12 @@
+.classes__class {
+	transition: background .25s, color .25s;
+	position: relative;
+	min-height: 10rem;
+	border-top: 10px solid $primary-colour;
+
+	@include on-event() {
+		cursor: pointer;
+		background-color: $primary-colour;
+		color: white;
+	}
+}

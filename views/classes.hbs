@@ -1,0 +1,16 @@
+<section class='classes'>
+	{{> class name='13(3) Chemistry' teacher='Dr M Ashley' id=1 }}
+	{{> class name='13(3) Chemistry' teacher='Dr M Ashley' id=2 }}
+	{{> class name='13(3) Chemistry' teacher='Dr M Ashley' id=3 }}
+	{{> class name='13(3) Chemistry' teacher='Dr M Ashley' id=4 }}
+</section>
+
+<script>
+	const classes = document.querySelectorAll('.classes__class');
+	classes.forEach(c => {
+		c.addEventListener('click', () => {
+			window.location.href =
+				`/admin/class/${c.getAttribute('data-id')}`;
+		});
+	});
+</script>

@@ -29,3 +29,19 @@
 		+ 'Please make sure it is defined in `$breakpoints` map.';
 	}
 }
+
+@mixin hide-column($colNum) {
+	th, td {
+		&:nth-child(#{$colNum}) {
+			display: none;
+		}
+	}
+}
+
+@mixin show-column($colNum) {
+	th, td {
+		&:nth-child(#{$colNum}) {
+			display: table-cell;
+		}
+	}
+}

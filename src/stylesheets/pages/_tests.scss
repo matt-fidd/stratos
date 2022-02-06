@@ -3,5 +3,11 @@
 		th, td {
 			overflow-wrap: anywhere;
 		}
+
+		@include hide-column(3);
+
+		@include respond-to('medium') {
+			@include show-column(3);
+		}
 	}
 }

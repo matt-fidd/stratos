@@ -18,7 +18,8 @@ gulp.task('styles', () => {
 		require('autoprefixer'),
 		require('cssnano')({
 			preset: [ 'default', cssnanoOptions ]
-		})
+		}),
+		require('postcss-sort-media-queries')
 	];
 
 	return gulp.src(src)

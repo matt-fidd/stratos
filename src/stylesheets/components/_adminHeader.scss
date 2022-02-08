@@ -11,6 +11,7 @@
 		left: 13%;
 		color: $primary-colour;
 		font-size: 1.3em;
+		cursor: pointer;
 
 		@include respond-to('large') {
 			display: none;

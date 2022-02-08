@@ -5,6 +5,11 @@
 	padding: 2rem 0;
 	border-bottom: 1px solid white;
 	width: 70%;
+	color: white;
+
+	&.current {
+		background-color: $primary-colour-dark;
+	}
 
 	&:last-child {
 		border: none;
@@ -12,5 +17,6 @@
 
 	@include on-event() {
 		background-color: $primary-colour-dark;
+		text-decoration: none;
 	}
 }

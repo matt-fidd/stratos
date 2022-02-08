@@ -7,19 +7,22 @@ router.get('/', (req, res) => {
 
 router.get('/dashboard', (req, res) => {
 	return res.render('dashboard', {
-		title: 'Stratos - Dashboard'
+		title: 'Stratos - Dashboard',
+		current: 'Dashboard'
 	});
 });
 
 router.get('/classes', (req, res) => {
 	return res.render('classes', {
-		title: 'Stratos - Classes'
+		title: 'Stratos - Classes',
+		current: 'Classes'
 	});
 });
 
 router.get('/tests', (req, res) => {
 	return res.render('tests', {
-		title: 'Stratos - Tests'
+		title: 'Stratos - Tests',
+		current: 'Tests'
 	});
 });
 

@@ -1,4 +1,4 @@
-<a href='/admin/{{ to }}' class='adminNav__item'>
+<a href='/admin/{{ to }}' class='adminNav__item {{#eq current content}} current {{/eq}} '>
 	<i class='fa-solid fa-{{ icon}}'></i>
 	<span>{{content}}</span>
 </a>

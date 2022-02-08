@@ -12,6 +12,7 @@ const serveStatic = require('serve-static');
 
 // Import user defined modules
 const DatabaseConnectionPool = require('./lib/DatabaseConnectionPool');
+const hbsHelpers = require('./lib/handlebarsHelpers.js');
 const importJSON = require('./lib/importJSON');
 
 
@@ -53,7 +54,8 @@ async function main() {
 	app.engine(
 		'hbs',
 		engine({
-			extname: '.hbs'
+			extname: '.hbs',
+			helpers: hbsHelpers
 		})
 	);
 	app.set('view engine', 'hbs');

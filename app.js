@@ -19,11 +19,11 @@ const importJSON = require('./lib/importJSON');
 /**
  * loadRoutes() Loads all of the routes from /routers into a map
  *
- * @return {Map<String, Object>} Map of all of the routes
+ * @return {Array<Array<String, Object>>} Map of all of the routes
  */
 function loadRoutes() {
 	// Load route files
-	const routes = new Map();
+	const routes = [];
 
 	const routeFiles =
 		fs.readdirSync(path.join(__dirname, 'routes'))
@@ -31,7 +31,7 @@ function loadRoutes() {
 
 	for (const file of routeFiles) {
 		const route = require(path.join(__dirname, 'routes', file));
-		routes.set(route.root, route.router);
+		routes.push([ route.root, route.router ]);
 	}
 
 	return routes;
@@ -92,8 +92,8 @@ async function main() {
 		next();
 	});
 
-	for (const [ root, router ] of loadRoutes().entries())
-		app.use(root, router);
+	for (const route of loadRoutes())
+		app.use(route[0], route[1]);
 
 	// If the request gets to the bottom of the route stack, it doesn't
 	// have a defined route and therefore a HTTP status code 404 is sent

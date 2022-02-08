@@ -7,8 +7,18 @@ const src = 'src/stylesheets/main.scss';
 const dest = 'public/css';
 
 gulp.task('styles', () => {
+	let cssnanoOptions = {
+		normalizeWhitespace: false
+	};
+
+	if (process.env.NODE_ENV === 'production')
+		cssnanoOptions = {};
+
 	const plugins = [
 		require('autoprefixer'),
+		require('cssnano')({
+			preset: [ 'default', cssnanoOptions ]
+		})
 	];
 
 	return gulp.src(src)

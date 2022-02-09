@@ -5,5 +5,8 @@
 	"coverageProvider": "v8",
 	"setupFilesAfterEnv": [
 		"jest-extended/all"
+	],
+	"testPathIgnorePatterns": [
+		"routes/test.js"
 	]
 }

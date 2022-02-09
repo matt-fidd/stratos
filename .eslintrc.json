@@ -89,6 +89,10 @@
 	],
 	"brace-style": [
 		"error"
+	],
+	"strict": [
+		"error",
+		"global"
 	]
     }
 }

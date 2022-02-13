@@ -19,7 +19,7 @@ tableCreate.set('account', `
 		accountId            varchar(36)  NOT NULL    PRIMARY KEY,
 		email                varchar(255)  NOT NULL    ,
 		firstName            varchar(50)  NOT NULL    ,
-		otherNames           varchar(255)  NOT NULL    ,
+		otherNames           varchar(255) ,
 		lastName             varchar(50)  NOT NULL    ,
 		password             varchar(60)  NOT NULL    ,
 		CONSTRAINT Unq_account_email UNIQUE ( email )
@@ -31,7 +31,7 @@ tableCreate.set('parent', `
 		parentId             varchar(36)  NOT NULL    PRIMARY KEY,
 		email                varchar(255)  NOT NULL    ,
 		firstName            varchar(50)  NOT NULL    ,
-		otherNames           varchar(50)  NOT NULL    ,
+		otherNames           varchar(50) ,
 		lastName             varchar(50)  NOT NULL    ,
 		password             varchar(60)  NOT NULL    ,
 		CONSTRAINT Unq_parent UNIQUE ( email )
@@ -43,7 +43,7 @@ tableCreate.set('student', `
 		studentId            varchar(36)  NOT NULL    PRIMARY KEY,
 		email                varchar(255)  NOT NULL    ,
 		firstName            varchar(50)  NOT NULL    ,
-		otherNames           varchar(50)  NOT NULL    ,
+		otherNames           varchar(50) ,
 		lastName             varchar(50)  NOT NULL    ,
 		password             varchar(60)  NOT NULL    ,
 		CONSTRAINT Unq_student UNIQUE ( email )

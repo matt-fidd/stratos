@@ -13,6 +13,9 @@ router.get('/', (req, res) => {
 });
 
 router.get('/login', (req, res) => {
+	if (req.session.authenticated)
+		return res.redirect('/admin');
+
 	return res.render('login', {
 		title: 'Stratos - Login'
 	});
@@ -31,10 +34,20 @@ router.get('/password-reset', (req, res) => {
 });
 
 router.get('/logout', (req, res) => {
+	if (!req.session.authenticated)
+		return res.redirect('/login');
+
 	return res.render('logout', {
 		title: 'Stratos - Logout',
 		username: req.session.fullName
 	});
+});
+
+router.post('/logout', (req, res) => {
+	if (req.session.authenticated)
+		req.session.destroy();
+
+	return res.redirect('/login');
 });
 
 router.post('/register', async (req, res) => {

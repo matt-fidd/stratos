@@ -10,7 +10,8 @@ router.get('/', (req, res) => {
 router.get('/dashboard', (req, res) => {
 	return res.render('dashboard', {
 		title: 'Stratos - Dashboard',
-		current: 'Dashboard'
+		current: 'Dashboard',
+		name: req.session.fullName
 	});
 });
 

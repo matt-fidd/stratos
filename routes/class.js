@@ -6,7 +6,8 @@ const router = express.Router();
 router.get('/classes', (req, res) => {
 	return res.render('classes', {
 		title: 'Stratos - Classes',
-		current: 'Classes'
+		current: 'Classes',
+		name: req.session.fullName
 	});
 });
 

@@ -7,7 +7,8 @@ router.get('/reports', (req, res, next) => {
 /*
 	return res.render('reports', {
 		title: 'Stratos - Reports',
-		current: 'Reports'
+		current: 'Reports',
+		name: req.session.fullName
 	});
 */
 

@@ -4,6 +4,7 @@ const express = require('express');
 const router = express.Router();
 
 const Account = require('../lib/Account');
+const User = require('../lib/User');
 const validator = require('../lib/validator');
 
 router.get('/', (req, res) => {
@@ -46,6 +47,37 @@ router.get('/logout', (req, res) => {
 router.post('/logout', (req, res) => {
 	if (req.session.authenticated)
 		req.session.destroy();
+
+	return res.redirect('/login');
+});
+
+router.post('/login', async (req, res) => {
+	let fields;
+
+	try {
+		fields = validator.validate(req.body,
+			[
+				'email',
+				'password'
+			],
+			{
+				email: 'email',
+			}
+		).fields;
+	} catch (e) {
+		console.error(e);
+		return res.status(400).json({ status: 'Invalid' });
+	}
+
+	const u = await User.getUserByEmail(fields.get('email')) ?? false;
+
+	if (!u)
+		return res.redirect('/login');
+
+	if (await u.verifyPassword(fields.get('password'))) {
+		u.login(req);
+		return res.redirect('/admin');
+	}
 
 	return res.redirect('/login');
 });

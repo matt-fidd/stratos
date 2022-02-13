@@ -85,7 +85,7 @@ tableCreate.set('class', `
 
 tableCreate.set('passwordReset', `
 	CREATE TABLE IF NOT EXISTS passwordReset (
-		accountId            varchar(36)  NOT NULL    PRIMARY KEY,
+		userId               varchar(36)  NOT NULL    PRIMARY KEY,
 		token                varchar(60)  NOT NULL    ,
 		nonce                varchar(16)  NOT NULL    ,
 		expires              datetime  NOT NULL
@@ -161,7 +161,7 @@ tableConstraints.set('class_fk0', `
 tableConstraints.set('fk_passwordreset_account', `
 	ALTER TABLE passwordReset
 	ADD CONSTRAINT fk_passwordreset_account
-	FOREIGN KEY IF NOT EXISTS ( accountId )
+	FOREIGN KEY IF NOT EXISTS ( userId )
 	REFERENCES account( accountId )
 	ON DELETE CASCADE
 	ON UPDATE NO ACTION;
@@ -170,7 +170,7 @@ tableConstraints.set('fk_passwordreset_account', `
 tableConstraints.set('fk_passwordreset_parent', `
 	ALTER TABLE passwordReset
 	ADD CONSTRAINT fk_passwordreset_parent
-	FOREIGN KEY IF NOT EXISTS ( accountId )
+	FOREIGN KEY IF NOT EXISTS ( userId )
 	REFERENCES parent( parentId )
 	ON DELETE CASCADE
 	ON UPDATE NO ACTION;
@@ -179,7 +179,7 @@ tableConstraints.set('fk_passwordreset_parent', `
 tableConstraints.set('fk_passwordreset_student', `
 	ALTER TABLE passwordReset
 	ADD CONSTRAINT fk_passwordreset_student
-	FOREIGN KEY IF NOT EXISTS ( accountId )
+	FOREIGN KEY IF NOT EXISTS ( userId )
 	REFERENCES student( studentId )
 	ON DELETE CASCADE
 	ON UPDATE NO ACTION;

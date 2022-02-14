@@ -125,6 +125,31 @@ router.post('/register', async (req, res) => {
 	return res.redirect('/login');
 });
 
+router.post('/password-reset', async (req, res) => {
+	let fields;
+	try {
+		fields = validator.validate(req.body,
+			[
+				'email'
+			],
+			{
+				email: 'email'
+			}
+		).fields;
+	} catch (e) {
+		console.error(e);
+	}
+
+	const u = await User.getUserByEmail(fields.get('email')) ?? false;
+
+	if (!u)
+		return res.redirect('/password-reset');
+
+	const pr = await u.generatePasswordReset();
+
+	return res.redirect('./login');
+});
+
 module.exports = {
 	root: '/',
 	router: router

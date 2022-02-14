@@ -5,6 +5,8 @@ const router = express.Router();
 
 const Account = require('../lib/Account');
 const User = require('../lib/User');
+const PasswordReset = require('../lib/PasswordReset');
+
 const validator = require('../lib/validator');
 
 router.get('/', (req, res) => {
@@ -150,6 +152,32 @@ router.post('/password-reset', async (req, res) => {
 	console.log(`https://stratos.heliumdev.uk/password-reset/${pr.userId}/${encodeURIComponent(pr.token)}`);
 
 	return res.redirect('./login');
+});
+
+router.get('/password-reset/:uuid/:token', async (req, res) => {
+	const uuid = req.params.uuid;
+	const URIToken = req.params.token;
+	const token = decodeURIComponent(URIToken);
+
+	let pr;
+	try {
+		pr = await new PasswordReset(uuid, token);
+	} catch(e) {
+		console.error(e);
+		return res.redirect('/password-reset');
+	}
+
+	const expired = new Date().getTime() > pr.expires * 1000;
+
+	if (expired) {
+		console.log('Password reset is invalid');
+		return res.redirect('/password-reset');
+	}
+
+	return res.render('change-password', {
+		uuid: uuid,
+		token: token
+	});
 });
 
 module.exports = {

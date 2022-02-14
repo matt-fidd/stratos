@@ -4,6 +4,7 @@ const express = require('express');
 const router = express.Router();
 
 const Account = require('../lib/Account');
+const { EmailBuilder } = require('../lib/Emailer');
 const User = require('../lib/User');
 const PasswordReset = require('../lib/PasswordReset');
 
@@ -148,8 +149,18 @@ router.post('/password-reset', async (req, res) => {
 		return res.redirect('/password-reset');
 
 	const pr = await u.generatePasswordReset();
+	const URIToken = encodeURIComponent(pr.token);
 
-	console.log(`https://stratos.heliumdev.uk/password-reset/${pr.userId}/${encodeURIComponent(pr.token)}`);
+	const root = `https://stratos.heliumdev.uk`;
+	const path = `/password-reset/${pr.userId}/${URIToken}`;
+	const url = `${root}${path}`;
+
+	const email = new EmailBuilder()
+		.setSubject('Stratos password reset')
+		.addTo([ `${u.fullName} <${u.email}>` ])
+		.setBody(url);
+
+	console.log(email);
 
 	return res.redirect('./login');
 });

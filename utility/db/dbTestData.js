@@ -41,14 +41,14 @@ const data = {
 		{
 			email: 'p2@stratos.com',
 			firstName: 'Jeffery',
-			otherNames: '',
+			otherNames: null,
 			lastName: 'Jonas',
 			password: 'p2'
 		},
 		{
 			email: 'p3@stratos.com',
 			firstName: 'Mohammad',
-			otherNames: '',
+			otherNames: null,
 			lastName: 'Gamble',
 			password: 'p3'
 		},
@@ -62,7 +62,7 @@ const data = {
 		{
 			email: 'p5@stratos.com',
 			firstName: 'Darius',
-			otherNames: '',
+			otherNames: null,
 			lastName: 'Tanz',
 			password: 'p5'
 		},
@@ -78,7 +78,7 @@ const data = {
 		{
 			email: 's2@stratos.com',
 			firstName: 'Ola',
-			otherNames: '',
+			otherNames: null,
 			lastName: 'Larson',
 			password: 's2'
 		},
@@ -92,7 +92,7 @@ const data = {
 		{
 			email: 's4@stratos.com',
 			firstName: 'Huo',
-			otherNames: '',
+			otherNames: null,
 			lastName: 'Ding',
 			password: 's4'
 		},
@@ -148,7 +148,7 @@ const data = {
 		{
 			email: 'a1@stratos.com',
 			firstName: 'Aurick',
-			otherNames: '',
+			otherNames: null,
 			lastName: 'Rubner',
 			password: 'a1'
 		},
@@ -162,7 +162,7 @@ const data = {
 		{
 			email: 'a3@stratos.com',
 			firstName: 'Devajee',
-			otherNames: '',
+			otherNames: null,
 			lastName: 'Vaughn',
 			password: 'a3'
 		},

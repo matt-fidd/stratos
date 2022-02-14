@@ -180,6 +180,42 @@ router.get('/password-reset/:uuid/:token', async (req, res) => {
 	});
 });
 
+router.post('/change-password', async (req, res) => {
+	let fields;
+	try {
+		fields = validator.validate(req.body,
+			[
+				'password',
+				'confPassword',
+				'uuid',
+				'token'
+			],
+			{
+				password: [ 'password', 'confPassword' ]
+			}
+		).fields;
+	} catch (e) {
+		console.error(e);
+		return res.redirect('/password-reset');
+	}
+
+	let pr;
+	try {
+		pr = await new PasswordReset(
+			fields.get('uuid'),
+			fields.get('token')
+		);
+	} catch(e) {
+		console.error(e);
+		return res.redirect('/password-reset');
+	}
+
+	const u = await pr.user;
+	await u.changePassword(fields.get('password'));
+
+	return res.redirect('/login');
+});
+
 module.exports = {
 	root: '/',
 	router: router

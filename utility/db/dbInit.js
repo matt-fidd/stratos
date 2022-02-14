@@ -158,33 +158,6 @@ tableConstraints.set('class_fk0', `
 	ON UPDATE NO ACTION;
 `);
 
-tableConstraints.set('fk_passwordreset_account', `
-	ALTER TABLE passwordReset
-	ADD CONSTRAINT fk_passwordreset_account
-	FOREIGN KEY IF NOT EXISTS ( userId )
-	REFERENCES account( accountId )
-	ON DELETE CASCADE
-	ON UPDATE NO ACTION;
-`);
-
-tableConstraints.set('fk_passwordreset_parent', `
-	ALTER TABLE passwordReset
-	ADD CONSTRAINT fk_passwordreset_parent
-	FOREIGN KEY IF NOT EXISTS ( userId )
-	REFERENCES parent( parentId )
-	ON DELETE CASCADE
-	ON UPDATE NO ACTION;
-`);
-
-tableConstraints.set('fk_passwordreset_student', `
-	ALTER TABLE passwordReset
-	ADD CONSTRAINT fk_passwordreset_student
-	FOREIGN KEY IF NOT EXISTS ( userId )
-	REFERENCES student( studentId )
-	ON DELETE CASCADE
-	ON UPDATE NO ACTION;
-`);
-
 tableConstraints.set('fk_studentclasslink_student', `
 	ALTER TABLE studentClassLink
 	ADD CONSTRAINT fk_studentclasslink_student

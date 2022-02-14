@@ -2,7 +2,7 @@
 	"name": "stratos",
 	"version": "1.0.0",
 	"description": "",
-	"main": "index.js",
+	"main": "app.js",
 	"scripts": {
 		"test": "jest --max-workers=50%",
 		"lint": "eslint .",
@@ -14,7 +14,7 @@
 		"url": "git+https://github.com/matt-fidd/stratos.git"
 	},
 	"author": "",
-	"license": "MIT",
+	"license": "",
 	"bugs": {
 		"url": "https://github.com/matt-fidd/stratos/issues"
 	},

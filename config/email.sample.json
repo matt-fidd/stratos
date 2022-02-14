@@ -1,0 +1,5 @@
+{
+	"host": "examplesmtphost.com",
+	"user": "user@domain.com",
+	"password": "supersecurepassword"
+}

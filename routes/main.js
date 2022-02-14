@@ -4,7 +4,7 @@ const express = require('express');
 const router = express.Router();
 
 const Account = require('../lib/Account');
-const { EmailBuilder } = require('../lib/Emailer');
+const { EmailBuilder, Emailer } = require('../lib/Emailer');
 const User = require('../lib/User');
 const PasswordReset = require('../lib/PasswordReset');
 
@@ -160,7 +160,8 @@ router.post('/password-reset', async (req, res) => {
 		.addTo([ `${u.fullName} <${u.email}>` ])
 		.setBody(url);
 
-	console.log(email);
+	const emailer = new Emailer();
+	await emailer.sendEmail(email);
 
 	return res.redirect('./login');
 });

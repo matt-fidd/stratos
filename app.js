@@ -82,6 +82,27 @@ async function main() {
 		}
 	}));
 
+	// Authentication middleware that redirects unauthenticated users
+	// back to the login page if they request a page they don't have access
+	// to
+	app.use((req, res, next) => {
+		const allowed = [
+			'/login',
+			'/register',
+			'/password-reset',
+			'/change-password',
+			'/'
+		];
+
+		// Extract the first component of the path from the request
+		const path = `/${req.path.split('/')?.[1] ?? ''}`;
+
+		if (!(allowed.includes(path) || req.session.authenticated))
+			return res.redirect('/login');
+
+		next();
+	});
+
 	app.get('*', (req, res, next) => {
 		req.app.locals.layout = 'main';
 		next();

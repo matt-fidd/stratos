@@ -1,0 +1,37 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+class EmailBuilder {
+	#subject: string
+	#body: string
+	#HTMLBody: string
+	#from: string
+	#to: string[]
+	#cc: string[]
+	#bcc: string[]
+	setSubject(subject): EmailBuilder
+	setBody(body): EmailBuilder
+	setHTMLBody(HTMLBody): EmailBuilder
+	setFrom(from): EmailBuilder
+	addTo(addresses): EmailBuilder
+	removeTo(addresses): EmailBuilder
+	addCC(addresses): EmailBuilder
+	removeCC(addresses): EmailBuilder
+	addBCC(addresses): EmailBuilder
+	removeBCC(addresses): EmailBuilder
+	getMessageObject(): Object
+}
+
+class Emailer {
+	#host: string
+	#user: string
+	#password: string
+	#secure: boolean
+	#transporter: Object
+	sendEmail(email): void
+	getTransportOptions(): Object
+	getTransorter(): void
+	set secure(val): void
+}
+
+@enduml

@@ -9,6 +9,18 @@ const path = require('path');
 const DatabaseConnectionPool =
 	require(path.join(__dirname, '../../lib/DatabaseConnectionPool'));
 
+// Class for easy insertion of test dates into the database
+class mySQLDate extends Date {
+	toString() {
+		return this.toISOString().slice(0, 19).replace('T', ' ');
+	}
+
+	alterDays(amount) {
+		this.setDate(this.getDate() + amount);
+		return this;
+	}
+}
+
 // Object storing configurations for the db tables
 const tableDetails = {
 	parent: {

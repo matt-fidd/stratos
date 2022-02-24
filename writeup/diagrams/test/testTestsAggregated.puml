@@ -1,0 +1,65 @@
+@startuml
+skinparam actorStyle awesome
+
+package TestTemplates {
+	usecase "T.T. 1" as tt1
+	usecase "T.T. 2" as tt2
+	usecase "T.T. 3" as tt3
+	usecase "T.T. 4" as tt4
+}
+
+package Tests {
+	usecase "Test 1" as t1
+	usecase "Test 2" as t2
+	usecase "Test 3" as t3
+	usecase "Test 4" as t4
+	usecase "Test 5" as t5
+	usecase "Test 6" as t6
+	usecase "Test 7" as t7
+	usecase "Test 8" as t8
+	usecase "Test 9" as t9
+	usecase "Test 10" as t10
+	usecase "Test 11" as t11
+	usecase "Test 12" as t12
+}
+
+package Classes {
+	usecase "Class 1" as c1
+	usecase "Class 2" as c2
+	usecase "Class 3" as c3
+	usecase "Class 4" as c4
+}
+
+tt1 --> t1
+tt1 --> t2
+tt1 --> t3
+
+tt2 --> t4
+tt2 --> t5
+tt2 --> t6
+
+tt3 --> t7
+tt3 --> t8
+tt3 --> t9
+
+tt4 --> t10
+tt4 --> t11
+tt4 --> t12
+
+c1 --> t1 : recent
+c1 --> t4 : recent
+c1 --> t5 : recent
+
+c2 --> t2 : upcoming
+c2 --> t10 : recent
+
+c3 --> t8 : recent
+c3 --> t9 : upcoming
+c3 --> t11 : recent
+c3 --> t12 : upcoming
+
+c4 --> t3 : upcoming
+c4 --> t6 : upcoming
+c4 --> t7 : upcoming
+
+@enduml

@@ -38,6 +38,9 @@ const tableDetails = {
 		hashPassword: true,
 		id: 'uuid'
 	},
+	testTemplate: {
+		id: 'uuid'
+	},
 	studentParentLink: {
 		link: true
 	},
@@ -187,12 +190,37 @@ const data = {
 			lastName: 'Vaughn',
 			password: 'a3'
 		},
-	]
-};
-
-// Object to store the relationships between tables to be inserted into
-// link tables
-const relationships = {
+	],
+	testTemplate: [
+		{
+			name: 'Test Template 1',
+			maxMark: 100,
+			lookups: {
+				accountId: 1
+			}
+		},
+		{
+			name: 'Test Template 2',
+			maxMark: 50,
+			lookups: {
+				accountId: 2
+			}
+		},
+		{
+			name: 'Test Template 3',
+			maxMark: 74,
+			lookups: {
+				accountId: 2
+			}
+		},
+		{
+			name: 'Test Template 4',
+			maxMark: 320,
+			lookups: {
+				accountId: 3
+			}
+		}
+	],
 	studentParentLink: [
 		{
 			lookups: {

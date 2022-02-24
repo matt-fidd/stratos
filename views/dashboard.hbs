@@ -1,51 +1,24 @@
 <section class='dashboard'>
 	<div class='adminSection dashboard__stats'>
-		<div class='dashboard__stat adminItem'>
-			<h2>5</h2>
-			<span>Classes</span>
-		</div>
-		<div class='dashboard__stat adminItem'>
-			<h2>11</h2>
-			<span>Completed Tests</span>
-		</div>
-		<div class='dashboard__stat adminItem'>
-			<h2>1</h2>
-			<span>Upcoming Test</span>
-		</div>
-		<div class='dashboard__stat adminItem'>
-			<h2>90%</h2>
-			<span>Pass Rate</span>
-		</div>
+		{{#each stats}}
+			<div class='dashboard__stat adminItem'>
+				<h2>{{value}}</h2>
+				<span>{{text}}</span>
+			</div>
+		{{/each}}
 	</div>
 	<div class='adminSection'>
 		<div class='adminItem'>
 			<h2>Recent Tests</h2>
 			<div class='adminTable'>
 				<table>
-					<tr data-id='1'>
-						<td>
-							08/01/2022
-						</td>
-						<td>
-							Lagged homework 8
-						</td>
-					</tr>
-					<tr data-id='2'>
-						<td>
-							08/01/2022
-						</td>
-						<td>
-							Lagged homework 8
-						</td>
-					</tr>
-					<tr data-id='3'>
-						<td>
-							08/01/2022
-						</td>
-						<td>
-							Lagged homework 8
-						</td>
-					</tr>
+					{{#each recentTests}}
+						{{> dashboardTest
+							id=id
+							name=name
+							date=date
+						}}
+					{{/each}}
 				</table>
 			</div>
 		</div>
@@ -55,30 +28,13 @@
 			<h2>Upcoming Tests</h2>
 			<div class='adminTable'>
 				<table>
-					<tr data-id='1'>
-						<td>
-							08/01/2022
-						</td>
-						<td>
-							Lagged homework 8
-						</td>
-					</tr>
-					<tr data-id='2'>
-						<td>
-							08/01/2022
-						</td>
-						<td>
-							Lagged homework 8
-						</td>
-					</tr>
-					<tr data-id='3'>
-						<td>
-							08/01/2022
-						</td>
-						<td>
-							Lagged homework 8
-						</td>
-					</tr>
+					{{#each upcomingTests}}
+						{{> dashboardTest
+							id=id
+							name=name
+							date=date
+						}}
+					{{/each}}
 				</table>
 			</div>
 		</div>

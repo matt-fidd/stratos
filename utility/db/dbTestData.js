@@ -357,28 +357,18 @@ const relationships = {
 	]
 };
 
+/**
+ * cleanDb() Removes all records from the tables in the database to be inserted
+ * into
+ *
+ * @param {dbConnectionPool} [dbConnectionPool] - The database connection
+ *
+ * @return {void}
+ */
 async function cleanDb(dbConnectionPool) {
-	/*
-		Cleans the database of any existing records that will
-		conflict with the test data
-
-		Arguments:
-			- database connection object
-	*/
-
-	// List of table names to be cleared
-	const deletionList = [
-		'studentParentLink',
-		'studentClassLink',
-		'accountClassLink',
-		'class',
-		'subject',
-		'parent',
-		'student',
-		'account'
-	];
-
-	for (const table of deletionList)
+	// Remove records from tables in reverse order to which they depend on
+	// each other
+	for (const table of Object.keys(data).reverse())
 		await dbConnectionPool.runQuery(`DELETE FROM ${table};`);
 }
 

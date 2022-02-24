@@ -23,20 +23,20 @@ package Classes {
 	usecase "Class 4" as c4
 }
 
-c1 --> t1 : recent
-c1 --> t4 : recent
-c1 --> t5 : recent
+c1 <-- t1 : recent
+c1 <-- t4 : recent
+c1 <-- t5 : recent
 
-c2 --> t2 : upcoming
-c2 --> t10 : recent
+c2 <-- t2 : upcoming
+c2 <-- t10 : recent
 
-c3 --> t8 : recent
-c3 --> t9 : upcoming
-c3 --> t11 : recent
-c3 --> t12 : upcoming
+c3 <-- t8 : recent
+c3 <-- t9 : upcoming
+c3 <-- t11 : recent
+c3 <-- t12 : upcoming
 
-c4 --> t3 : upcoming
-c4 --> t6 : upcoming
-c4 --> t7 : upcoming
+c4 <-- t3 : upcoming
+c4 <-- t6 : upcoming
+c4 <-- t7 : upcoming
 
 @enduml

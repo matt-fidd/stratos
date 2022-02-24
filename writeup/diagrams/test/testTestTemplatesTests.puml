@@ -2,10 +2,10 @@
 skinparam actorStyle awesome
 
 package TestTemplates {
-	usecase "T.T. 1" as tt1
-	usecase "T.T. 2" as tt2
-	usecase "T.T. 3" as tt3
-	usecase "T.T. 4" as tt4
+	usecase "Test Template 1" as tt1
+	usecase "Test Template 2" as tt2
+	usecase "Test Template 3" as tt3
+	usecase "Test Template 4" as tt4
 }
 
 package Tests {

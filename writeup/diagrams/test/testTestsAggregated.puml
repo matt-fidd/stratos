@@ -2,10 +2,10 @@
 skinparam actorStyle awesome
 
 package TestTemplates {
-	usecase "T.T. 1" as tt1
-	usecase "T.T. 2" as tt2
-	usecase "T.T. 3" as tt3
-	usecase "T.T. 4" as tt4
+	usecase "Test Template 1" as tt1
+	usecase "Test Template 2" as tt2
+	usecase "Test Template 3" as tt3
+	usecase "Test Template 4" as tt4
 }
 
 package Tests {
@@ -46,20 +46,20 @@ tt4 --> t10
 tt4 --> t11
 tt4 --> t12
 
-c1 --> t1 : recent
-c1 --> t4 : recent
-c1 --> t5 : recent
+c1 <-- t1 : recent
+c1 <-- t4 : recent
+c1 <-- t5 : recent
 
-c2 --> t2 : upcoming
-c2 --> t10 : recent
+c2 <-- t2 : upcoming
+c2 <-- t10 : recent
 
-c3 --> t8 : recent
-c3 --> t9 : upcoming
-c3 --> t11 : recent
-c3 --> t12 : upcoming
+c3 <-- t8 : recent
+c3 <-- t9 : upcoming
+c3 <-- t11 : recent
+c3 <-- t12 : upcoming
 
-c4 --> t3 : upcoming
-c4 --> t6 : upcoming
-c4 --> t7 : upcoming
+c4 <-- t3 : upcoming
+c4 <-- t6 : upcoming
+c4 <-- t7 : upcoming
 
 @enduml

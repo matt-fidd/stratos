@@ -97,7 +97,7 @@ async function main() {
 		// Extract the first component of the path from the request
 		const path = `/${req.path.split('/')?.[1] ?? ''}`;
 
-		if (!(allowed.includes(path) || req.session.authenticated))
+		if (!allowed.includes(path) && !req.session.authenticated)
 			return res.redirect('/login');
 
 		next();

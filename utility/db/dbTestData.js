@@ -356,6 +356,21 @@ async function insertData(dbOptions) {
 						10);
 			}
 
+
+			if (record?.lookups) {
+				delete dataToInsert.lookups;
+
+				for (let [ key, index ] of
+					Object.entries(record.lookups)) {
+
+					const resolveTable = key.split('Id')[0];
+					index--;
+
+					dataToInsert[key] =
+						data[resolveTable][index][key];
+				}
+			}
+
 			data[table][counter] = dataToInsert;
 
 			const qs = '?, '.repeat(Object.keys(

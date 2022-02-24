@@ -38,9 +38,6 @@ router.get('/password-reset', (req, res) => {
 });
 
 router.get('/logout', (req, res) => {
-	if (!req.session.authenticated)
-		return res.redirect('/login');
-
 	return res.render('logout', {
 		title: 'Stratos - Logout',
 		username: req.session.fullName

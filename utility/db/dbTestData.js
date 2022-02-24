@@ -38,6 +38,15 @@ const tableDetails = {
 		hashPassword: true,
 		id: 'uuid'
 	},
+	studentParentLink: {
+		link: true
+	},
+	studentClassLink: {
+		link: true
+	},
+	accountClassLink: {
+		link: true
+	}
 };
 
 // Object to store all of the test data to be inserted
@@ -186,112 +195,164 @@ const data = {
 const relationships = {
 	studentParentLink: [
 		{
-			studentId: 1,
-			parentId: 1
+			lookups: {
+				studentId: 1,
+				parentId: 1
+			}
 		},
 		{
-			studentId: 2,
-			parentId: 2
+			lookups: {
+				studentId: 2,
+				parentId: 2
+			}
 		},
 		{
-			studentId: 2,
-			parentId: 3
+			lookups: {
+				studentId: 2,
+				parentId: 3
+			}
 		},
 		{
-			studentId: 3,
-			parentId: 4
+			lookups: {
+				studentId: 3,
+				parentId: 4
+			}
 		},
 		{
-			studentId: 4,
-			parentId: 4
+			lookups: {
+				studentId: 4,
+				parentId: 4
+			}
 		},
 		{
-			studentId: 4,
-			parentId: 5
+			lookups: {
+				studentId: 4,
+				parentId: 5
+			}
 		},
 		{
-			studentId: 5,
-			parentId: 5
+			lookups: {
+				studentId: 5,
+				parentId: 5
+			}
 		}
 	],
 	studentClassLink: [
 		{
-			studentId: 1,
-			classId: 1
+			lookups: {
+				studentId: 1,
+				classId: 1
+			}
 		},
 		{
-			studentId: 2,
-			classId: 1
+			lookups: {
+				studentId: 2,
+				classId: 1
+			}
 		},
 		{
-			studentId: 3,
-			classId: 1
+			lookups: {
+				studentId: 3,
+				classId: 1
+			}
 		},
 		{
-			studentId: 4,
-			classId: 1
+			lookups: {
+				studentId: 4,
+				classId: 1
+			}
 		},
 		{
-			studentId: 5,
-			classId: 1
+			lookups: {
+				studentId: 5,
+				classId: 1
+			}
 		},
 		{
-			studentId: 1,
-			classId: 2
+			lookups: {
+				studentId: 1,
+				classId: 2
+			}
 		},
 		{
-			studentId: 2,
-			classId: 2
+			lookups: {
+				studentId: 2,
+				classId: 2
+			}
 		},
 		{
-			studentId: 1,
-			classId: 3
+			lookups: {
+				studentId: 1,
+				classId: 3
+			}
 		},
 		{
-			studentId: 2,
-			classId: 3
+			lookups: {
+				studentId: 2,
+				classId: 3
+			}
 		},
 		{
-			studentId: 3,
-			classId: 3
+			lookups: {
+				studentId: 3,
+				classId: 3
+			}
 		},
 		{
-			studentId: 4,
-			classId: 4
+			lookups: {
+				studentId: 4,
+				classId: 4
+			}
 		},
 		{
-			studentId: 5,
-			classId: 4
+			lookups: {
+				studentId: 5,
+				classId: 4
+			}
 		},
 	],
 	accountClassLink: [
 		{
-			accountId: 1,
-			classId: 1,
+			lookups: {
+				accountId: 1,
+				classId: 1,
+			}
 		},
 		{
-			accountId: 1,
-			classId: 2,
+			lookups: {
+				accountId: 1,
+				classId: 2,
+			}
 		},
 		{
-			accountId: 2,
-			classId: 2,
+			lookups: {
+				accountId: 2,
+				classId: 2,
+			}
 		},
 		{
-			accountId: 3,
-			classId: 3,
+			lookups: {
+				accountId: 3,
+				classId: 3,
+			}
 		},
 		{
-			accountId: 1,
-			classId: 4,
+			lookups: {
+				accountId: 1,
+				classId: 4,
+			}
 		},
 		{
-			accountId: 2,
-			classId: 4,
+			lookups: {
+				accountId: 2,
+				classId: 4,
+			}
 		},
 		{
-			accountId: 3,
-			classId: 4,
+			lookups: {
+				accountId: 3,
+				classId: 4,
+			}
 		},
 	]
 };
@@ -356,6 +417,8 @@ async function insertData(dbOptions) {
 						10);
 			}
 
+			if (tableDetails?.[table]?.['link'])
+				delete dataToInsert[`${table}Id`];
 
 			if (record?.lookups) {
 				delete dataToInsert.lookups;
@@ -391,55 +454,6 @@ async function insertData(dbOptions) {
 			}
 
 			counter++;
-		}
-	}
-
-	console.log('\n');
-
-	// Iterate over all of the link tables in the relationship object
-	for (const tableName of Object.keys(relationships)) {
-		// Array containing all of the relationships for the table
-		const table = relationships[tableName];
-
-		// Iterate over the relationships
-		for (const relationship of table) {
-			// Object that will contain a record to insert
-			const dataToInsert = {};
-
-			// Iterate over the individual relationships
-			// to easily parse them into records to insert
-			for (const [ k, v ] of Object.entries(relationship)) {
-				// The name of the table to lookup the given
-				// ID in
-				const resolveTable = k.split('Id')[0];
-
-				// Array containing the enumerated records
-				// from the data object relating to the lookup
-				// table
-				const d =
-					Object.values(data[resolveTable])[v-1];
-
-				// Add the id of the record that needs to be
-				// linked, to the record object
-				dataToInsert[k] = d[k];
-			}
-
-			const qs = '?, '.repeat(Object.keys(
-				dataToInsert).length).slice(0, -2);
-
-			const sql = `INSERT INTO ${tableName} ` +
-				`(${Object.keys(dataToInsert)}) ` +
-				`VALUES ` +
-				`(${qs});`;
-
-			console.log(sql);
-
-			try {
-				await dbConnectionPool.runQuery(sql,
-					Object.values(dataToInsert));
-			} catch (e) {
-				console.error(e);
-			}
 		}
 	}
 

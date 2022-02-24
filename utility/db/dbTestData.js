@@ -41,6 +41,9 @@ const tableDetails = {
 	testTemplate: {
 		id: 'uuid'
 	},
+	test: {
+		id: 'uuid'
+	},
 	studentParentLink: {
 		link: true
 	},
@@ -220,6 +223,92 @@ const data = {
 				accountId: 3
 			}
 		}
+	],
+	test: [
+		{
+			testDate: new mySQLDate().alterDays(-1),
+			lookups: {
+				classId: 1,
+				testTemplateId: 1
+			}
+		},
+		{
+			testDate: new mySQLDate().alterDays(1),
+			lookups: {
+				classId: 2,
+				testTemplateId: 1
+			}
+		},
+		{
+			testDate: new mySQLDate().alterDays(30),
+			lookups: {
+				classId: 4,
+				testTemplateId: 1
+			}
+		},
+		{
+			testDate: new mySQLDate().alterDays(-10),
+			lookups: {
+				classId: 1,
+				testTemplateId: 4
+			}
+		},
+		{
+			testDate: new mySQLDate().alterDays(-100),
+			lookups: {
+				classId: 1,
+				testTemplateId: 2
+			}
+		},
+		{
+			testDate: new mySQLDate().alterDays(50),
+			lookups: {
+				classId: 4,
+				testTemplateId: 2
+			}
+		},
+		{
+			testDate: new mySQLDate().alterDays(10),
+			lookups: {
+				classId: 4,
+				testTemplateId: 3
+			}
+		},
+		{
+			testDate: new mySQLDate().alterDays(-15),
+			lookups: {
+				classId: 3,
+				testTemplateId: 3
+			}
+		},
+		{
+			testDate: new mySQLDate().alterDays(-108),
+			lookups: {
+				classId: 3,
+				testTemplateId: 3
+			}
+		},
+		{
+			testDate: new mySQLDate().alterDays(-4),
+			lookups: {
+				classId: 2,
+				testTemplateId: 4
+			}
+		},
+		{
+			testDate: new mySQLDate().alterDays(-8),
+			lookups: {
+				classId: 3,
+				testTemplateId: 4
+			}
+		},
+		{
+			testDate: new mySQLDate().alterDays(1),
+			lookups: {
+				classId: 3,
+				testTemplateId: 4
+			}
+		},
 	],
 	studentParentLink: [
 		{

@@ -3,11 +3,16 @@
 const express = require('express');
 const router = express.Router();
 
-router.get('/tests', (req, res) => {
+const User = require('../lib/User');
+
+router.get('/tests', async (req, res) => {
+	const u = await new User(null, req.session.userId);
+
 	return res.render('tests', {
 		title: 'Stratos - Tests',
 		current: 'Tests',
-		name: req.session.fullName
+		name: req.session.fullName,
+		tests: await u.getTests()
 	});
 });
 

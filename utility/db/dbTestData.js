@@ -549,9 +549,10 @@ async function insertData(dbOptions) {
 			const qs = '?, '.repeat(Object.keys(
 				dataToInsert).length).slice(0, -2);
 
-			const sql = `INSERT INTO ${table} ` +
+			const sql = `
+				insert into ${table} ` +
 				`(${Object.keys(dataToInsert)})` +
-				` VALUES ` +
+				` values ` +
 				`(${qs});`;
 
 			console.log(sql);

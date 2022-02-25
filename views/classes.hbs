@@ -1,8 +1,7 @@
 <section class='classes'>
-	{{> class name='13(3) Chemistry' teacher='Dr M Ashley' id=1 }}
-	{{> class name='13(3) Chemistry' teacher='Dr M Ashley' id=2 }}
-	{{> class name='13(3) Chemistry' teacher='Dr M Ashley' id=3 }}
-	{{> class name='13(3) Chemistry' teacher='Dr M Ashley' id=4 }}
+	{{#each classes}}
+		{{> class name=name teacher=teachers.[0] id=id }}
+	{{/each}}
 </section>
 
 <script>

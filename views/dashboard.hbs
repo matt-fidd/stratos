@@ -15,7 +15,7 @@
 					{{#each recentTests}}
 						{{> dashboardTest
 							id=id
-							name=name
+							name=template.name
 							date=date
 						}}
 					{{/each}}
@@ -31,7 +31,7 @@
 					{{#each upcomingTests}}
 						{{> dashboardTest
 							id=id
-							name=name
+							name=template.name
 							date=date
 						}}
 					{{/each}}

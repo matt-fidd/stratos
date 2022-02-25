@@ -226,7 +226,7 @@ const data = {
 	],
 	test: [
 		{
-			testDate: new mySQLDate().alterDays(-1),
+			testDate: new mySQLDate(),
 			lookups: {
 				classId: 1,
 				testTemplateId: 1
@@ -555,7 +555,7 @@ async function insertData(dbOptions) {
 				` values ` +
 				`(${qs});`;
 
-			console.log(sql);
+			console.log(sql.trim());
 
 			try {
 				await dbConnectionPool.runQuery(sql,

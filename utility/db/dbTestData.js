@@ -485,7 +485,10 @@ const data = {
 async function cleanDb(dbConnectionPool) {
 	// Remove records from tables in reverse order to which they depend on
 	// each other
-	for (const table of Object.keys(data).reverse())
+	const tables = Object.keys(data).reverse();
+	tables.push('sessions');
+
+	for (const table of tables)
 		await dbConnectionPool.runQuery(`DELETE FROM ${table};`);
 }
 

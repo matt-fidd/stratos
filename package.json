@@ -39,10 +39,12 @@
 		"eslint-plugin-jest": "^25.7.0",
 		"gulp": "^4.0.2",
 		"gulp-postcss": "^9.0.1",
+		"gulp-rename": "^2.0.0",
 		"gulp-sass": "^5.1.0",
 		"jest": "^27.4.7",
 		"jest-extended": "^1.2.0",
 		"postcss-sort-media-queries": "^4.2.1",
+		"prompt-sync": "^4.2.0",
 		"sass": "^1.49.0"
 	}
 }

@@ -478,33 +478,29 @@ const data = {
  * cleanDb() Removes all records from the tables in the database to be inserted
  * into
  *
- * @param {dbConnectionPool} [dbConnectionPool] - The database connection
- *
  * @return {void}
  */
-async function cleanDb(dbConnectionPool) {
+async function cleanDb() {
+	const conn = await new DatabaseConnectionPool();
+
 	// Remove records from tables in reverse order to which they depend on
 	// each other
 	const tables = Object.keys(data).reverse();
 	tables.push('sessions');
 
 	for (const table of tables)
-		await dbConnectionPool.runQuery(`DELETE FROM ${table};`);
+		await conn.runQuery(`DELETE FROM ${table};`);
+
+	conn.close();
 }
 
 /**
  * insertData() Inserts test data into a database
  *
- * @param {object} [dbOptions]
- * 	- An object in the form found in config/db.json supplying the db to
- * 	connect to
- *
  * @return {void}
  */
-async function insertData(dbOptions) {
-	const dbConnectionPool = await new DatabaseConnectionPool(dbOptions);
-
-	await cleanDb(dbConnectionPool);
+async function insertData() {
+	const conn = await new DatabaseConnectionPool();
 
 	// Run the creation statment for each table
 	for (const table of Object.keys(data)) {
@@ -558,7 +554,7 @@ async function insertData(dbOptions) {
 			console.log(sql.trim());
 
 			try {
-				await dbConnectionPool.runQuery(sql,
+				await conn.runQuery(sql,
 					Object.values(dataToInsert));
 			} catch (e) {
 				console.error(e);
@@ -568,7 +564,10 @@ async function insertData(dbOptions) {
 		}
 	}
 
-	await dbConnectionPool.close();
+	conn.close();
 }
 
-insertData();
+module.exports = {
+	insert: insertData,
+	clean: cleanDb
+};

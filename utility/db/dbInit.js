@@ -13,7 +13,6 @@ const tableConstraints = new Map();
 
 // For each table, set tableCreate.tableName equal to the creation statment
 // for that table
-
 tableCreate.set('account', `
 	CREATE TABLE IF NOT EXISTS account (
 		accountId            varchar(36)  NOT NULL    PRIMARY KEY,
@@ -251,14 +250,10 @@ tableConstraints.set('test_fk0', `
 /**
  * initialise() Initialises a database and applies the stratos schema to it
  *
- * @param {object} [dbOptions]
- * 	- An object in the form found in config/db.json supplying the db to
- * 	connect to
- *
  * @return {void}
  */
-async function initialise(dbOptions) {
-	const dbConnectionPool = await new DatabaseConnectionPool(dbOptions);
+async function initialise() {
+	const dbConnectionPool = await new DatabaseConnectionPool();
 
 	// Run the creation statment for each table
 	for (const [ tableName, sql ] of tableCreate) {
@@ -290,4 +285,4 @@ async function initialise(dbOptions) {
 	await dbConnectionPool.close();
 }
 
-initialise();
+module.exports = initialise;

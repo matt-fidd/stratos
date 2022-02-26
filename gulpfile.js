@@ -3,8 +3,12 @@
 // Import required modules
 const del = require('del');
 const { dest, series, src, watch }  = require('gulp');
+const path = require('path');
 const postcss = require('gulp-postcss');
 const sass = require('gulp-sass')(require('sass'));
+
+const dbInit = require(path.join(__dirname, 'utility', 'db', 'dbInit'));
+const dbTestData = require(path.join(__dirname, 'utility', 'db', 'dbTestData'));
 
 // Set src and destination paths for css compilation
 const cssPaths = {
@@ -47,3 +51,9 @@ exports.styles = series(cleanStyles, compileStyles);
 exports.watchStyles = () => {
 	watch('src/stylesheets/**/*.scss', exports.styles);
 };
+
+// Create tables and relationships in database
+exports.dbInit = dbInit;
+
+// Clean all data and insert test data into database
+exports.dbTestData = series(dbTestData.clean, dbTestData.insert);

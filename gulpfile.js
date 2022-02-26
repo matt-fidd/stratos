@@ -1,14 +1,18 @@
 'use strict';
 
 // Import required modules
+const { dest, parallel, series, src, watch }  = require('gulp');
 const del = require('del');
-const { dest, series, src, watch }  = require('gulp');
+const fs = require('fs');
 const path = require('path');
 const postcss = require('gulp-postcss');
+const prompt = require('prompt-sync')({ sigint: true });
+const rename = require('gulp-rename');
 const sass = require('gulp-sass')(require('sass'));
 
 const dbInit = require(path.join(__dirname, 'utility', 'db', 'dbInit'));
 const dbTestData = require(path.join(__dirname, 'utility', 'db', 'dbTestData'));
+const importJSON = require(path.join(__dirname, 'lib', 'importJSON'));
 
 // Set src and destination paths for css compilation
 const cssPaths = {
@@ -44,6 +48,83 @@ function cleanStyles() {
 	return del([ cssPaths.dest ]);
 }
 
+// Clean config dir of all non-sample files
+function cleanConfig() {
+	const configFiles =
+		fs.readdirSync(path.join(__dirname, 'config'))
+			.filter(file => !file.endsWith('.sample.json'))
+			.map(file => `./config/${file}`);
+
+	return del(configFiles);
+}
+
+// Copy all sample files to their non-sample counterpart
+function copyConfig() {
+	return src('config/*.sample.json')
+		.pipe(rename(path => {
+			path.basename = path.basename.split('.sample')[0];
+		}))
+		.pipe(dest('config/'));
+}
+
+// Allow user to edit config files
+function setConfig(cb) {
+	const writeConfig = (file, contents) => {
+		console.log(`Writing config to ${file}.json`);
+
+		fs.writeFileSync(
+			path.join(__dirname, 'config', `${file}.json`),
+			JSON.stringify(contents)
+		);
+	};
+
+	const configFiles =
+		fs.readdirSync(path.join(__dirname, 'config'))
+			.filter(file => !file.endsWith('.sample.json'))
+			.map(file => file.split('.json')[0]);
+
+	console.log('\nEditing config files');
+	console.log('\nWhen prompted for a new value, press enter to keep ' +
+		'the existing one');
+
+	for (const file of configFiles) {
+		const contents = importJSON(file);
+
+		console.log(`\nConsidering ${file}.json`);
+		console.log('Current contents:');
+		console.log(contents);
+
+		const answer =
+			prompt('Would you like to edit the config? (y/N) ');
+
+		if (answer !== 'y')
+			continue;
+
+		for (const [ k, v ] of Object.entries(contents)) {
+			let value =
+				prompt(` - ${k} (${v}): `).trim();
+
+			if (value.length === 0)
+				continue;
+
+			switch (typeof v) {
+				case 'number':
+					value = Number(value);
+					break;
+				case 'boolean':
+					value = value === 'true';
+					break;
+			}
+
+			contents[k] = value;
+		}
+
+		writeConfig(file, contents);
+	}
+
+	cb();
+}
+
 // Task to build stylesheet from start to finish
 exports.styles = series(cleanStyles, compileStyles);
 
@@ -57,3 +138,14 @@ exports.dbInit = dbInit;
 
 // Clean all data and insert test data into database
 exports.dbTestData = series(dbTestData.clean, dbTestData.insert);
+
+// Build stylesheet, and generate config files
+exports.default =
+	parallel(
+		exports.styles,
+		series(
+			cleanConfig,
+			copyConfig,
+			setConfig
+		)
+	);

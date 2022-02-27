@@ -10,9 +10,13 @@ const prompt = require('prompt-sync')({ sigint: true });
 const rename = require('gulp-rename');
 const sass = require('gulp-sass')(require('sass'));
 
-const dbInit = require(path.join(__dirname, 'utility', 'db', 'dbInit'));
-const dbTestData = require(path.join(__dirname, 'utility', 'db', 'dbTestData'));
 const importJSON = require(path.join(__dirname, 'lib', 'importJSON'));
+
+const dbModule = (name) => path.join(__dirname, 'utility/db', name);
+
+const cleanDb = require(dbModule('cleanDb'));
+const initDb = require(dbModule('initDb'));
+const insertTestData = require(dbModule('insertTestData'));
 
 // Set src and destination paths for css compilation
 const cssPaths = {
@@ -134,10 +138,10 @@ exports.watchStyles = () => {
 };
 
 // Create tables and relationships in database
-exports.dbInit = dbInit;
+exports.dbInit = initDb;
 
 // Clean all data and insert test data into database
-exports.dbTestData = series(dbTestData.clean, dbTestData.insert);
+exports.dbTestData = series(initDb, cleanDb, insertTestData);
 
 // Build stylesheet, and generate config files
 exports.default =

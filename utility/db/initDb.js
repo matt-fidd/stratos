@@ -248,19 +248,19 @@ tableConstraints.set('test_fk0', `
 `);
 
 /**
- * initialise() Initialises a database and applies the stratos schema to it
+ * dbInit() Initialises a database and applies the stratos schema to it
  *
  * @return {void}
  */
-async function initialise() {
-	const dbConnectionPool = await new DatabaseConnectionPool();
+async function dbInit() {
+	const conn = await new DatabaseConnectionPool();
 
 	// Run the creation statment for each table
 	for (const [ tableName, sql ] of tableCreate) {
 		console.log(`Creating table ${tableName}`);
 
 		try {
-			await dbConnectionPool.runQuery(sql);
+			await conn.runQuery(sql);
 		} catch (e) {
 			console.error(e);
 			throw new Error(`Unable to create table ${tableName}`);
@@ -274,7 +274,7 @@ async function initialise() {
 		console.log(`Creating constraint ${fkName}`);
 
 		try {
-			await dbConnectionPool.runQuery(sql);
+			await conn.runQuery(sql);
 		} catch (e) {
 			console.error(e);
 			throw new Error('Unable to create constraint ' +
@@ -282,7 +282,7 @@ async function initialise() {
 		}
 	}
 
-	await dbConnectionPool.close();
+	await conn.close();
 }
 
-module.exports = initialise;
+module.exports = dbInit;

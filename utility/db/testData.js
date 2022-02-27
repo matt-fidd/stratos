@@ -1,28 +1,8 @@
-'use strict';
-
-// Import required modules
-const bcrypt = require('bcrypt');
-const crypto = require('crypto');
-const path = require('path');
-
 // Import user defined modules
-const DatabaseConnectionPool =
-	require(path.join(__dirname, '../../lib/DatabaseConnectionPool'));
-
-// Class for easy insertion of test dates into the database
-class mySQLDate extends Date {
-	toString() {
-		return this.toISOString().slice(0, 19).replace('T', ' ');
-	}
-
-	alterDays(amount) {
-		this.setDate(this.getDate() + amount);
-		return this;
-	}
-}
+const MySQLDate = require('./MySQLDate');
 
 // Object storing configurations for the db tables
-const tableDetails = {
+const details = {
 	parent: {
 		hashPassword: true,
 		id: 'uuid'
@@ -226,84 +206,84 @@ const data = {
 	],
 	test: [
 		{
-			testDate: new mySQLDate(),
+			testDate: new MySQLDate(),
 			lookups: {
 				classId: 1,
 				testTemplateId: 1
 			}
 		},
 		{
-			testDate: new mySQLDate().alterDays(1),
+			testDate: new MySQLDate().alterDays(1),
 			lookups: {
 				classId: 2,
 				testTemplateId: 1
 			}
 		},
 		{
-			testDate: new mySQLDate().alterDays(30),
+			testDate: new MySQLDate().alterDays(30),
 			lookups: {
 				classId: 4,
 				testTemplateId: 1
 			}
 		},
 		{
-			testDate: new mySQLDate().alterDays(-10),
+			testDate: new MySQLDate().alterDays(-10),
 			lookups: {
 				classId: 1,
 				testTemplateId: 4
 			}
 		},
 		{
-			testDate: new mySQLDate().alterDays(-100),
+			testDate: new MySQLDate().alterDays(-100),
 			lookups: {
 				classId: 1,
 				testTemplateId: 2
 			}
 		},
 		{
-			testDate: new mySQLDate().alterDays(50),
+			testDate: new MySQLDate().alterDays(50),
 			lookups: {
 				classId: 4,
 				testTemplateId: 2
 			}
 		},
 		{
-			testDate: new mySQLDate().alterDays(10),
+			testDate: new MySQLDate().alterDays(10),
 			lookups: {
 				classId: 4,
 				testTemplateId: 3
 			}
 		},
 		{
-			testDate: new mySQLDate().alterDays(-15),
+			testDate: new MySQLDate().alterDays(-15),
 			lookups: {
 				classId: 3,
 				testTemplateId: 3
 			}
 		},
 		{
-			testDate: new mySQLDate().alterDays(-108),
+			testDate: new MySQLDate().alterDays(-108),
 			lookups: {
 				classId: 3,
 				testTemplateId: 3
 			}
 		},
 		{
-			testDate: new mySQLDate().alterDays(-4),
+			testDate: new MySQLDate().alterDays(-4),
 			lookups: {
 				classId: 2,
 				testTemplateId: 4
 			}
 		},
 		{
-			testDate: new mySQLDate().alterDays(-8),
+			testDate: new MySQLDate().alterDays(-8),
 			lookups: {
 				classId: 3,
 				testTemplateId: 4
 			}
 		},
 		{
-			testDate: new mySQLDate().alterDays(1),
+			testDate: new MySQLDate().alterDays(1),
 			lookups: {
 				classId: 3,
 				testTemplateId: 4
@@ -474,100 +454,7 @@ const data = {
 	]
 };
 
-/**
- * cleanDb() Removes all records from the tables in the database to be inserted
- * into
- *
- * @return {void}
- */
-async function cleanDb() {
-	const conn = await new DatabaseConnectionPool();
-
-	// Remove records from tables in reverse order to which they depend on
-	// each other
-	const tables = Object.keys(data).reverse();
-	tables.push('sessions');
-
-	for (const table of tables)
-		await conn.runQuery(`DELETE FROM ${table};`);
-
-	conn.close();
-}
-
-/**
- * insertData() Inserts test data into a database
- *
- * @return {void}
- */
-async function insertData() {
-	const conn = await new DatabaseConnectionPool();
-
-	// Run the creation statment for each table
-	for (const table of Object.keys(data)) {
-		let counter = 0;
-
-		for (const record of data[table]) {
-			const dataToInsert = { ...record };
-
-			if (tableDetails?.[table]?.['id'] === 'uuid') {
-				dataToInsert[`${table}Id`] =
-					crypto.randomUUID();
-			} else {
-				dataToInsert[`${table}Id`] = counter + 1;
-			}
-
-			if (tableDetails?.[table]?.['hashPassword']) {
-				dataToInsert['password'] =
-					await bcrypt.hash(
-						dataToInsert['password'],
-						10);
-			}
-
-			if (tableDetails?.[table]?.['link'])
-				delete dataToInsert[`${table}Id`];
-
-			if (record?.lookups) {
-				delete dataToInsert.lookups;
-
-				for (let [ key, index ] of
-					Object.entries(record.lookups)) {
-
-					const resolveTable = key.split('Id')[0];
-					index--;
-
-					dataToInsert[key] =
-						data[resolveTable][index][key];
-				}
-			}
-
-			data[table][counter] = dataToInsert;
-
-			const qs = '?, '.repeat(Object.keys(
-				dataToInsert).length).slice(0, -2);
-
-			const sql = `
-				insert into ${table} ` +
-				`(${Object.keys(dataToInsert)})` +
-				` values ` +
-				`(${qs});`;
-
-			console.log(sql.trim());
-
-			try {
-				await conn.runQuery(sql,
-					Object.values(dataToInsert));
-			} catch (e) {
-				console.error(e);
-			}
-
-			counter++;
-		}
-	}
-
-	conn.close();
-}
-
 module.exports = {
-	insert: insertData,
-	clean: cleanDb
+	data: data,
+	details: details
 };

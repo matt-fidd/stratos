@@ -148,7 +148,7 @@ router.post('/password-reset', async (req, res) => {
 	const pr = await u.generatePasswordReset();
 	const URIToken = encodeURIComponent(pr.token);
 
-	const root = `https://stratos.heliumdev.uk`;
+	const root = 'https://stratos.heliumdev.uk';
 	const path = `/password-reset/${pr.userId}/${URIToken}`;
 	const url = `${root}${path}`;
 

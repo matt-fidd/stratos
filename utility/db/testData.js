@@ -1,3 +1,5 @@
+'use strict';
+
 // Import user defined modules
 const MySQLDate = require('./MySQLDate');
 

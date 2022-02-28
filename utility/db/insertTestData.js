@@ -66,7 +66,7 @@ async function insertTestData() {
 			const sql = `
 				insert into ${table} ` +
 				`(${Object.keys(dataToInsert)})` +
-				` values ` +
+				' values ' +
 				`(${qs});`;
 
 			console.log(sql.trim());

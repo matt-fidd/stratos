@@ -45,3 +45,9 @@
 		}
 	}
 }
+
+@mixin space-contents($margin: 1rem) {
+	display: flex;
+	flex-direction: column;
+	gap: $margin;
+}

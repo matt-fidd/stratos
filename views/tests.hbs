@@ -24,13 +24,3 @@
 		</div>
 	</div>
 </section>
-
-<script>
-	const tests = document.querySelectorAll('.tests tbody tr');
-	tests.forEach(t => {
-		t.addEventListener('click', () => {
-			window.location.href =
-				`/admin/test/${t.getAttribute('data-id')}`;
-		});
-	});
-</script>

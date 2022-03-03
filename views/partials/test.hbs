@@ -4,3 +4,10 @@
 	<td>{{ subject }}</td>
 	<td>{{ date }}</td>
 </tr>
+
+<script>
+	document.querySelector('.tests tbody tr[data-id="{{id}}"]').addEventListener('click', (e) => {
+		const test = e.path[1];
+		window.location.href = `/admin/test/${test.getAttribute('data-id')}`;
+	});
+</script>

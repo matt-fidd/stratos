@@ -18,4 +18,10 @@
 			display: none;
 		}
 	}
+
+	@include respond-to('large') {
+		position: fixed;
+		top: 0;
+		width: 100%;
+	}
 }

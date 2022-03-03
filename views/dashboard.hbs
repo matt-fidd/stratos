@@ -11,15 +11,7 @@
 		<div class='adminItem'>
 			<h2>Recent Tests</h2>
 			<div class='adminTable'>
-				<table>
-					{{#each recentTests}}
-						{{> dashboardTest
-							id=id
-							name=template.name
-							date=date
-						}}
-					{{/each}}
-				</table>
+				{{> testTable tests=recentTests}}
 			</div>
 		</div>
 	</div>
@@ -27,26 +19,8 @@
 		<div class='adminItem'>
 			<h2>Upcoming Tests</h2>
 			<div class='adminTable'>
-				<table>
-					{{#each upcomingTests}}
-						{{> dashboardTest
-							id=id
-							name=template.name
-							date=date
-						}}
-					{{/each}}
-				</table>
+				{{> testTable tests=upcomingTests}}
 			</div>
 		</div>
 	</div>
 </section>
-
-<script>
-	const tests = document.querySelectorAll('.adminTable tr');
-	tests.forEach(test => {
-		test.addEventListener('click', () => {
-			window.location.href =
-				`/admin/test/${test.getAttribute('data-id')}`;
-		});
-	});
-</script>

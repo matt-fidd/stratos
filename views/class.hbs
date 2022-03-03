@@ -1,0 +1,56 @@
+<section class='classPage'>
+	<div class='adminSection'>
+		<div class='adminItem'>
+			<h2>Class Overview - {{ className }}</h2>
+			<div class='classPage__overview'>
+				<div class='classPage__overview__section'>
+					<h3>Teachers</h3>
+					{{#each teachers}}
+						{{> classTeacher name=shortName email=email }}
+					{{/each}}
+				</div>
+				<div class='classPage__overview__section'>
+					<h3>Members</h3>
+					{{> classMembers members=members }}
+				</div>
+				<div class='classPage__overview__section classPage__overview__buttons'>
+					{{> button style='full' colour='primary' to=contactLink content='Contact'}}
+					{{> button style='full' colour='primary' to=testsLink content='View Tests'}}
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class='adminSection'>
+		<div class='adminItem classPage__stats'>
+			<div class='adminItem__title'>
+				<h2>Statistics and Reports</h2>
+				{{> button style='full' colour='primary' to=reportsLink content='View All'}}
+			</div>
+			<div class='classPage__stats__stats'>
+				{{#each stats}}
+					{{> classStat value=value text=text }}
+				{{/each}}
+			</div>
+			<div class='classPage__stats__graphs'>
+				{{> graph }}
+				{{> graph }}
+			</div>
+		</div>
+	</div>
+	<div class='adminSection'>
+		<div class='adminItem classPage__tests'>
+			<div class='adminItem__title'>
+				<h2>Tests</h2>
+				{{> button style='full' colour='primary' to=testsLink content='View All'}}
+			</div>
+			<div class='classPage__tests__container'>
+				<div class='adminTable'>
+					{{> testTable tests=upcomingTests}}
+				</div>
+				<div class='adminTable'>
+					{{> testTable tests=recentTests}}
+				</div>
+			</div>
+		</div>
+	</div>
+</section>

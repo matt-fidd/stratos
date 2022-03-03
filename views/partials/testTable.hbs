@@ -1,0 +1,13 @@
+{{#if tests.length}}
+	<table>
+		{{#each tests}}
+			{{> dashboardTest
+				id=id
+				name=template.name
+				date=date
+			}}
+		{{/each}}
+	</table>
+{{else}}
+	No tests found
+{{/if}}

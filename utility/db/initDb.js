@@ -12,7 +12,6 @@ const tableCreate = new Map();
 const tableConstraints = new Map();
 
 // For each table, set tableCreate.tableName equal to the creation statment
-// for that table
 tableCreate.set('account', `
 	CREATE TABLE IF NOT EXISTS account (
 		accountId            varchar(36)  NOT NULL    PRIMARY KEY,
@@ -128,8 +127,10 @@ tableCreate.set('accountClassLink', `
 	);
 `);
 
-// For each table constraint, set tableConstraints.constraitName equal to the
-// creation statment for that constraint
+/*
+ * For each table constraint, set tableConstraints.constraintName equal to the
+ * creation statment for that constraint
+ */
 tableConstraints.set('accountClassLink_fk0', `
 	ALTER TABLE accountClassLink
 	ADD CONSTRAINT accountClassLink_fk0
@@ -260,6 +261,7 @@ async function dbInit() {
 		console.log(`Creating table ${tableName}`);
 
 		try {
+			/* eslint-disable-next-line no-await-in-loop */
 			await conn.runQuery(sql);
 		} catch (e) {
 			console.error(e);
@@ -274,6 +276,7 @@ async function dbInit() {
 		console.log(`Creating constraint ${fkName}`);
 
 		try {
+			/* eslint-disable-next-line no-await-in-loop */
 			await conn.runQuery(sql);
 		} catch (e) {
 			console.error(e);

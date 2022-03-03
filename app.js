@@ -45,7 +45,7 @@ async function main() {
 	// Set up express-session to store in mysql database
 	const mysqlStore = require('express-mysql-session')(session);
 	const sessionStore =
-		new mysqlStore({},(await new DatabaseConnectionPool()).pool);
+		new mysqlStore({}, (await new DatabaseConnectionPool()).pool);
 
 	// Initialise express app
 	const app = express();
@@ -82,9 +82,11 @@ async function main() {
 		}
 	}));
 
-	// Authentication middleware that redirects unauthenticated users
-	// back to the login page if they request a page they don't have access
-	// to
+	/*
+	 * Authentication middleware that redirects unauthenticated users
+	 * back to the login page if they request a page they don't have access
+	 * to
+	 */
 	app.use((req, res, next) => {
 		const allowed = [
 			'/login',
@@ -116,9 +118,11 @@ async function main() {
 	for (const route of loadRoutes())
 		app.use(route[0], route[1]);
 
-	// If the request gets to the bottom of the route stack, it doesn't
-	// have a defined route and therefore a HTTP status code 404 is sent
-	// and an error page shown
+	/*
+	 * If the request gets to the bottom of the route stack, it doesn't
+	 * have a defined route and therefore a HTTP status code 404 is sent
+	 * and an error page shown
+	 */
 	app.use((req, res) => {
 		res.status(404).render('error', {
 			title: 'Stratos - Error',

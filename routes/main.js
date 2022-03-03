@@ -171,7 +171,7 @@ router.get('/password-reset/:uuid/:token', async (req, res) => {
 	let pr;
 	try {
 		pr = await new PasswordReset(uuid, token);
-	} catch(e) {
+	} catch (e) {
 		console.error(e);
 		return res.redirect('/password-reset');
 	}
@@ -214,7 +214,7 @@ router.post('/change-password', async (req, res) => {
 			fields.get('uuid'),
 			fields.get('token')
 		);
-	} catch(e) {
+	} catch (e) {
 		console.error(e);
 		return res.redirect('/password-reset');
 	}

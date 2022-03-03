@@ -1,7 +1,7 @@
 'use strict';
 
 // Import required modules
-const { dest, parallel, series, src, watch }  = require('gulp');
+const { dest, parallel, series, src, watch } = require('gulp');
 const del = require('del');
 const fs = require('fs');
 const path = require('path');

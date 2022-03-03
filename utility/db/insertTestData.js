@@ -1,3 +1,4 @@
+/* eslint-disable no-await-in-loop */
 'use strict';
 
 // Import required modules
@@ -27,34 +28,33 @@ async function insertTestData() {
 		for (const record of data[table]) {
 			const dataToInsert = { ...record };
 
-			if (details?.[table]?.['id'] === 'uuid') {
+			if (details?.[table]?.id === 'uuid') {
 				dataToInsert[`${table}Id`] =
 					crypto.randomUUID();
 			} else {
 				dataToInsert[`${table}Id`] = counter + 1;
 			}
 
-			if (details?.[table]?.['hashPassword']) {
-				dataToInsert['password'] =
+			if (details?.[table]?.hashPassword) {
+				dataToInsert.password =
 					await bcrypt.hash(
-						dataToInsert['password'],
+						dataToInsert.password,
 						10);
 			}
 
-			if (details?.[table]?.['link'])
+			if (details?.[table]?.link)
 				delete dataToInsert[`${table}Id`];
 
 			if (record?.lookups) {
 				delete dataToInsert.lookups;
+				const lookupsEntries =
+					Object.entries(record.lookups);
 
-				for (let [ key, index ] of
-					Object.entries(record.lookups)) {
-
+				for (const [ key, index ] of lookupsEntries) {
 					const resolveTable = key.split('Id')[0];
-					index--;
+					const r = data[resolveTable][index - 1];
 
-					dataToInsert[key] =
-						data[resolveTable][index][key];
+					dataToInsert[key] = r[key];
 				}
 			}
 

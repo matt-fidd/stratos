@@ -19,12 +19,15 @@ const { data } = require('./testData');
 async function cleanDb() {
 	const conn = await new DatabaseConnectionPool();
 
-	// Remove records from tables in reverse order to which they depend on
-	// each other
+	/*
+	 * Remove records from tables in reverse order to which they depend on
+	 * each other
+	 */
 	const tables = Object.keys(data).reverse();
 	tables.push('sessions');
 
 	for (const table of tables)
+		/* eslint-disable-next-line no-await-in-loop */
 		await conn.runQuery(`DELETE FROM ${table};`);
 
 	conn.close();

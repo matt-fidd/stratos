@@ -18,7 +18,19 @@ router.get('/classes', async (req, res) => {
 });
 
 router.get('/class/:id', async (req, res) => {
-	const c = await new Class(req.params.id);
+	let c;
+	try {
+		c = await new Class(req.params.id);
+	} catch (e) {
+		return res.status(400).render('error', {
+			title: 'Stratos - Error',
+			current: 'Classes',
+			name: req.session.fullName,
+			code: 400,
+			msg: e.message
+		});
+	}
+
 	const linkRoot = `/class/${c.id}`;
 
 	return res.render('class', {

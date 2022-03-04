@@ -31,6 +31,9 @@ router.get('/class/:id', async (req, res) => {
 		});
 	}
 
+	if (!await c.hasAccess(await new User(null, req.session.userId)))
+		return res.redirect('/admin/classes');
+
 	const linkRoot = `/class/${c.id}`;
 
 	return res.render('class', {

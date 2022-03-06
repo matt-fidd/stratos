@@ -1,0 +1,74 @@
+<section class='testPage'>
+	<div class='adminSection'>
+		<div class='adminItem'>
+			<h2>Test Overview - {{ testName }}</h2>
+			<div>
+				{{#with class}}
+				<div>Class: <a href='/admin/class/{{id}}' class='hl'>{{name}}</a></div>
+				{{/with}}
+				<div>
+				Subject: <span class='hl'>{{subject}}</span>
+				</div>
+				<div>
+				Maximum mark: <span class='hl'>{{maxMark}}</span>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class='adminSection'>
+		<div class='adminItem'>
+			<h2>Result</h2>
+			<div>
+				{{#if testResults.length}}
+					{{#each testResults as |result|}}
+						<div class='testPage__testResultWrapper'>
+							<div>
+								<div>
+									Submitted by: <span class='hl'>{{result.author}}</span>
+								</div>
+								<div>
+									Submitted at: <span class='hl'>{{result.time}}</span>
+								</div>
+							</div>
+							<div class='testPage__testResult'>
+								<div class='testPage__testResult__grade'>
+									{{result.grade}}
+								</div>
+								<div class='testPage__testResult__score'>
+									<span>{{result.mark}}</span>
+									<span>---</span>
+									<span>{{../maxMark}}</span>
+								</div>
+								<div class='testPage__testResult__eq'>
+									<span>=</span>
+								</div>
+								<div class='testPage__testResult__percentage'>
+									<span>{{result.percentage}}%</span>
+								</div>
+							</div>
+						</div>
+					{{/each}}
+				{{else}}
+					Your test result has not been submitted yet
+				{{/if}}
+			</div>
+		</div>
+	</div>
+	<div class='adminSection'>
+		<div class='adminItem adminStats'>
+			<div class='adminItem__title'>
+				<h2>Statistics and Reports</h2>
+				{{> button style='full' colour='primary' to=reportsLink content='View All'}}
+			</div>
+			<div class='adminStats__stats'>
+				{{#each stats}}
+					{{> adminStat value=value text=text }}
+				{{/each}}
+			</div>
+			<div class='adminStats__graphs'>
+				{{> graph }}
+				{{> graph }}
+			</div>
+		</div>
+	</div>
+</section>

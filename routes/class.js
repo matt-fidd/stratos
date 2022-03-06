@@ -35,31 +35,36 @@ router.get('/class/:id', async (req, res) => {
 		return res.redirect('/admin/classes');
 
 	const linkRoot = `/class/${c.id}`;
+	const upcomingTests = await c.getTests({ range: 'after' });
+	const recentTests = await c.getTests({ range: 'before' });
+	const testCount = recentTests.length + upcomingTests.length;
 
 	return res.render('class', {
-		title: `Stratos - Class - ${c.name}`,
+		title: `Stratos - ${c.name}`,
 		current: 'Classes',
 		name: req.session.fullName,
 		className: c.name,
 		teachers: c.teachers,
 		members: c.students,
-		recentTests: await c.getTests({ range: 'before' }),
-		upcomingTests: await c.getTests({ range: 'after' }),
+		recentTests: recentTests,
+		upcomingTests: upcomingTests,
 		contactLink: `${linkRoot}/contact`,
 		testsLink: `${linkRoot}/tests`,
 		reportsLink: `${linkRoot}/reports`,
 		stats: [
 			{
-				value: 5,
-				text: 'Tests'
+				value: testCount,
+				text: 'Test' + (testCount !== 1 ? 's' : '')
 			},
 			{
-				value: 3,
-				text: 'Tests completed'
+				value: recentTests.length,
+				text: 'Completed test' +
+					(recentTests.length !== 1 ? 's' : '')
 			},
 			{
-				value: 2,
-				text: 'Tests upcoming'
+				value: upcomingTests.length,
+				text: 'Upcoming test' +
+					(upcomingTests.length !== 1 ? 's' : '')
 			},
 			{
 				value: '72%',

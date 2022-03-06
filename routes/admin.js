@@ -26,17 +26,18 @@ router.get('/dashboard', async (req, res) => {
 		stats: [
 			{
 				value: classes.length,
-				text: 'Class' + (classes.length > 1 ? 'es' : '')
+				text: 'Class' +
+					(classes.length !== 1 ? 'es' : '')
 			},
 			{
 				value: recentTests.length,
 				text: 'Completed Test' +
-					(recentTests.length > 1 ? 's' : '')
+					(recentTests.length !== 1 ? 's' : '')
 			},
 			{
 				value: upcomingTests.length,
 				text: 'Upcoming Test' +
-					(upcomingTests.length > 1 ? 's' : '')
+					(upcomingTests.length !== 1 ? 's' : '')
 			},
 			{
 				value: '90%',

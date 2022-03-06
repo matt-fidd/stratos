@@ -13,7 +13,8 @@ router.get('/tests', async (req, res) => {
 		title: 'Stratos - Tests',
 		current: 'Tests',
 		name: req.session.fullName,
-		tests: await u.getTests()
+		tests: await u.getTests(),
+		userType: req.session.userType
 	});
 });
 

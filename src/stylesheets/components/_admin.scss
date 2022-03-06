@@ -35,6 +35,13 @@
 .adminSection {
 	margin: 1rem 0;
 
+	&--buttons {
+		display: flex;
+		gap: 1rem;
+		justify-content: flex-end;
+		align-items: center;
+	}
+
 	&:last-child {
 		margin-bottom: 0;
 		padding-bottom: 1rem;

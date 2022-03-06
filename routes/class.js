@@ -13,7 +13,8 @@ router.get('/classes', async (req, res) => {
 		title: 'Stratos - Classes',
 		current: 'Classes',
 		name: req.session.fullName,
-		classes: await u.getClasses()
+		classes: await u.getClasses(),
+		userType: req.session.userType
 	});
 });
 

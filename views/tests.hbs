@@ -1,4 +1,12 @@
-<section class='tests adminSection'>
+<section class='adminSection adminSection--buttons'>
+	{{#eq userType 'account'}}
+	<div class='classes__buttons'>
+		{{> button style='full' colour='primary' to='/admin/test/add' content='Add a new test' size='lg' }}
+	</div>
+	{{/eq}}
+</section>
+
+<section class='adminSection tests'>
 	<div class='adminItem'>
 		<h2>Tests</h2>
 		<div class='adminTable'>

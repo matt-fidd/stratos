@@ -1,7 +1,17 @@
-<section class='classes'>
-	{{#each classes}}
-		{{> class name=name teacher=teachers.[0] id=id }}
-	{{/each}}
+<section class='adminSection adminSection--buttons'>
+	{{#eq userType 'account'}}
+	<div class='classes__buttons'>
+		{{> button style='full' colour='primary' to='/admin/class/add' content='Add a new class' size='lg' }}
+	</div>
+	{{/eq}}
+</section>
+
+<section class='adminSection classes'>
+	<div class='classes__classes'>
+		{{#each classes}}
+			{{> class name=name teacher=teachers.[0] id=id }}
+		{{/each}}
+	</div>
 </section>
 
 <script>

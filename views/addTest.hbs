@@ -1,0 +1,28 @@
+<section class='adminSection'>
+	<div class='adminItem'>
+		<h2>Add a new test</h2>
+		<div class='formContainer'>
+			<form action='/admin/test/add' method='post'>
+				<select name='testTemplate' id='testTemplate' required>
+					<option disabled hidden selected value=''>Select test template</option>
+					{{#each testTemplates}}
+						<option value='{{id}}'>{{name}} - {{maxMark}} marks</option>
+					{{/each}}
+				</select>
+				<a href='/admin/testTemplate/add' class='formContainer__small-link'>
+					Or add a new test template
+				</a>
+				<select name='class' id='class' required>
+					<option disabled hidden selected value=''>Select class</option>
+					{{#each classes}}
+						<option value='{{id}}'>{{name}}</option>
+					{{/each}}
+				</select>
+
+				<input type='date' name='date' id='date' placeholder='Date of test' required/>
+
+				<input type='submit' class='btn btn--primary btn--full' value='Create test'/>
+			</form>
+		</div>
+	</div>
+</section>

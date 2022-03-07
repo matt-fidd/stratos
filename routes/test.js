@@ -3,6 +3,8 @@
 const express = require('express');
 const router = express.Router();
 
+const validator = require('../lib/validator');
+
 const Account = require('../lib/Account');
 const User = require('../lib/User');
 const Test = require('../lib/Test');
@@ -38,12 +40,47 @@ router.get('/test/add', async (req, res) => {
 	});
 });
 
+router.post('/test/add', (req, res) => {
+	let fields;
+	try {
+		fields = validator.validate(req.body,
+			[
+				'testTemplate',
+				'class',
+				'date'
+			]
+		).fields;
+	} catch (e) {
+		console.error(e);
+		return res.redirect('/test/add');
+	}
+
+	console.log(fields);
+});
+
 router.get('/testTemplate/add', (req, res) => {
 	res.render('addTestTemplate', {
 		title: 'Stratos - Add test template',
 		current: 'Tests',
 		name: req.session.fullName
 	});
+});
+
+router.post('/testTemplate/add', (req, res) => {
+	let fields;
+	try {
+		fields = validator.validate(req.body,
+			[
+				'name',
+				'mark'
+			]
+		).fields;
+	} catch (e) {
+		console.error(e);
+		return res.redirect('/testTemplate/add');
+	}
+
+	console.log(fields);
 });
 
 router.get('/test/:id', async (req, res) => {

@@ -3,6 +3,8 @@
 const express = require('express');
 const router = express.Router();
 
+const validator = require('../lib/validator');
+
 const Class = require('../lib/Class');
 const User = require('../lib/User');
 const Subject = require('../lib/Subject');
@@ -28,6 +30,23 @@ router.get('/class/add', async (req, res) => {
 		name: req.session.fullName,
 		subjects: subjects
 	});
+});
+
+router.post('/class/add', (req, res) => {
+	let fields;
+	try {
+		fields = validator.validate(req.body,
+			[
+				'name',
+				'subject'
+			]
+		).fields;
+	} catch (e) {
+		console.error(e);
+		return res.redirect('/class/add');
+	}
+
+	console.log(fields);
 });
 
 router.get('/class/:id', async (req, res) => {

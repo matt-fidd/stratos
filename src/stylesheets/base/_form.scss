@@ -1,3 +1,22 @@
+.formContainer {
+	margin: 2rem auto;
+	width: 85vw;
+
+	a {
+		display: block;
+
+		&:not(.formContainer__small-link) {
+			margin: 1rem;
+			text-align: center;
+			font-size: 1.2em;
+		}
+	}
+
+	@include respond-to('large') {
+		width: 40vw;
+	}
+}
+
 form {
 	display: grid;
 	gap: 1rem;
@@ -7,7 +26,7 @@ form {
 		gap: 1rem;
 	}
 
-	input:not([type='submit']), textarea {
+	input:not([type='submit']), textarea, select {
 		background: #E1E1E1;
 		border: none;
 		width: 100%;
@@ -23,6 +42,11 @@ form {
 		&:focus {
 		    outline: 1px solid grey;
 		}
+	}
+
+	input[type='submit'] {
+		width: 100%;
+		padding: 1rem 0;
 	}
 
 	@include respond-to('medium') {

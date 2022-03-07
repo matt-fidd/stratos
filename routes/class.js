@@ -5,6 +5,7 @@ const router = express.Router();
 
 const Class = require('../lib/Class');
 const User = require('../lib/User');
+const Subject = require('../lib/Subject');
 
 router.get('/classes', async (req, res) => {
 	const u = await new User(null, req.session.userId);
@@ -15,6 +16,17 @@ router.get('/classes', async (req, res) => {
 		name: req.session.fullName,
 		classes: await u.getClasses(),
 		userType: req.session.userType
+	});
+});
+
+router.get('/class/add', async (req, res) => {
+	const subjects = await Subject.getAllSubjects();
+
+	res.render('addClass', {
+		title: 'Stratos - Add class',
+		current: 'Classes',
+		name: req.session.fullName,
+		subjects: subjects
 	});
 });
 

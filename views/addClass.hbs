@@ -1,0 +1,21 @@
+<section class='adminSection'>
+	<div class='adminItem'>
+		<h2>Add a new class</h2>
+		<div class='formContainer'>
+			<form action='/admin/class/add' method='post'>
+				<input type='text' id='name' name='name' placeholder='Class name' required/>
+				<select name='subject' id='subject' required>
+					<option disabled hidden selected value=''>Select subject</option>
+					{{#each subjects}}
+						<option value='{{id}}'>{{name}}</option>
+					{{/each}}
+				</select>
+				<a href='/contact' class='formContainer__small-link'>
+					Want a subject that isn't listed? Click here to contact us
+				</a>
+
+				<input type='submit' class='btn btn--primary btn--full' value='Create class'/>
+			</form>
+		</div>
+	</div>
+</section>

@@ -3,6 +3,7 @@
 const express = require('express');
 const router = express.Router();
 
+const Account = require('../lib/Account');
 const User = require('../lib/User');
 const Test = require('../lib/Test');
 
@@ -15,6 +16,33 @@ router.get('/tests', async (req, res) => {
 		name: req.session.fullName,
 		tests: await u.getTests(),
 		userType: req.session.userType
+	});
+});
+
+router.get('/test/add', async (req, res) => {
+	const a = await new Account(req.session.userId);
+
+	const promises = [
+		a.getTestTemplates(),
+		a.getClasses()
+	];
+
+	const [ testTemplates, classes ] = await Promise.all(promises);
+
+	res.render('addTest', {
+		title: 'Stratos - Add test',
+		current: 'Tests',
+		name: req.session.fullName,
+		testTemplates: testTemplates,
+		classes: classes
+	});
+});
+
+router.get('/testTemplate/add', (req, res) => {
+	res.render('addTestTemplate', {
+		title: 'Stratos - Add test template',
+		current: 'Tests',
+		name: req.session.fullName
 	});
 });
 

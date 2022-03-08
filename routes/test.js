@@ -40,7 +40,7 @@ router.get('/test/add', async (req, res) => {
 	});
 });
 
-router.post('/test/add', (req, res) => {
+router.post('/test/add', async (req, res) => {
 	let fields;
 	try {
 		fields = validator.validate(req.body,
@@ -57,7 +57,14 @@ router.post('/test/add', (req, res) => {
 		return res.redirect('/test/add');
 	}
 
-	console.log(fields);
+	const testTemplateId = fields.get('testTemplate');
+	const tt = await new (require('../lib/TestTemplate'))(testTemplateId);
+
+	const t = await tt.assignClass(
+		fields.get('class'),
+		fields.get('date').date);
+
+	return res.redirect(`/admin/test/${t.id}`);
 });
 
 router.get('/testTemplate/add', (req, res) => {

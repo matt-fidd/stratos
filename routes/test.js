@@ -68,7 +68,9 @@ router.get('/testTemplate/add', (req, res) => {
 	});
 });
 
-router.post('/testTemplate/add', (req, res) => {
+router.post('/testTemplate/add', async (req, res) => {
+	const a = await new Account(req.session.userId);
+
 	let fields;
 	try {
 		fields = validator.validate(req.body,
@@ -82,7 +84,11 @@ router.post('/testTemplate/add', (req, res) => {
 		return res.redirect('/testTemplate/add');
 	}
 
-	console.log(fields);
+	const tt = await a.createTestTemplate(
+		fields.get('name'),
+		fields.get('mark'));
+
+	return res.json(tt);
 });
 
 router.get('/test/:id', async (req, res) => {

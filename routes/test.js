@@ -48,7 +48,9 @@ router.post('/test/add', (req, res) => {
 				'testTemplate',
 				'class',
 				'date'
-			]
+			], {
+				date: 'date'
+			}
 		).fields;
 	} catch (e) {
 		console.error(e);

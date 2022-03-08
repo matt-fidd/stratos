@@ -5,6 +5,7 @@ const router = express.Router();
 
 const validator = require('../lib/validator');
 
+const Account = require('../lib/Account');
 const Class = require('../lib/Class');
 const User = require('../lib/User');
 const Subject = require('../lib/Subject');
@@ -32,7 +33,9 @@ router.get('/class/add', async (req, res) => {
 	});
 });
 
-router.post('/class/add', (req, res) => {
+router.post('/class/add', async (req, res) => {
+	const a = await new Account(req.session.userId);
+
 	let fields;
 	try {
 		fields = validator.validate(req.body,
@@ -46,7 +49,11 @@ router.post('/class/add', (req, res) => {
 		return res.redirect('/class/add');
 	}
 
-	console.log(fields);
+	const c = await a.createClass(
+		fields.get('name'),
+		fields.get('subject'));
+
+	res.redirect(`/admin/class/${c.id}/members`);
 });
 
 router.get('/class/:id', async (req, res) => {

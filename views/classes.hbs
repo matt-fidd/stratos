@@ -18,8 +18,7 @@
 	const classes = document.querySelectorAll('.classes__class');
 	classes.forEach(c => {
 		c.addEventListener('click', () => {
-			window.location.href =
-				`/admin/class/${c.getAttribute('data-id')}`;
+			window.location.href = `/admin/class/${c.getAttribute('data-id')}`;
 		});
 	});
 </script>

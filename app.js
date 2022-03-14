@@ -15,7 +15,6 @@ const DatabaseConnectionPool = require('./lib/DatabaseConnectionPool');
 const hbsHelpers = require('./lib/handlebarsHelpers.js');
 const importJSON = require('./lib/importJSON');
 
-
 /**
  * loadRoutes() Loads all of the routes from /routers into a map
  *

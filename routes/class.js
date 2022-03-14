@@ -56,10 +56,10 @@ router.post('/class/add', async (req, res) => {
 	res.redirect(`/admin/class/${c.id}/members`);
 });
 
-router.get('/class/:id', async (req, res) => {
+router.get(/class\/(.{36})(\/.*)?/, async (req, res, next) => {
 	let c;
 	try {
-		c = await new Class(req.params.id);
+		c = await new Class(req.params[0]);
 	} catch (e) {
 		return res.status(400).render('error', {
 			title: 'Stratos - Error',
@@ -73,7 +73,12 @@ router.get('/class/:id', async (req, res) => {
 	if (!await c.hasAccess(await new User(null, req.session.userId)))
 		return res.redirect('/admin/classes');
 
-	const linkRoot = `/class/${c.id}`;
+	next();
+});
+
+router.get('/class/:id', async (req, res) => {
+	const c = await new Class(req.params.id);
+	const linkRoot = `/admin/class/${c.id}`;
 	const upcomingTests = await c.getTests({ range: 'after' });
 	const recentTests = await c.getTests({ range: 'before' });
 	const testCount = recentTests.length + upcomingTests.length;
@@ -90,6 +95,8 @@ router.get('/class/:id', async (req, res) => {
 		contactLink: `${linkRoot}/contact`,
 		testsLink: `${linkRoot}/tests`,
 		reportsLink: `${linkRoot}/reports`,
+		deleteLink: `${linkRoot}/delete`,
+		userType: req.session.userType,
 		stats: [
 			{
 				value: testCount,

@@ -98,10 +98,10 @@ router.post('/testTemplate/add', async (req, res) => {
 	return res.json(tt);
 });
 
-router.get('/test/:id', async (req, res) => {
+router.get(/test\/(.{36})(\/.*)?/, async (req, res, next) => {
 	let t;
 	try {
-		t = await new Test(req.params.id);
+		t = await new Test(req.params[0]);
 	} catch (e) {
 		return res.status(400).render('error', {
 			title: 'Stratos - Error',
@@ -115,6 +115,10 @@ router.get('/test/:id', async (req, res) => {
 	if (!await t.hasAccess(await new User(null, req.session.userId)))
 		return res.redirect('/admin/tests');
 
+	next();
+});
+router.get('/test/:id', async (req, res) => {
+	const t = await new Test(req.params.id);
 	const linkRoot = `/test/${t.id}`;
 
 	return res.render('test', {

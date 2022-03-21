@@ -49,6 +49,37 @@ router.get('/dashboard', async (req, res) => {
 	});
 });
 
+router.get(/user\/(.{36})(\/.*)?/, async (req, res, next) => {
+	let u;
+	try {
+		u = await new User(null, req.params[0]);
+	} catch (e) {
+		return res.status(400).render('error', {
+			title: 'Stratos - Error',
+			current: 'Dashboard',
+			name: req.session.fullName,
+			code: 400,
+			msg: e.message
+		});
+	}
+
+	if (!await u.hasAccess(await new User(null, req.session.userId)))
+		return res.redirect('/admin/dashboard');
+
+	next();
+});
+
+router.get('/user/:id', async (req, res) => {
+	const u = await new User(null, req.params.id);
+
+	return res.render('user', {
+		title: `Stratos - ${u.shortName}`,
+		current: 'Dashboard',
+		name: req.session.fullName,
+		user: u
+	});
+});
+
 module.exports = {
 	root: '/admin',
 	router: router

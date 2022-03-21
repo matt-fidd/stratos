@@ -96,6 +96,8 @@ router.get('/class/:id', async (req, res) => {
 		testsLink: `${linkRoot}/tests`,
 		reportsLink: `${linkRoot}/reports`,
 		deleteLink: `${linkRoot}/delete`,
+		membersLink: `${linkRoot}/members`,
+		teachersLink: `${linkRoot}/teachers`,
 		userType: req.session.userType,
 		stats: [
 			{
@@ -121,6 +123,38 @@ router.get('/class/:id', async (req, res) => {
 				text: 'Last percentage'
 			},
 		]
+	});
+});
+
+router.get('/class/:id/teachers', async (req, res) => {
+	const c = await new Class(req.params.id);
+
+	return res.render('classUsers', {
+		title: `Stratos - ${c.name}`,
+		current: 'Classes',
+		name: req.session.fullName,
+		userType: req.session.userType,
+		className: c.name,
+		users: c.teachers,
+		addLink: `/admin/class/${c.id}/teachers/add`,
+		addContent: 'Add new teachers',
+		pageTitle: 'Teachers'
+	});
+});
+
+router.get('/class/:id/members', async (req, res) => {
+	const c = await new Class(req.params.id);
+
+	return res.render('classUsers', {
+		title: `Stratos - ${c.name}`,
+		current: 'Classes',
+		name: req.session.fullName,
+		userType: req.session.userType,
+		className: c.name,
+		users: c.students,
+		addLink: `/admin/class/${c.id}/members/add`,
+		addContent: 'Add new students',
+		pageTitle: 'Students'
 	});
 });
 

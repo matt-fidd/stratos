@@ -1,4 +1,11 @@
 <section class='testPage'>
+	<section class='adminSection adminSection--buttons'>
+		{{#eq userType 'account'}}
+		<div class='classes__buttons'>
+			{{> button style='full' colour='primary' to=deleteLink content='Delete Test' size='lg'}}
+		</div>
+		{{/eq}}
+	</section>
 	<div class='adminSection'>
 		<div class='adminItem'>
 			<h2>Test Overview - {{ testName }}</h2>

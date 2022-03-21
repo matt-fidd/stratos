@@ -91,11 +91,20 @@ router.post('/testTemplate/add', async (req, res) => {
 		return res.redirect('/testTemplate/add');
 	}
 
-	const tt = await a.createTestTemplate(
-		fields.get('name'),
-		fields.get('mark'));
+	try {
+		await a.createTestTemplate(
+			fields.get('name'),
+			fields.get('mark'));
+	} catch (e) {
+		return res.render('error', {
+			title: 'Stratos - Error',
+			current: 'Tests',
+			name: req.session.fullName,
+			msg: 'Could not create test template'
+		});
+	}
 
-	return res.json(tt);
+	return res.redirect('/admin/test/add');
 });
 
 router.get(/test\/(.{36})(\/.*)?/, async (req, res, next) => {
@@ -119,7 +128,7 @@ router.get(/test\/(.{36})(\/.*)?/, async (req, res, next) => {
 });
 router.get('/test/:id', async (req, res) => {
 	const t = await new Test(req.params.id);
-	const linkRoot = `/test/${t.id}`;
+	const linkRoot = `/admin/test/${t.id}`;
 
 	return res.render('test', {
 		title: `Stratos - ${t.template.name}`,
@@ -130,6 +139,7 @@ router.get('/test/:id', async (req, res) => {
 		subject: t.class.subject.name,
 		maxMark: t.template.maxMark,
 		reportsLink: `${linkRoot}/reports`,
+		deleteLink: `${linkRoot}/delete`,
 		testResults: [ {
 			mark: 50,
 			percentage: 100,

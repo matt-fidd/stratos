@@ -175,6 +175,13 @@ const data = {
 			lastName: 'Vaughn',
 			password: 'a3'
 		},
+		{
+			email: 'a4@stratos.com',
+			firstName: 'Bob',
+			otherNames: null,
+			lastName: 'Doe',
+			password: 'a4'
+		},
 	],
 	testTemplate: [
 		{

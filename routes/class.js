@@ -56,7 +56,7 @@ router.post('/class/add', async (req, res) => {
 	res.redirect(`/admin/class/${c.id}/members`);
 });
 
-router.get(/class\/(.{36})(\/.*)?/, async (req, res, next) => {
+router.all(/class\/(.{36})(\/.*)?/, async (req, res, next) => {
 	let c;
 	try {
 		c = await new Class(req.params[0]);

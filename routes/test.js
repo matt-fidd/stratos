@@ -107,7 +107,7 @@ router.post('/testTemplate/add', async (req, res) => {
 	return res.redirect('/admin/test/add');
 });
 
-router.get(/test\/(.{36})(\/.*)?/, async (req, res, next) => {
+router.all(/test\/(.{36})(\/.*)?/, async (req, res, next) => {
 	let t;
 	try {
 		t = await new Test(req.params[0]);
@@ -126,6 +126,7 @@ router.get(/test\/(.{36})(\/.*)?/, async (req, res, next) => {
 
 	next();
 });
+
 router.get('/test/:id', async (req, res) => {
 	const t = await new Test(req.params.id);
 	const linkRoot = `/admin/test/${t.id}`;
@@ -140,6 +141,7 @@ router.get('/test/:id', async (req, res) => {
 		maxMark: t.template.maxMark,
 		reportsLink: `${linkRoot}/reports`,
 		deleteLink: `${linkRoot}/delete`,
+		userType: req.session.userType,
 		testResults: [ {
 			mark: 50,
 			percentage: 100,

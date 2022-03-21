@@ -49,7 +49,7 @@ router.get('/dashboard', async (req, res) => {
 	});
 });
 
-router.get(/user\/(.{36})(\/.*)?/, async (req, res, next) => {
+router.all(/user\/(.{36})(\/.*)?/, async (req, res, next) => {
 	let u;
 	try {
 		u = await new User(null, req.params[0]);

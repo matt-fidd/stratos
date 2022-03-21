@@ -11,13 +11,13 @@
 			<h2>Class Overview - {{ className }}</h2>
 			<div class='adminOverview'>
 				<div>
-					<h3>Teachers</h3>
+					<h3><a href='{{teachersLink}}'>Teachers</a></h3>
 					{{#each teachers}}
 						{{> classTeacher name=shortName email=email }}
 					{{/each}}
 				</div>
 				<div>
-					<h3>Members</h3>
+					<h3><a href='{{membersLink}}'>Members</a></h3>
 					{{> classMembers members=members }}
 				</div>
 				<div class='adminOverview__buttons'>

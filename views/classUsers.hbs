@@ -1,0 +1,16 @@
+<section class='adminSection adminSection--buttons'>
+	{{#eq userType 'account'}}
+	<div class='classes__buttons'>
+		{{> button style='full' colour='primary' to=addLink content=addContent size='lg' }}
+	</div>
+	{{/eq}}
+</section>
+
+<section class='adminSection classUsers'>
+	<div class="adminItem">
+		<h2>{{pageTitle}}</h2>
+		{{#each users as |user|}}
+			{{> classUser user=user }}
+		{{/each}}
+	</div>
+</section>

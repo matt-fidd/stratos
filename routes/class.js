@@ -11,7 +11,7 @@ const User = require('../lib/User');
 const Subject = require('../lib/Subject');
 
 router.get('/classes', async (req, res) => {
-	const u = await new User(null, req.session.userId);
+	const u = await new User(req.db, null, req.session.userId);
 
 	return res.render('classes', {
 		title: 'Stratos - Classes',
@@ -23,7 +23,7 @@ router.get('/classes', async (req, res) => {
 });
 
 router.get('/class/add', async (req, res) => {
-	const subjects = await Subject.getAllSubjects();
+	const subjects = await Subject.getAllSubjects(req.db);
 
 	res.render('addClass', {
 		title: 'Stratos - Add class',
@@ -34,7 +34,7 @@ router.get('/class/add', async (req, res) => {
 });
 
 router.post('/class/add', async (req, res) => {
-	const a = await new Account(req.session.userId);
+	const a = await new Account(req.db, req.session.userId);
 
 	let fields;
 	try {
@@ -59,7 +59,7 @@ router.post('/class/add', async (req, res) => {
 router.all(/class\/(.{36})(\/.*)?/, async (req, res, next) => {
 	let c;
 	try {
-		c = await new Class(req.params[0]);
+		c = await new Class(req.db, req.params[0]);
 	} catch (e) {
 		return res.status(400).render('error', {
 			title: 'Stratos - Error',
@@ -70,14 +70,17 @@ router.all(/class\/(.{36})(\/.*)?/, async (req, res, next) => {
 		});
 	}
 
-	if (!await c.hasAccess(await new User(null, req.session.userId)))
+	if (!await c.hasAccess(await new User(req.db,
+		null,
+		req.session.userId
+	)))
 		return res.redirect('/admin/classes');
 
 	next();
 });
 
 router.get('/class/:id', async (req, res) => {
-	const c = await new Class(req.params.id);
+	const c = await new Class(req.db, req.params.id);
 	const linkRoot = `/admin/class/${c.id}`;
 	const upcomingTests = await c.getTests({ range: 'after' });
 	const recentTests = await c.getTests({ range: 'before' });
@@ -127,7 +130,7 @@ router.get('/class/:id', async (req, res) => {
 });
 
 router.get('/class/:id/teachers', async (req, res) => {
-	const c = await new Class(req.params.id);
+	const c = await new Class(req.db, req.params.id);
 
 	return res.render('classUsers', {
 		title: `Stratos - ${c.name}`,
@@ -143,7 +146,7 @@ router.get('/class/:id/teachers', async (req, res) => {
 });
 
 router.get('/class/:id/members', async (req, res) => {
-	const c = await new Class(req.params.id);
+	const c = await new Class(req.db, req.params.id);
 
 	return res.render('classUsers', {
 		title: `Stratos - ${c.name}`,

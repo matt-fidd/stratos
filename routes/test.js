@@ -10,7 +10,7 @@ const User = require('../lib/User');
 const Test = require('../lib/Test');
 
 router.get('/tests', async (req, res) => {
-	const u = await new User(null, req.session.userId);
+	const u = await new User(req.db, null, req.session.userId);
 
 	return res.render('tests', {
 		title: 'Stratos - Tests',
@@ -22,7 +22,7 @@ router.get('/tests', async (req, res) => {
 });
 
 router.get('/test/add', async (req, res) => {
-	const a = await new Account(req.session.userId);
+	const a = await new Account(req.db, req.session.userId);
 
 	const promises = [
 		a.getTestTemplates(),
@@ -58,7 +58,10 @@ router.post('/test/add', async (req, res) => {
 	}
 
 	const testTemplateId = fields.get('testTemplate');
-	const tt = await new (require('../lib/TestTemplate'))(testTemplateId);
+	const tt = await new (require('../lib/TestTemplate'))(
+		req.db,
+		testTemplateId
+	);
 
 	const t = await tt.assignClass(
 		fields.get('class'),
@@ -76,7 +79,7 @@ router.get('/testTemplate/add', (req, res) => {
 });
 
 router.post('/testTemplate/add', async (req, res) => {
-	const a = await new Account(req.session.userId);
+	const a = await new Account(req.db, req.session.userId);
 
 	let fields;
 	try {
@@ -94,8 +97,11 @@ router.post('/testTemplate/add', async (req, res) => {
 	try {
 		await a.createTestTemplate(
 			fields.get('name'),
-			fields.get('mark'));
+			fields.get('mark')
+		);
 	} catch (e) {
+		console.error(e);
+
 		return res.render('error', {
 			title: 'Stratos - Error',
 			current: 'Tests',
@@ -110,7 +116,7 @@ router.post('/testTemplate/add', async (req, res) => {
 router.all(/test\/(.{36})(\/.*)?/, async (req, res, next) => {
 	let t;
 	try {
-		t = await new Test(req.params[0]);
+		t = await new Test(req.db, req.params[0]);
 	} catch (e) {
 		return res.status(400).render('error', {
 			title: 'Stratos - Error',
@@ -121,14 +127,17 @@ router.all(/test\/(.{36})(\/.*)?/, async (req, res, next) => {
 		});
 	}
 
-	if (!await t.hasAccess(await new User(null, req.session.userId)))
+	if (!await t.hasAccess(await new User(
+		req.db, null,
+		req.session.userId
+	)))
 		return res.redirect('/admin/tests');
 
 	next();
 });
 
 router.get('/test/:id', async (req, res) => {
-	const t = await new Test(req.params.id);
+	const t = await new Test(req.db, req.params.id);
 	const linkRoot = `/admin/test/${t.id}`;
 
 	return res.render('test', {

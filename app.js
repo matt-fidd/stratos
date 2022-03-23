@@ -41,13 +41,20 @@ async function main() {
 	const serverOptions = importJSON('server');
 	const sessionOptions = importJSON('session');
 
+	const dbp = await new DatabaseConnectionPool();
+
 	// Set up express-session to store in mysql database
 	const mysqlStore = require('express-mysql-session')(session);
-	const sessionStore =
-		new mysqlStore({}, (await new DatabaseConnectionPool()).pool);
+	const sessionStore = new mysqlStore({}, dbp.pool);
 
 	// Initialise express app
 	const app = express();
+
+	// Set up global database pool
+	app.use((req, res, next) => {
+		req.db = dbp;
+		next();
+	});
 
 	// Set up templating language and path
 	app.engine(

@@ -13,7 +13,7 @@ router.get('/', (req, res) => {
 });
 
 router.get('/dashboard', async (req, res) => {
-	const u = await new User(null, req.session.userId);
+	const u = await new User(req.db, null, req.session.userId);
 
 	const recentTests = await u.getTests({ range: 'before' });
 	const upcomingTests = await u.getTests({ range: 'after' });
@@ -52,7 +52,7 @@ router.get('/dashboard', async (req, res) => {
 router.all(/user\/(.{36})(\/.*)?/, async (req, res, next) => {
 	let u;
 	try {
-		u = await new User(null, req.params[0]);
+		u = await new User(req.db, null, req.params[0]);
 	} catch (e) {
 		return res.status(400).render('error', {
 			title: 'Stratos - Error',
@@ -63,14 +63,18 @@ router.all(/user\/(.{36})(\/.*)?/, async (req, res, next) => {
 		});
 	}
 
-	if (!await u.hasAccess(await new User(null, req.session.userId)))
+	if (!await u.hasAccess(await new User(
+		req.db,
+		null,
+		req.session.userId
+	)))
 		return res.redirect('/admin/dashboard');
 
 	next();
 });
 
 router.get('/user/:id', async (req, res) => {
-	const u = await new User(null, req.params.id);
+	const u = await new User(req.db, null, req.params.id);
 
 	return res.render('user', {
 		title: `Stratos - ${u.shortName}`,

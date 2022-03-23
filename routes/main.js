@@ -69,7 +69,10 @@ router.post('/login', async (req, res) => {
 		return res.status(400).json({ status: 'Invalid' });
 	}
 
-	const u = await User.getUserByEmail(fields.get('email')) ?? false;
+	const u = await User.getUserByEmail(
+		req.db,
+		fields.get('email')
+	) ?? false;
 
 	if (!u)
 		return res.redirect('/login');
@@ -106,6 +109,7 @@ router.post('/register', async (req, res) => {
 	let a;
 	try {
 		a = await Account.createAccount(
+			req.db,
 			fields.get('fname'),
 			fields.get('onames'),
 			fields.get('lname'),
@@ -140,7 +144,10 @@ router.post('/password-reset', async (req, res) => {
 		console.error(e);
 	}
 
-	const u = await User.getUserByEmail(fields.get('email')) ?? false;
+	const u = await User.getUserByEmail(
+		req.db,
+		fields.get('email')
+	) ?? false;
 
 	if (!u)
 		return res.redirect('/password-reset');
@@ -170,7 +177,7 @@ router.get('/password-reset/:uuid/:token', async (req, res) => {
 
 	let pr;
 	try {
-		pr = await new PasswordReset(uuid, token);
+		pr = await new PasswordReset(req.db, uuid, token);
 	} catch (e) {
 		console.error(e);
 		return res.redirect('/password-reset');
@@ -211,6 +218,7 @@ router.post('/change-password', async (req, res) => {
 	let pr;
 	try {
 		pr = await new PasswordReset(
+			req.db,
 			fields.get('uuid'),
 			fields.get('token')
 		);

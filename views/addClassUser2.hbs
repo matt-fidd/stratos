@@ -1,0 +1,18 @@
+<section class='adminSection'>
+	<div class="adminItem">
+		<h2>{{pageTitle}}</h2>
+		<div class='formContainer'>
+			<form action='{{postLink}}' method='post'>
+				<div class='input-group'>
+					<input type='text' id='fname' name='fname' placeholder='First Name' required/>
+					<input type='text' id='lname' name='lname' placeholder='Last Name' required/>
+				</div>
+
+				<input type='text' id='onames' name='onames' placeholder='Middle Name(s)'/>
+				<input type='hidden' id='email' name='email' value='{{email}}' required/>
+
+				<input type='submit' class='btn btn--primary btn--full' value='Add {{newType}}'/>
+			</form>
+		</div>
+	</div>
+</section>

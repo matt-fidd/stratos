@@ -1,0 +1,16 @@
+<section class='adminSection'>
+	<div class="adminItem">
+		<h2>{{pageTitle}}</h2>
+		<div class='errors hl'>
+			{{#each errors as |error|}}
+				<p>{{error.msg}}</p>
+			{{/each}}
+		</div>
+		<div class='formContainer'>
+			<form action='{{postLink}}' method='post'>
+				<input type='email' name='email' id='email' placeholder='Email address of new {{newType}}' required/>
+				<input type='submit' class='btn btn--primary btn--full' value='Add {{newType}}'/>
+			</form>
+		</div>
+	</div>
+</section>

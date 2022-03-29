@@ -89,6 +89,127 @@ router.get('/:id/:memberType(members|teachers)', async (req, res) => {
 	});
 });
 
+router.get('/:id/:userType(members|teachers)/add', async (req, res) => {
+	const c = await new Class(req.db, req.params.id);
+	const userType =
+		req.params.userType === 'teachers' ?
+			'teachers' :
+			'students';
+
+	const errors = [];
+	req.query.err && req.query.err.split(',').forEach(e => {
+		switch (e) {
+			case 'no_user':
+				errors.push({
+					msg: 'No user with that email ' +
+					'address can be found, they need to ' +
+					'create an account before you can ' +
+					'add them to a class'
+				});
+				break;
+			case 'dup_user':
+				errors.push({
+					msg: 'This user is already assigned ' +
+					'to the class'
+				});
+				break;
+		}
+	});
+
+	return res.render('addClassUser', {
+		title: `Stratos - ${c.name}`,
+		current: 'Classes',
+		name: req.session.fullName,
+		className: c.name,
+		postLink: `/admin/class/${c.id}/${req.params.userType}/add`,
+		newType: userType.slice(0, -1),
+		pageTitle: `Add a new ${userType.slice(0, -1)}`,
+		errors: errors
+	});
+});
+
+router.post('/:id/:userType(members|teachers)/add', async (req, res) => {
+	const c = await new Class(req.db, req.params.id);
+	const userType = req.params.userType;
+	const rejectURL = `/admin/class/${c.id}/${userType}/add`;
+
+	let fields;
+	try {
+		fields = validator.validate(req.body,
+			[
+				'email',
+			], {
+				email: 'email'
+			}
+		).fields;
+	} catch (e) {
+		console.error(e);
+		return res.redirect(rejectURL);
+	}
+
+	const u = await User.getUserByEmail(req.db, fields.get('email'));
+
+	if (!u) {
+		if (userType === 'teachers')
+			return res.redirect(`${rejectURL}/?err=no_user`);
+
+		return res.render('addClassUser2', {
+			title: `Stratos - ${c.name}`,
+			current: 'Classes',
+			name: req.session.fullName,
+			className: c.name,
+			postLink: `/admin/class/${c.id}/members/add2`,
+			newType: 'student',
+			pageTitle: 'Add a new student',
+			email: fields.get('email')
+		});
+	}
+
+	try {
+		await c.addUser(u);
+		return res.redirect(`/admin/class/${c.id}/${userType}`);
+	} catch (e) {
+		return res.redirect(`${rejectURL}/?err=dup_user`);
+	}
+});
+
+router.post('/:id/members/add2', async (req, res) => {
+	const c = await new Class(req.db, req.params.id);
+	const rejectURL = `/admin/class/${c.id}/students/add`;
+
+	let fields;
+	try {
+		fields = validator.validate(req.body,
+			[
+				'fname',
+				'lname',
+				'email'
+			], {
+				email: 'email'
+			}
+		).fields;
+	} catch (e) {
+		console.error(e);
+		return res.redirect(rejectURL);
+	}
+
+	const password = crypto.randomBytes(20).toString('base64').slice(0, 20);
+
+	const u = await User.createUser(
+		req.db,
+		'student',
+		fields.get('fname'),
+		fields.get('onames'),
+		fields.get('lname'),
+		fields.get('email'),
+		password
+	);
+
+	await c.addUser(u);
+
+	return res.redirect(`/admin/class/${c.id}/members`);
+});
+
 module.exports = {
 	root: '/admin/class',
 	router: router

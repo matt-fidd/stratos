@@ -70,11 +70,12 @@ router.all(/user\/(.{36})(\/.*)?/, async (req, res, next) => {
 	)))
 		return res.redirect('/admin/dashboard');
 
+	req.user = u;
 	next();
 });
 
-router.get('/user/:id', async (req, res) => {
-	const u = await new User(req.db, null, req.params.id);
+router.get('/user/:id', (req, res) => {
+	const u = req.user;
 
 	return res.render('user', {
 		title: `Stratos - ${u.shortName}`,

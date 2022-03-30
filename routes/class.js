@@ -76,6 +76,7 @@ router.all(/class\/(.{36})(\/.*)?/, async (req, res, next) => {
 	)))
 		return res.redirect('/admin/classes');
 
+	req.class = c;
 	next();
 });
 

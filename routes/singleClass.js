@@ -6,11 +6,10 @@ const router = express.Router();
 
 const validator = require('../lib/validator');
 
-const Class = require('../lib/Class');
 const User = require('../lib/User');
 
 router.get('/:id', async (req, res) => {
-	const c = await new Class(req.db, req.params.id);
+	const c = req.class;
 	const linkRoot = `/admin/class/${c.id}`;
 	const upcomingTests = await c.getTests({ range: 'after' });
 	const recentTests = await c.getTests({ range: 'before' });
@@ -59,8 +58,8 @@ router.get('/:id', async (req, res) => {
 	});
 });
 
-router.get('/:id/:memberType(members|teachers)', async (req, res) => {
-	const c = await new Class(req.db, req.params.id);
+router.get('/:id/:memberType(members|teachers)', (req, res) => {
+	const c = req.class;
 	const linkRoot = `/admin/class/${c.id}`;
 
 	let users, addLink, addContent, pageTitle;
@@ -89,8 +88,8 @@ router.get('/:id/:memberType(members|teachers)', async (req, res) => {
 	});
 });
 
-router.get('/:id/:userType(members|teachers)/add', async (req, res) => {
-	const c = await new Class(req.db, req.params.id);
+router.get('/:id/:userType(members|teachers)/add', (req, res) => {
+	const c = req.class;
 	const userType =
 		req.params.userType === 'teachers' ?
 			'teachers' :
@@ -129,7 +128,7 @@ router.get('/:id/:userType(members|teachers)/add', async (req, res) => {
 });
 
 router.post('/:id/:userType(members|teachers)/add', async (req, res) => {
-	const c = await new Class(req.db, req.params.id);
+	const c = req.class;
 	const userType = req.params.userType;
 	const rejectURL = `/admin/class/${c.id}/${userType}/add`;
 
@@ -174,7 +173,7 @@ router.post('/:id/:userType(members|teachers)/add', async (req, res) => {
 });
 
 router.post('/:id/members/add2', async (req, res) => {
-	const c = await new Class(req.db, req.params.id);
+	const c = req.class;
 	const rejectURL = `/admin/class/${c.id}/students/add`;
 
 	let fields;

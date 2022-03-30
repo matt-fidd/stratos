@@ -133,11 +133,12 @@ router.all(/test\/(.{36})(\/.*)?/, async (req, res, next) => {
 	)))
 		return res.redirect('/admin/tests');
 
+	req.test = t;
 	next();
 });
 
-router.get('/test/:id', async (req, res) => {
-	const t = await new Test(req.db, req.params.id);
+router.get('/test/:id', (req, res) => {
+	const t = req.test;
 	const linkRoot = `/admin/test/${t.id}`;
 
 	return res.render('test', {

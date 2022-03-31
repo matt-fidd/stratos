@@ -240,8 +240,18 @@ router.post('/:id/:userType(members|teachers)/:userId/remove',
 		const u = await new User(req.db, null, req.params.userId);
 		const userType = req.params.userType;
 
-		await c.removeUser(u);
-		return res.redirect(`/admin/class/${c.id}/${userType}`);
+		try {
+			await c.removeUser(u);
+			return res.redirect(`/admin/class/${c.id}/${userType}`);
+		} catch (e) {
+			console.error(e);
+			return res.render('error', {
+				title: 'Stratos - Error',
+				current: 'Classes',
+				name: req.session.fullName,
+				msg: `Can not remove this user: ${e.message}`
+			});
+		}
 	}
 );
 

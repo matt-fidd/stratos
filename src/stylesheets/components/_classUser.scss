@@ -1,0 +1,10 @@
+.classUser {
+	display: flex;
+	gap: .5rem;
+	margin: .5rem 0;
+
+	i {
+		color: $primary-colour;
+		cursor: pointer;
+	}
+}

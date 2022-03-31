@@ -209,6 +209,31 @@ router.post('/:id/members/add2', async (req, res) => {
 	return res.redirect(`/admin/class/${c.id}/members`);
 });
 
+router.get('/:id/:userType(members|teachers)/:userId/remove',
+	async (req, res) => {
+		const c = req.class;
+		const u = await new User(req.db, null, req.params.userId);
+
+		const userType =
+			req.params.userType === 'teachers' ?
+				'teachers' :
+				'students';
+
+		const postLink =
+			`/admin/class/${c.id}/${req.params.userType}` +
+			`/${u.id}/remove`;
+
+		return res.render('removeClassUser', {
+			title: `Stratos - ${c.name}`,
+			current: 'Classes',
+			name: req.session.fullName,
+			u: u,
+			postLink: postLink,
+			pageTitle: `Remove a ${userType.slice(0, -1)}`,
+		});
+	}
+);
+
 module.exports = {
 	root: '/admin/class',
 	router: router

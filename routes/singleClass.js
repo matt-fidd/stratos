@@ -234,6 +234,17 @@ router.get('/:id/:userType(members|teachers)/:userId/remove',
 	}
 );
 
+router.post('/:id/:userType(members|teachers)/:userId/remove',
+	async (req, res) => {
+		const c = req.class;
+		const u = await new User(req.db, null, req.params.userId);
+		const userType = req.params.userType;
+
+		await c.removeUser(u);
+		return res.redirect(`/admin/class/${c.id}/${userType}`);
+	}
+);
+
 module.exports = {
 	root: '/admin/class',
 	router: router

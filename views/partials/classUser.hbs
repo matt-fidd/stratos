@@ -1,5 +1,8 @@
 <div class='classUser' data-uid='{{user.id}}'>
+	{{#eq userType 'account'}}
 	<i class='fa-solid fa-ban classUser__remove' title='Remove user from class'></i>
+	{{/eq}}
+
 	<a href='/admin/user/{{user.id}}'>
 		{{user.fullName}}
 	</a>

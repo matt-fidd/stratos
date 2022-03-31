@@ -10,7 +10,7 @@
 	<div class="adminItem">
 		<h2>{{pageTitle}}</h2>
 		{{#each users as |user|}}
-			{{> classUser user=user }}
+			{{> classUser userType=../userType user=user }}
 		{{/each}}
 	</div>
 </section>

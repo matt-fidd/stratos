@@ -11,7 +11,7 @@ const User = require('../lib/User');
 const Subject = require('../lib/Subject');
 
 router.get('/classes', async (req, res) => {
-	const u = await new User(req.db, null, req.session.userId);
+	const u = await new User(req.db, req.session.userId);
 
 	return res.render('classes', {
 		title: 'Stratos - Classes',
@@ -70,8 +70,8 @@ router.all(/class\/(.{36})(\/.*)?/, async (req, res, next) => {
 		});
 	}
 
-	if (!await c.hasAccess(await new User(req.db,
-		null,
+	if (!await c.hasAccess(await new User(
+		req.db,
 		req.session.userId
 	)))
 		return res.redirect('/admin/classes');

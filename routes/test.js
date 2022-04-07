@@ -10,7 +10,7 @@ const User = require('../lib/User');
 const Test = require('../lib/Test');
 
 router.get('/tests', async (req, res) => {
-	const u = await new User(req.db, null, req.session.userId);
+	const u = await new User(req.db, req.session.userId);
 
 	return res.render('tests', {
 		title: 'Stratos - Tests',
@@ -128,7 +128,7 @@ router.all(/test\/(.{36})(\/.*)?/, async (req, res, next) => {
 	}
 
 	if (!await t.hasAccess(await new User(
-		req.db, null,
+		req.db,
 		req.session.userId
 	)))
 		return res.redirect('/admin/tests');

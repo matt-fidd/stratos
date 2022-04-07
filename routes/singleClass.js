@@ -212,7 +212,7 @@ router.post('/:id/members/add2', async (req, res) => {
 router.get('/:id/:userType(members|teachers)/:userId/remove',
 	async (req, res) => {
 		const c = req.class;
-		const u = await new User(req.db, null, req.params.userId);
+		const u = await new User(req.db, req.params.userId);
 
 		const userType =
 			req.params.userType === 'teachers' ?
@@ -237,7 +237,7 @@ router.get('/:id/:userType(members|teachers)/:userId/remove',
 router.post('/:id/:userType(members|teachers)/:userId/remove',
 	async (req, res) => {
 		const c = req.class;
-		const u = await new User(req.db, null, req.params.userId);
+		const u = await new User(req.db, req.params.userId);
 		const userType = req.params.userType;
 
 		try {

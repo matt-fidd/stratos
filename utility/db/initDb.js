@@ -116,6 +116,7 @@ tableCreate.set('testResult', `
 		testId               varchar(36)  NOT NULL    ,
 		accountId            varchar(36)  NOT NULL    ,
 		mark                 int  NOT NULL    ,
+		time                 datetime NOT NULL        ,
 		CONSTRAINT Unq_testResult UNIQUE ( studentId, testId )
 	);
 `);

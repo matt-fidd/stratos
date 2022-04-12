@@ -111,11 +111,12 @@ tableCreate.set('test', `
 
 tableCreate.set('testResult', `
 	CREATE TABLE IF NOT EXISTS testResult (
+		testResultId         varchar(36) NOT NULL     PRIMARY KEY,
 		studentId            varchar(36)  NOT NULL    ,
 		testId               varchar(36)  NOT NULL    ,
 		accountId            varchar(36)  NOT NULL    ,
 		mark                 int  NOT NULL    ,
-		CONSTRAINT primarykey PRIMARY KEY ( studentId, testId )
+		CONSTRAINT Unq_testResult UNIQUE ( studentId, testId )
 	);
 `);
 

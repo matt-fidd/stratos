@@ -21,7 +21,8 @@ router.get('/login', (req, res) => {
 		return res.redirect('/admin');
 
 	return res.render('login', {
-		title: 'Stratos - Login'
+		title: 'Stratos - Login',
+		redirect_to: req.query?.redirect_to
 	});
 });
 
@@ -79,6 +80,10 @@ router.post('/login', async (req, res) => {
 
 	if (await u.verifyPassword(fields.get('password'))) {
 		u.login(req);
+
+		if (fields.get('redirectTo').length > 0)
+			return res.redirect(fields.get('redirectTo'));
+
 		return res.redirect('/admin');
 	}
 

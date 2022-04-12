@@ -106,7 +106,7 @@ async function main() {
 		const path = `/${req.path.split('/')?.[1] ?? ''}`;
 
 		if (!allowed.includes(path) && !req.session.authenticated)
-			return res.redirect('/login');
+			return res.redirect(`/login?redirect_to=${req.path}`);
 
 		next();
 	});

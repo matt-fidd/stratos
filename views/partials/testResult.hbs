@@ -33,10 +33,15 @@
 	<div class='testPage__testResult__edit'>
 		{{>button style='full' colour='primary' addClasses='resultEdit' content='Edit result'}}
 
-		<form style='display: none;' method='post' action='{{linkRoot}}/{{result.id}}/edit' >
-			<input type='number' name='mark' id='mark' min=0 max={{result.test.template.maxMark}} placeholder='{{result.mark}}' />
-			<input type='submit' value='Submit new mark' />
-		</form>
+		<div class='form' style='display: none;'>
+			<form method='post' action='{{linkRoot}}/{{result.id}}/edit' >
+				<input type='number' name='mark' id='mark' min=0 max={{result.test.template.maxMark}} placeholder='{{result.mark}}' />
+				<input type='submit' value='Submit new mark' />
+			</form>
+			<form method='post' action='{{linkRoot}}/{{result.id}}/delete' >
+				<input type='submit' value='Delete test result' class='testResult__deleteButton' />
+			</form>
+		</div>
 	</div>
 	{{/if}}
 </div>
@@ -56,8 +61,13 @@
 
 		form.style.display =
 			(form.style.display === 'none')
-				? 'grid'
+				? 'block'
 				: 'none';
+	});
+
+	document.querySelector('.testPage__testResultWrapper[data-id="{{result.id}}"] .form form:nth-child(2)').addEventListener('submit', (e) => {
+		if (!confirm('Delete test result?'))
+			e.preventDefault();
 	});
 </script>
 {{/if}}

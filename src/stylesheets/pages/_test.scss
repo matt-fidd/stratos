@@ -1,6 +1,7 @@
 .testPage {
 	&__testResultWrapper {
 		@include space-contents;
+		margin: 2rem 0;
 	}
 
 	&__testResult {

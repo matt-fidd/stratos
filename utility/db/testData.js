@@ -34,6 +34,9 @@ const details = {
 	},
 	accountClassLink: {
 		link: true
+	},
+	testResult: {
+		id: 'uuid'
 	}
 };
 
@@ -458,6 +461,98 @@ const data = {
 			lookups: {
 				accountId: 3,
 				classId: 4,
+			}
+		},
+	],
+	testResult: [
+		{
+			mark: 50,
+			time: new MySQLDate(),
+			lookups: {
+				studentId: 1,
+				testId: 2,
+				accountId: 1
+			}
+		},
+		{
+			mark: 70,
+			time: new MySQLDate(),
+			lookups: {
+				studentId: 2,
+				testId: 2,
+				accountId: 1
+			}
+		},
+		{
+			mark: 50,
+			time: new MySQLDate(),
+			lookups: {
+				studentId: 1,
+				testId: 5,
+				accountId: 1
+			}
+		},
+		{
+			mark: 50,
+			time: new MySQLDate(),
+			lookups: {
+				studentId: 2,
+				testId: 5,
+				accountId: 1
+			}
+		},
+		{
+			mark: 50,
+			time: new MySQLDate(),
+			lookups: {
+				studentId: 3,
+				testId: 5,
+				accountId: 1
+			}
+		},
+		{
+			mark: 50,
+			time: new MySQLDate(),
+			lookups: {
+				studentId: 4,
+				testId: 5,
+				accountId: 1
+			}
+		},
+		{
+			mark: 50,
+			time: new MySQLDate(),
+			lookups: {
+				studentId: 5,
+				testId: 5,
+				accountId: 1
+			}
+		},
+		{
+			mark: 50,
+			time: new MySQLDate(),
+			lookups: {
+				studentId: 3,
+				testId: 8,
+				accountId: 3
+			}
+		},
+		{
+			mark: 50,
+			time: new MySQLDate(),
+			lookups: {
+				studentId: 2,
+				testId: 8,
+				accountId: 3
+			}
+		},
+		{
+			mark: 50,
+			time: new MySQLDate(),
+			lookups: {
+				studentId: 1,
+				testId: 8,
+				accountId: 3
 			}
 		},
 	]

@@ -1,7 +1,7 @@
 'use strict';
 
 // Import user defined modules
-const MySQLDate = require('./MySQLDate');
+const MySQLDate = require('../../lib/MySQLDate');
 
 // Object storing configurations for the db tables
 const details = {

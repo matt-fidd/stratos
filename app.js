@@ -30,10 +30,18 @@ function loadRoutes() {
 
 	for (const file of routeFiles) {
 		const route = require(path.join(__dirname, 'routes', file));
-		routes.push([ route.root, route.router ]);
+		routes.push([ route.root, route.router, route.priority, file ]);
 	}
 
-	return routes;
+	return routes.sort((a, b) => {
+		if (a[2] > b[2] || b[2] == null)
+			return 1;
+
+		if (a[2] < b[2] || a[2] == null)
+			return -1;
+
+		return 0;
+	});
 }
 
 async function main() {

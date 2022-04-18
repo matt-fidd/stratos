@@ -24,36 +24,19 @@
 	</div>
 	<div class='adminSection'>
 		<div class='adminItem'>
-			<h2>Result</h2>
+			<div class="adminItem__title">
+				<h2>
+					{{#eq userType 'account'}}
+						Results
+					{{else}}
+						Result
+					{{/eq}}
+				</h2>
+			</div>
 			<div>
 				{{#if testResults.length}}
-					{{#each testResults as |result|}}
-						<div class='testPage__testResultWrapper'>
-							<div>
-								<div>
-									Submitted by: <span class='hl'>{{result.account.shortName}}</span>
-								</div>
-								<div>
-									Submitted at: <span class='hl'>{{formatTime result.time}}</span>
-								</div>
-							</div>
-							<div class='testPage__testResult'>
-								<div class='testPage__testResult__grade'>
-									{{result.grade}}
-								</div>
-								<div class='testPage__testResult__score'>
-									<span>{{result.mark}}</span>
-									<span>---</span>
-									<span>{{../maxMark}}</span>
-								</div>
-								<div class='testPage__testResult__eq'>
-									<span>=</span>
-								</div>
-								<div class='testPage__testResult__percentage'>
-									<span>{{result.percentage}}%</span>
-								</div>
-							</div>
-						</div>
+					{{#each testResults}}
+						{{> testResult result=this userType=../userType }}
 					{{/each}}
 				{{else}}
 					{{#eq userType 'account'}}

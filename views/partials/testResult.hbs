@@ -1,0 +1,31 @@
+<div class='testPage__testResultWrapper'>
+	<div>
+		{{#eq userType 'account'}}
+		<div>
+			Student: <span class='hl'>{{result.student.shortName}}</span>
+		</div>
+		{{/eq}}
+		<div>
+			Submitted by: <span class='hl'>{{result.account.shortName}}</span>
+		</div>
+		<div>
+			Submitted at: <span class='hl'>{{formatTime result.time}}</span>
+		</div>
+	</div>
+	<div class='testPage__testResult'>
+		<div class='testPage__testResult__grade'>
+			{{result.grade}}
+		</div>
+		<div class='testPage__testResult__score'>
+			<span>{{result.mark}}</span>
+			<span>---</span>
+			<span>{{result.test.template.maxMark}}</span>
+		</div>
+		<div class='testPage__testResult__eq'>
+			<span>=</span>
+		</div>
+		<div class='testPage__testResult__percentage'>
+			<span>{{result.percentage}}%</span>
+		</div>
+	</div>
+</div>

@@ -95,7 +95,7 @@ router.post('/:id/results/:resultId/edit', async (req, res) => {
 		return res.redirect(returnURL);
 	}
 
-	tr.mark = fields.get('mark');
+	await tr.setMark(fields.get('mark'));
 
 	res.redirect(returnURL);
 });

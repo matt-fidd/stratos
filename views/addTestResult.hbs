@@ -1,0 +1,24 @@
+<section class='adminSection'>
+	<div class="adminItem">
+		<h2>Add test result - {{testName}}</h2>
+
+		{{#if students.length}}
+		<div class='formContainer'>
+			<form action='{{linkRoot}}/add' method='post'>
+				<select name='student' id='student' required>
+					<option disabled hidden selected value=''>Select student</option>
+					{{#each students}}
+						<option value='{{id}}'>{{shortName}}</option>
+					{{/each}}
+				</select>
+
+				<input type='number' name='mark' id='mark' min=0 max={{maxMark}} placeholder='Mark' />
+
+				<input type='submit' class='btn btn--primary btn--full' value='Add result'/>
+			</form>
+		</div>
+		{{else}}
+			All test results are submitted for this test
+		{{/if}}
+	</div>
+</section>

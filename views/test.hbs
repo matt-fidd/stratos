@@ -31,10 +31,10 @@
 						<div class='testPage__testResultWrapper'>
 							<div>
 								<div>
-									Submitted by: <span class='hl'>{{result.author}}</span>
+									Submitted by: <span class='hl'>{{result.account.shortName}}</span>
 								</div>
 								<div>
-									Submitted at: <span class='hl'>{{result.time}}</span>
+									Submitted at: <span class='hl'>{{formatTime result.time}}</span>
 								</div>
 							</div>
 							<div class='testPage__testResult'>
@@ -56,7 +56,11 @@
 						</div>
 					{{/each}}
 				{{else}}
-					Your test result has not been submitted yet
+					{{#eq userType 'account'}}
+						You have not submitted any results yet
+					{{else}}
+						Your test result has not been submitted yet
+					{{/eq}}
 				{{/if}}
 			</div>
 		</div>

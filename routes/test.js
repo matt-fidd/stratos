@@ -137,9 +137,17 @@ router.all(/test\/(.{36})(\/.*)?/, async (req, res, next) => {
 	next();
 });
 
-router.get('/test/:id', (req, res) => {
+router.get('/test/:id', async (req, res) => {
 	const t = req.test;
 	const linkRoot = `/admin/test/${t.id}`;
+
+	let results = await t.getTestResults();
+
+	if (req.session.userType === 'student') {
+		results = results.filter(r =>
+			r.student.id === req.session.userId
+		);
+	}
 
 	return res.render('test', {
 		title: `Stratos - ${t.template.name}`,
@@ -152,13 +160,7 @@ router.get('/test/:id', (req, res) => {
 		reportsLink: `${linkRoot}/reports`,
 		deleteLink: `${linkRoot}/delete`,
 		userType: req.session.userType,
-		testResults: [ {
-			mark: 50,
-			percentage: 100,
-			grade: 'A',
-			author: t.class.teachers[0].shortName,
-			time: new Date().toTimeString()
-		} ],
+		testResults: results,
 		stats: [
 			{
 				value: 19,

@@ -1,7 +1,10 @@
 <section>
 	<div class='adminSection'>
 		<div class='adminItem'>
-			<h2>Test Results - {{ testName }}</h2>
+			<div class='adminItem__title'>
+				<h2>Test Results - {{ testName }}</h2>
+				{{> button style='full' colour='primary' to=addLink size='lg' content='Add new result'}}
+			</div>
 			<div>
 				{{#if testResults.length}}
 					{{#each testResults}}

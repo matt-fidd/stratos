@@ -21,27 +21,29 @@ const importJSON = require('./lib/importJSON');
  * @return {Array<Array<String, Object>>} Map of all of the routes
  */
 function loadRoutes() {
-	// Load route files
-	const routes = [];
+	return fs.readdirSync(path.join(__dirname, 'routes'))
+		.filter(file => file.endsWith('.js'))
+		.map(file => {
+			const route = require(path.join(
+				__dirname,
+				'routes',
+				file
+			));
 
-	const routeFiles =
-		fs.readdirSync(path.join(__dirname, 'routes'))
-			.filter(file => file.endsWith('.js'));
+			return {
+				...route,
+				filename: file
+			};
+		})
+		.sort((a, b) => {
+			if (a.priority > b.priority || b.priority == null)
+				return 1;
 
-	for (const file of routeFiles) {
-		const route = require(path.join(__dirname, 'routes', file));
-		routes.push([ route.root, route.router, route.priority, file ]);
-	}
+			if (a.priority < b.priority || a.priority == null)
+				return -1;
 
-	return routes.sort((a, b) => {
-		if (a[2] > b[2] || b[2] == null)
-			return 1;
-
-		if (a[2] < b[2] || a[2] == null)
-			return -1;
-
-		return 0;
-	});
+			return 0;
+		});
 }
 
 async function main() {
@@ -134,7 +136,7 @@ async function main() {
 	});
 
 	for (const route of loadRoutes())
-		app.use(route[0], route[1]);
+		app.use(route.root, route.router);
 
 	/*
 	 * If the request gets to the bottom of the route stack, it doesn't

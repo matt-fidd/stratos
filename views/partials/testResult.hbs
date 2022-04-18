@@ -1,4 +1,4 @@
-<div class='testPage__testResultWrapper'>
+<div class='testPage__testResultWrapper' data-id='{{ result.id }}'>
 	<div>
 		{{#eq userType 'account'}}
 		<div>
@@ -28,4 +28,36 @@
 			<span>{{result.percentage}}%</span>
 		</div>
 	</div>
+
+	{{#if edit}}
+	<div class='testPage__testResult__edit'>
+		{{>button style='full' colour='primary' addClasses='resultEdit' content='Edit result'}}
+
+		<form style='display: none;' method='post' action='{{linkRoot}}/{{result.id}}/edit' >
+			<input type='number' name='mark' id='mark' min=0 max={{result.test.template.maxMark}} placeholder='{{result.mark}}' />
+			<input type='submit' value='Submit new mark' />
+		</form>
+	</div>
+	{{/if}}
 </div>
+
+{{#if edit}}
+<script>
+	document.querySelector('.testPage__testResultWrapper[data-id="{{result.id}}"] a.resultEdit').addEventListener('click', (e) => {
+		e.preventDefault();
+
+		const form = e.path[1].childNodes[3];
+		const link = e.path[0];
+
+		link.innerText =
+			(form.style.display === 'none')
+				? 'Hide edit box'
+				: 'Edit result';
+
+		form.style.display =
+			(form.style.display === 'none')
+				? 'grid'
+				: 'none';
+	});
+</script>
+{{/if}}

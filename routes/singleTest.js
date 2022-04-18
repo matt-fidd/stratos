@@ -101,6 +101,15 @@ router.post('/:id/results/:resultId/edit', async (req, res) => {
 	res.redirect(returnURL);
 });
 
+router.post('/:id/results/:resultId/delete', async (req, res) => {
+	const t = req.test;
+	const tr = await new TestResult(req.db, req.params.resultId);
+	const returnURL = `/admin/test/${t.id}/results`;
+
+	await tr.delete();
+
+	res.redirect(returnURL);
+});
 
 router.get('/:id/results/add', async (req, res) => {
 	const t = req.test;

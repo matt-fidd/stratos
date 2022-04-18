@@ -27,10 +27,17 @@
 		&__edit {
 			form {
 				padding-top: 1rem;
-				gap: .5rem;
+				gap: .25rem;
 
 				input[type='submit'] {
 					padding: .2rem 0;
+					border: 1px solid $grey;
+
+					&.testResult__deleteButton {
+						position: relative;
+						top: -.5rem;
+						background: red;
+					}
 				}
 
 				@include respond-to('medium') {

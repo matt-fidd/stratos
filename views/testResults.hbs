@@ -1,0 +1,20 @@
+<section>
+	<div class='adminSection'>
+		<div class='adminItem'>
+			<h2>Test Results - {{ testName }}</h2>
+			<div>
+				{{#if testResults.length}}
+					{{#each testResults}}
+						{{> testResult result=this userType=../userType edit=true linkRoot=../linkRoot}}
+					{{/each}}
+				{{else}}
+					{{#eq userType 'account'}}
+						You have not submitted any results yet
+					{{else}}
+						Your test result has not been submitted yet
+					{{/eq}}
+				{{/if}}
+			</div>
+		</div>
+	</div>
+</section>

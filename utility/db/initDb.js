@@ -69,7 +69,8 @@ tableCreate.set('testTemplate', `
 		testTemplateId       varchar(36)  NOT NULL    PRIMARY KEY,
 		accountId            varchar(36)  NOT NULL    ,
 		name                 varchar(100)  NOT NULL    ,
-		maxMark              int  NOT NULL
+		maxMark              int  NOT NULL,
+		gradeBoundaries      longtext
 	);
 `);
 

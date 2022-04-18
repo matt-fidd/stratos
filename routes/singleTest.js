@@ -3,6 +3,10 @@
 const express = require('express');
 const router = express.Router();
 
+const validator = require('../lib/validator');
+
+const TestResult = require('../lib/TestResult');
+
 router.get('/:id', async (req, res) => {
 	const t = req.test;
 	const linkRoot = `/admin/test/${t.id}`;
@@ -24,6 +28,7 @@ router.get('/:id', async (req, res) => {
 		subject: t.class.subject.name,
 		maxMark: t.template.maxMark,
 		reportsLink: `${linkRoot}/reports`,
+		resultsLink: `${linkRoot}/results`,
 		deleteLink: `${linkRoot}/delete`,
 		userType: req.session.userType,
 		testResults: results,
@@ -50,6 +55,49 @@ router.get('/:id', async (req, res) => {
 			},
 		]
 	});
+});
+
+router.get('/:id/results', async (req, res) => {
+	const t = req.test;
+	const linkRoot = `/admin/test/${t.id}/results`;
+
+	if (!req.session.userType === 'account')
+		return res.redirect(linkRoot);
+
+	const results = await t.getTestResults();
+
+	return res.render('testResults', {
+		title: `Stratos - ${t.template.name}`,
+		current: 'Tests',
+		name: req.session.fullName,
+		testName: t.template.name,
+		userType: req.session.userType,
+		testResults: results,
+		linkRoot: linkRoot
+	});
+});
+
+router.post('/:id/results/:resultId/edit', async (req, res) => {
+	const t = req.test;
+	const tr = await new TestResult(req.db, req.params.resultId);
+
+	const returnURL = `/admin/test/${t.id}/results`;
+
+	let fields;
+	try {
+		fields = validator.validate(req.body,
+			[
+				'mark',
+			]
+		).fields;
+	} catch (e) {
+		console.error(e);
+		return res.redirect(returnURL);
+	}
+
+	tr.mark = fields.get('mark');
+
+	res.redirect(returnURL);
 });
 
 module.exports = {

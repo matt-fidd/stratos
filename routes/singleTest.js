@@ -73,7 +73,8 @@ router.get('/:id/results', async (req, res) => {
 		testName: t.template.name,
 		userType: req.session.userType,
 		testResults: results,
-		linkRoot: linkRoot
+		linkRoot: linkRoot,
+		addLink: `${linkRoot}/add`
 	});
 });
 
@@ -98,6 +99,54 @@ router.post('/:id/results/:resultId/edit', async (req, res) => {
 	await tr.setMark(fields.get('mark'));
 
 	res.redirect(returnURL);
+});
+
+
+router.get('/:id/results/add', async (req, res) => {
+	const t = req.test;
+	const linkRoot = `/admin/test/${t.id}/results`;
+
+	const existingResults = (await t.getTestResults())
+		.map(r => r.student.id);
+
+	const students = t.class.students
+		.filter(s => !existingResults.includes(s.id));
+
+	return res.render('addTestResult', {
+		title: `Stratos - ${t.template.name}`,
+		current: 'Tests',
+		name: req.session.fullName,
+		testName: t.template.name,
+		linkRoot: linkRoot,
+		students: students,
+		maxMark: t.template.maxMark
+	});
+});
+
+router.post('/:id/results/add', async (req, res) => {
+	const t = req.test;
+	const returnURL = `/admin/test/${t.id}/results`;
+
+	let fields;
+	try {
+		fields = validator.validate(req.body,
+			[
+				'student',
+				'mark'
+			]
+		).fields;
+	} catch (e) {
+		console.error(e);
+		return res.redirect(returnURL);
+	}
+
+	await t.addResult(
+		req.session.userId,
+		fields.get('student'),
+		fields.get('mark')
+	);
+
+	return res.redirect(returnURL);
 });
 
 module.exports = {

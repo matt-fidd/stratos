@@ -32,11 +32,14 @@
 						Result
 					{{/eq}}
 				</h2>
+				{{#eq userType 'account'}}
+				{{> button style='full' colour='primary' to=resultsLink content='Manage results'}}
+				{{/eq}}
 			</div>
 			<div>
 				{{#if testResults.length}}
 					{{#each testResults}}
-						{{> testResult result=this userType=../userType }}
+						{{> testResult result=this userType=../userType edit=false }}
 					{{/each}}
 				{{else}}
 					{{#eq userType 'account'}}

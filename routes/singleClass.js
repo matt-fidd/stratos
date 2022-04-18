@@ -256,6 +256,7 @@ router.post('/:id/:userType(members|teachers)/:userId/remove',
 );
 
 module.exports = {
+	priority: 50,
 	root: '/admin/class',
 	router: router
 };

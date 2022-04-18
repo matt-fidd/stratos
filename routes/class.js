@@ -81,6 +81,7 @@ router.all(/class\/(.{36})(\/.*)?/, async (req, res, next) => {
 });
 
 module.exports = {
+	priority: 30,
 	root: '/admin',
 	router: router
 };

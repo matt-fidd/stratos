@@ -23,5 +23,24 @@
 			flex-direction: column;
 			align-items: center;
 		}
+
+		&__edit {
+			form {
+				padding-top: 1rem;
+				gap: .5rem;
+
+				input[type='submit'] {
+					padding: .2rem 0;
+				}
+
+				@include respond-to('medium') {
+					width: 50%;
+				}
+
+				@include respond-to('large') {
+					width: 20%;
+				}
+			}
+		}
 	}
 }

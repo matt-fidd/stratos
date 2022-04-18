@@ -61,8 +61,12 @@ async function main() {
 		'hbs',
 		engine({
 			extname: '.hbs',
-			helpers: hbsHelpers
-		})
+			helpers: hbsHelpers,
+			runtimeOptions: {
+				allowProtoPropertiesByDefault: true,
+				allowProtoMethodsByDefault: true
+			}
+		}),
 	);
 	app.set('view engine', 'hbs');
 	app.set('views', path.join(__dirname, 'views'));

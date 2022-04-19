@@ -6,7 +6,8 @@
 [![Forks][forks-shield]][forks-url]
 [![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
-[![MIT License][license-shield]][license-url]
+[![License][license-shield]][license-url]
+[![build][build-shield]][build-url]
 
 
 
@@ -125,3 +126,5 @@ Project Link: [https://github.com/matt-fidd/stratos](https://github.com/matt-fid
 [issues-url]: https://github.com/matt-fidd/stratos/issues
 [license-shield]: https://img.shields.io/github/license/matt-fidd/stratos.svg?style=for-the-badge
 [license-url]: https://github.com/matt-fidd/stratos/blob/master/LICENSE.txt
+[build-shield]: https://img.shields.io/github/workflow/status/matt-fidd/stratos/Node.js%20CI?style=for-the-badge
+[build-url]: https://github.com/matt-fidd/stratos/actions/workflows/node.js.yml

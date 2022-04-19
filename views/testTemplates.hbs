@@ -1,0 +1,37 @@
+<section class='adminSection adminSection--buttons'>
+	{{#eq userType 'account'}}
+	<div class='classes__buttons'>
+		{{> button style='full' colour='primary' to='/admin/test-template/add' content='Add a new test template' size='lg' }}
+	</div>
+	{{/eq}}
+</section>
+
+<section class='adminSection tests'>
+	<div class='adminItem'>
+		<h2>Tests</h2>
+		<div class='adminTable'>
+			<table>
+				<thead>
+					<tr>
+						<th>Name</th>
+						<th>Maximum Mark</th>
+					</tr>
+				</thead>
+				{{#each templates}}
+					<tr data-id='{{ id }}'>
+						<td>{{ name }}</td>
+						<td>{{ maxMark }}</td>
+					</tr>
+
+					<script>
+						document.querySelector('.tests tbody tr[data-id="{{id}}"]').addEventListener('click', (e) => {
+							const template = e.path[1];
+							window.location.href = `/admin/test-template/${template.getAttribute('data-id')}`;
+						});
+					</script>
+				{{/each}}
+			</table>
+		</div>
+	</div>
+</section>
+

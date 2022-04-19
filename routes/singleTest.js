@@ -20,9 +20,9 @@ router.get('/:id', async (req, res) => {
 	}
 
 	return res.render('test', {
+		...req.hbsContext,
 		title: `Stratos - ${t.template.name}`,
 		current: 'Tests',
-		name: req.session.fullName,
 		testName: t.template.name,
 		class: t.class,
 		subject: t.class.subject.name,
@@ -30,7 +30,6 @@ router.get('/:id', async (req, res) => {
 		reportsLink: `${linkRoot}/reports`,
 		resultsLink: `${linkRoot}/results`,
 		deleteLink: `${linkRoot}/delete`,
-		userType: req.session.userType,
 		testResults: results,
 		stats: [
 			{
@@ -67,11 +66,10 @@ router.get('/:id/results', async (req, res) => {
 	const results = await t.getTestResults();
 
 	return res.render('testResults', {
+		...req.hbsContext,
 		title: `Stratos - ${t.template.name}`,
 		current: 'Tests',
-		name: req.session.fullName,
 		testName: t.template.name,
-		userType: req.session.userType,
 		testResults: results,
 		linkRoot: linkRoot,
 		addLink: `${linkRoot}/add`
@@ -122,9 +120,9 @@ router.get('/:id/results/add', async (req, res) => {
 		.filter(s => !existingResults.includes(s.id));
 
 	return res.render('addTestResult', {
+		...req.hbsContext,
 		title: `Stratos - ${t.template.name}`,
 		current: 'Tests',
-		name: req.session.fullName,
 		testName: t.template.name,
 		linkRoot: linkRoot,
 		students: students,

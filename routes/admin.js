@@ -20,9 +20,9 @@ router.get('/dashboard', async (req, res) => {
 	const classes = await u.getClasses();
 
 	return res.render('dashboard', {
+		...req.hbsContext,
 		title: 'Stratos - Dashboard',
 		current: 'Dashboard',
-		name: req.session.fullName,
 		stats: [
 			{
 				value: classes.length,
@@ -55,9 +55,9 @@ router.all(/user\/(.{36})(\/.*)?/, async (req, res, next) => {
 		u = await new User(req.db, req.params[0]);
 	} catch (e) {
 		return res.status(400).render('error', {
+			...req.hbsContext,
 			title: 'Stratos - Error',
 			current: 'Dashboard',
-			name: req.session.fullName,
 			code: 400,
 			msg: e.message
 		});
@@ -77,9 +77,9 @@ router.get('/user/:id', (req, res) => {
 	const u = req.user;
 
 	return res.render('user', {
+		...req.hbsContext,
 		title: `Stratos - ${u.shortName}`,
 		current: 'Dashboard',
-		name: req.session.fullName,
 		user: u
 	});
 });

@@ -12,6 +12,7 @@ const validator = require('../lib/validator');
 
 router.get('/', (req, res) => {
 	return res.render('index', {
+		...req.hbsContext,
 		title: 'Stratos - Home'
 	});
 });
@@ -21,6 +22,7 @@ router.get('/login', (req, res) => {
 		return res.redirect('/admin');
 
 	return res.render('login', {
+		...req.hbsContext,
 		title: 'Stratos - Login',
 		redirect_to: req.query?.redirect_to
 	});
@@ -28,20 +30,22 @@ router.get('/login', (req, res) => {
 
 router.get('/register', (req, res) => {
 	return res.render('register', {
+		...req.hbsContext,
 		title: 'Stratos - Register'
 	});
 });
 
 router.get('/password-reset', (req, res) => {
 	return res.render('password-reset', {
+		...req.hbsContext,
 		title: 'Stratos - Password Recovery'
 	});
 });
 
 router.get('/logout', (req, res) => {
 	return res.render('logout', {
-		title: 'Stratos - Logout',
-		username: req.session.fullName
+		...req.hbsContext,
+		title: 'Stratos - Logout'
 	});
 });
 
@@ -124,6 +128,7 @@ router.post('/register', async (req, res) => {
 	} catch (e) {
 		console.error(e);
 		return res.render('error', {
+			...req.hbsContext,
 			code: 400,
 			msg: 'Unable to create account'
 		});
@@ -196,6 +201,7 @@ router.get('/password-reset/:uuid/:token', async (req, res) => {
 	}
 
 	return res.render('change-password', {
+		...req.hbsContext,
 		uuid: uuid,
 		token: token
 	});

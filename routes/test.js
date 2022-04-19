@@ -13,11 +13,10 @@ router.get('/tests', async (req, res) => {
 	const u = await new User(req.db, req.session.userId);
 
 	return res.render('tests', {
+		...req.hbsContext,
 		title: 'Stratos - Tests',
 		current: 'Tests',
-		name: req.session.fullName,
-		tests: await u.getTests(),
-		userType: req.session.userType
+		tests: await u.getTests()
 	});
 });
 
@@ -32,9 +31,9 @@ router.get('/test/add', async (req, res) => {
 	const [ testTemplates, classes ] = await Promise.all(promises);
 
 	res.render('addTest', {
+		...req.hbsContext,
 		title: 'Stratos - Add test',
 		current: 'Tests',
-		name: req.session.fullName,
 		testTemplates: testTemplates,
 		classes: classes
 	});
@@ -72,9 +71,9 @@ router.post('/test/add', async (req, res) => {
 
 router.get('/testTemplate/add', (req, res) => {
 	res.render('addTestTemplate', {
+		...req.hbsContext,
 		title: 'Stratos - Add test template',
-		current: 'Tests',
-		name: req.session.fullName
+		current: 'Tests'
 	});
 });
 
@@ -103,9 +102,9 @@ router.post('/testTemplate/add', async (req, res) => {
 		console.error(e);
 
 		return res.render('error', {
+			...req.hbsContext,
 			title: 'Stratos - Error',
 			current: 'Tests',
-			name: req.session.fullName,
 			msg: 'Could not create test template'
 		});
 	}
@@ -119,9 +118,9 @@ router.all(/test\/(.{36})(\/.*)?/, async (req, res, next) => {
 		t = await new Test(req.db, req.params[0]);
 	} catch (e) {
 		return res.status(400).render('error', {
+			...req.hbsContext,
 			title: 'Stratos - Error',
 			current: 'Tests',
-			name: req.session.fullName,
 			code: 400,
 			msg: e.message
 		});

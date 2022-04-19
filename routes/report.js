@@ -7,9 +7,9 @@ router.get('/reports', (req, res, next) => {
 	/* eslint-disable multiline-comment-style */
 	/*
 	return res.render('reports', {
+		...req.hbsContext,
 		title: 'Stratos - Reports',
-		current: 'Reports',
-		name: req.session.fullName
+		current: 'Reports'
 	});
 	*/
 	/* eslint-enable multiline-comment-style */

@@ -102,6 +102,17 @@ async function main() {
 		}
 	}));
 
+	// Generic handlebars context
+	app.use((req, res, next) => {
+		req.hbsContext = {
+			name: req.session?.fullName,
+			userType: req.session?.userType,
+			title: 'Stratos'
+		};
+
+		next();
+	});
+
 	/*
 	 * Authentication middleware that redirects unauthenticated users
 	 * back to the login page if they request a page they don't have access
@@ -145,6 +156,7 @@ async function main() {
 	 */
 	app.use((req, res) => {
 		res.status(404).render('error', {
+			...req.hbsContext,
 			title: 'Stratos - Error',
 			code: 404,
 			msg: 'Page Not Found'

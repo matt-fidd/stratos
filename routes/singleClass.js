@@ -16,9 +16,9 @@ router.get('/:id', async (req, res) => {
 	const testCount = recentTests.length + upcomingTests.length;
 
 	return res.render('class', {
+		...req.hbsContext,
 		title: `Stratos - ${c.name}`,
 		current: 'Classes',
-		name: req.session.fullName,
 		className: c.name,
 		teachers: c.teachers,
 		members: c.students,
@@ -30,7 +30,6 @@ router.get('/:id', async (req, res) => {
 		deleteLink: `${linkRoot}/delete`,
 		membersLink: `${linkRoot}/members`,
 		teachersLink: `${linkRoot}/teachers`,
-		userType: req.session.userType,
 		stats: [
 			{
 				value: testCount,
@@ -76,10 +75,9 @@ router.get('/:id/:memberType(members|teachers)', (req, res) => {
 	}
 
 	return res.render('classUsers', {
+		...req.hbsContext,
 		title: `Stratos - ${c.name}`,
 		current: 'Classes',
-		name: req.session.fullName,
-		userType: req.session.userType,
 		className: c.name,
 		users: users,
 		addLink: addLink,
@@ -116,9 +114,9 @@ router.get('/:id/:userType(members|teachers)/add', (req, res) => {
 	});
 
 	return res.render('addClassUser', {
+		...req.hbsContext,
 		title: `Stratos - ${c.name}`,
 		current: 'Classes',
-		name: req.session.fullName,
 		className: c.name,
 		postLink: `/admin/class/${c.id}/${req.params.userType}/add`,
 		newType: userType.slice(0, -1),
@@ -153,9 +151,9 @@ router.post('/:id/:userType(members|teachers)/add', async (req, res) => {
 			return res.redirect(`${rejectURL}/?err=no_user`);
 
 		return res.render('addClassUser2', {
+			...req.hbsContext,
 			title: `Stratos - ${c.name}`,
 			current: 'Classes',
-			name: req.session.fullName,
 			className: c.name,
 			postLink: `/admin/class/${c.id}/members/add2`,
 			newType: 'student',
@@ -224,12 +222,12 @@ router.get('/:id/:userType(members|teachers)/:userId/remove',
 			`/${u.id}/remove`;
 
 		return res.render('removeClassUser', {
+			...req.hbsContext,
 			title: `Stratos - ${c.name}`,
 			current: 'Classes',
-			name: req.session.fullName,
 			u: u,
 			postLink: postLink,
-			pageTitle: `Remove a ${userType.slice(0, -1)}`,
+			pageTitle: `Remove a ${userType.slice(0, -1)}`
 		});
 	}
 );
@@ -246,9 +244,9 @@ router.post('/:id/:userType(members|teachers)/:userId/remove',
 		} catch (e) {
 			console.error(e);
 			return res.render('error', {
+				...req.hbsContext,
 				title: 'Stratos - Error',
 				current: 'Classes',
-				name: req.session.fullName,
 				msg: `Can not remove this user: ${e.message}`
 			});
 		}

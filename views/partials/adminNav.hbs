@@ -3,6 +3,9 @@
 		{{> adminNavItem content='Dashboard' icon='gauge' to='dashboard' current=current }}
 		{{> adminNavItem content='Classes' icon='chalkboard-user' to='classes' current=current }}
 		{{> adminNavItem content='Tests' icon='book-open' to='tests' current=current }}
+		{{#eq userType 'account'}}
+		{{> adminNavItem content='Test Templates' icon='trowel-bricks' to='test-templates' current=current }}
+		{{/eq}}
 		{{> adminNavItem content='Reports' icon='chart-column' to='reports' current=current }}
 	</div>
 	<div class='adminNav__profile'>

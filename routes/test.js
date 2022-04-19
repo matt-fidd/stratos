@@ -69,49 +69,6 @@ router.post('/test/add', async (req, res) => {
 	return res.redirect(`/admin/test/${t.id}`);
 });
 
-router.get('/testTemplate/add', (req, res) => {
-	res.render('addTestTemplate', {
-		...req.hbsContext,
-		title: 'Stratos - Add test template',
-		current: 'Tests'
-	});
-});
-
-router.post('/testTemplate/add', async (req, res) => {
-	const a = await new Account(req.db, req.session.userId);
-
-	let fields;
-	try {
-		fields = validator.validate(req.body,
-			[
-				'name',
-				'mark'
-			]
-		).fields;
-	} catch (e) {
-		console.error(e);
-		return res.redirect('/testTemplate/add');
-	}
-
-	try {
-		await a.createTestTemplate(
-			fields.get('name'),
-			fields.get('mark')
-		);
-	} catch (e) {
-		console.error(e);
-
-		return res.render('error', {
-			...req.hbsContext,
-			title: 'Stratos - Error',
-			current: 'Tests',
-			msg: 'Could not create test template'
-		});
-	}
-
-	return res.redirect('/admin/test/add');
-});
-
 router.all(/test\/(.{36})(\/.*)?/, async (req, res, next) => {
 	let t;
 	try {

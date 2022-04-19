@@ -51,7 +51,7 @@ router.get('/:id', async (req, res) => {
 			{
 				value: '3',
 				text: 'Placeholder'
-			},
+			}
 		]
 	});
 });
@@ -86,7 +86,7 @@ router.post('/:id/results/:resultId/edit', async (req, res) => {
 	try {
 		fields = validator.validate(req.body,
 			[
-				'mark',
+				'mark'
 			]
 		).fields;
 	} catch (e) {

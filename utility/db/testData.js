@@ -77,7 +77,7 @@ const data = {
 			otherNames: null,
 			lastName: 'Tanz',
 			password: 'p5'
-		},
+		}
 	],
 	student: [
 		{
@@ -114,7 +114,7 @@ const data = {
 			otherNames: 'Killian James',
 			lastName: 'O\'Mulrian',
 			password: 's5'
-		},
+		}
 
 	],
 	subject: [
@@ -135,7 +135,7 @@ const data = {
 		},
 		{
 			name: 'Electronics'
-		},
+		}
 	],
 	class: [
 		{
@@ -153,7 +153,7 @@ const data = {
 		{
 			name: '13(6)',
 			subjectId: 4
-		},
+		}
 
 	],
 	account: [
@@ -184,7 +184,7 @@ const data = {
 			otherNames: null,
 			lastName: 'Doe',
 			password: 'a4'
-		},
+		}
 	],
 	testTemplate: [
 		{
@@ -300,7 +300,7 @@ const data = {
 				classId: 3,
 				testTemplateId: 4
 			}
-		},
+		}
 	],
 	studentParentLink: [
 		{
@@ -418,51 +418,51 @@ const data = {
 				studentId: 5,
 				classId: 4
 			}
-		},
+		}
 	],
 	accountClassLink: [
 		{
 			lookups: {
 				accountId: 1,
-				classId: 1,
+				classId: 1
 			}
 		},
 		{
 			lookups: {
 				accountId: 1,
-				classId: 2,
+				classId: 2
 			}
 		},
 		{
 			lookups: {
 				accountId: 2,
-				classId: 2,
+				classId: 2
 			}
 		},
 		{
 			lookups: {
 				accountId: 3,
-				classId: 3,
+				classId: 3
 			}
 		},
 		{
 			lookups: {
 				accountId: 1,
-				classId: 4,
+				classId: 4
 			}
 		},
 		{
 			lookups: {
 				accountId: 2,
-				classId: 4,
+				classId: 4
 			}
 		},
 		{
 			lookups: {
 				accountId: 3,
-				classId: 4,
+				classId: 4
 			}
-		},
+		}
 	],
 	testResult: [
 		{
@@ -554,7 +554,7 @@ const data = {
 				testId: 8,
 				accountId: 3
 			}
-		},
+		}
 	]
 };
 

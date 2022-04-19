@@ -52,7 +52,7 @@ router.get('/:id', async (req, res) => {
 			{
 				value: '50%',
 				text: 'Last percentage'
-			},
+			}
 		]
 	});
 });
@@ -134,7 +134,7 @@ router.post('/:id/:userType(members|teachers)/add', async (req, res) => {
 	try {
 		fields = validator.validate(req.body,
 			[
-				'email',
+				'email'
 			], {
 				email: 'email'
 			}

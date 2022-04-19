@@ -66,7 +66,7 @@ router.post('/login', async (req, res) => {
 				'password'
 			],
 			{
-				email: 'email',
+				email: 'email'
 			}
 		).fields;
 	} catch (e) {

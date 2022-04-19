@@ -76,7 +76,7 @@ async function main() {
 				allowProtoPropertiesByDefault: true,
 				allowProtoMethodsByDefault: true
 			}
-		}),
+		})
 	);
 	app.set('view engine', 'hbs');
 	app.set('views', path.join(__dirname, 'views'));

@@ -21,9 +21,9 @@
 	"homepage": "https://github.com/matt-fidd/stratos#readme",
 	"dependencies": {
 		"bcrypt": "^5.0.1",
-		"body-parser": "^1.19.2",
+		"body-parser": "^1.20.0",
 		"express": "^4.17.3",
-		"express-handlebars": "^6.0.3",
+		"express-handlebars": "^6.0.5",
 		"express-mysql-session": "^2.1.7",
 		"express-session": "^1.17.2",
 		"mysql2": "^2.3.3",
@@ -32,12 +32,12 @@
 		"serve-static": "^1.15.0"
 	},
 	"devDependencies": {
-		"@matt-fidd/eslint-config": "^1.1.3",
+		"@matt-fidd/eslint-config": "^1.2.0",
 		"autoprefixer": "^10.4.4",
-		"cssnano": "^5.1.6",
+		"cssnano": "^5.1.7",
 		"del": "^6.0.0",
-		"eslint": "^8.12.0",
-		"eslint-plugin-jest": "^26.1.3",
+		"eslint": "^8.13.0",
+		"eslint-plugin-jest": "^26.1.4",
 		"gulp": "^4.0.2",
 		"gulp-postcss": "^9.0.1",
 		"gulp-rename": "^2.0.0",
@@ -46,6 +46,6 @@
 		"jest-extended": "^2.0.0",
 		"postcss-sort-media-queries": "^4.2.1",
 		"prompt-sync": "^4.2.0",
-		"sass": "^1.49.10"
+		"sass": "^1.50.0"
 	}
 }

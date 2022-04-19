@@ -5,9 +5,10 @@
 	"main": "app.js",
 	"scripts": {
 		"test": "jest --max-workers=50%",
-		"lint": "eslint .",
+		"lint": "eslint --fix .",
 		"diag": "utility/uml/generateDiagrams.ksh",
-		"css": "sass src/stylesheets/main.scss public/css/main.css"
+		"css": "sass src/stylesheets/main.scss public/css/main.css",
+		"prepare": "husky install"
 	},
 	"repository": {
 		"type": "git",
@@ -42,6 +43,7 @@
 		"gulp-postcss": "^9.0.1",
 		"gulp-rename": "^2.0.0",
 		"gulp-sass": "^5.1.0",
+		"husky": "^7.0.4",
 		"jest": "^27.5.1",
 		"jest-extended": "^2.0.0",
 		"postcss-sort-media-queries": "^4.2.1",

@@ -26,9 +26,15 @@ async function cleanDb() {
 	const tables = Object.keys(data).reverse();
 	tables.push('sessions');
 
-	for (const table of tables)
-		/* eslint-disable-next-line no-await-in-loop */
-		await conn.runQuery(`DELETE FROM ${table};`);
+	for (const table of tables) {
+		try {
+			/* eslint-disable-next-line no-await-in-loop */
+			await conn.runQuery(`DELETE FROM ${table};`);
+		} catch (e) {
+			if (table !== 'sessions')
+				throw e;
+		}
+	}
 
 	conn.close();
 }

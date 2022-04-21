@@ -197,12 +197,12 @@ tableConstraints.set('studentParentLink_fk1', `
 	ON UPDATE NO ACTION;
 `);
 
-tableConstraints.set('fk_test_account', `
+tableConstraints.set('fk_test_class', `
 	ALTER TABLE test
-	ADD CONSTRAINT fk_test_account
+	ADD CONSTRAINT fk_test_class
 	FOREIGN KEY IF NOT EXISTS ( classId )
 	REFERENCES class( classId )
-	ON DELETE RESTRICT
+	ON DELETE CASCADE
 	ON UPDATE NO ACTION;
 `);
 

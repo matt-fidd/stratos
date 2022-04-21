@@ -16,7 +16,7 @@ const dbModule = (name) => path.join(__dirname, 'utility/db', name);
 
 const cleanDb = require(dbModule('cleanDb'));
 const initDb = require(dbModule('initDb'));
-const insertTestData = require(dbModule('insertTestData'));
+const insertTestDataModule = require(dbModule('insertTestData'));
 
 // Set src and destination paths for css compilation
 const cssPaths = {
@@ -127,6 +127,10 @@ function setConfig(cb) {
 	}
 
 	cb();
+}
+
+async function insertTestData() {
+	await insertTestDataModule(process.env.CUSTOM_DOMAIN);
 }
 
 // Task to build stylesheet from start to finish

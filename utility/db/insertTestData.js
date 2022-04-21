@@ -18,7 +18,7 @@ const { data, details } = require('./testData');
  *
  * @return {void}
  */
-async function insertTestData() {
+async function insertTestData(customEmailDomain = false) {
 	const conn = await new DatabaseConnectionPool();
 
 	// Run the creation statment for each table
@@ -70,6 +70,12 @@ async function insertTestData() {
 				`(${qs});`;
 
 			console.log(sql.trim());
+
+			if (customEmailDomain && dataToInsert.email) {
+				const split = dataToInsert.email.split('@');
+				split[1] = customEmailDomain;
+				dataToInsert.email = split.join('@');
+			}
 
 			try {
 				await conn.runQuery(sql,

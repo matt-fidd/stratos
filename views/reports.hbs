@@ -1,0 +1,52 @@
+<section class='adminSection'>
+	<div class='adminItem'>
+		<h2>Generate Report</h2>
+		<div class='formContainer'>
+			<form action='/admin/report/generate' method='post'>
+				<select name='type' id='type' required>
+					<option disabled hidden selected value=''>Select report type</option>
+					{{#each types}}
+						<option value='{{key}}'>{{value}}</option>
+					{{/each}}
+				</select>
+
+				<select name='target' id='target' required>
+					<option disabled hidden selected value=''>Select report target</option>
+				</select>
+
+				<input type='submit' class='btn btn--primary btn--full' value='Generate report'/>
+			</form>
+		</div>
+	</div>
+</section>
+
+<script>
+	const targets = {{{targets}}};
+	const cache = {};
+
+	const typeSelect = document.querySelector('form select[name="type"]');
+	const targetSelect = document.querySelector('form select[name="target"]');
+
+	typeSelect.addEventListener('change', (e) => {
+		const type = typeSelect.value;
+
+		const placeholder = document.createElement('option');
+		placeholder.setAttribute('disabled', true);
+		placeholder.setAttribute('hidden', true);
+		placeholder.setAttribute('selected', true);
+		placeholder.setAttribute('value', '');
+		placeholder.innerText = 'Select report target';
+
+		if (!cache[type]) {
+			cache[type] = targets[type].map(({ id, name }) => {
+				const elem = document.createElement('option');
+				elem.setAttribute('value', id);
+				elem.innerText = name;
+
+				return elem;
+			});
+		}
+
+		targetSelect.replaceChildren(placeholder, ...cache[type]);
+	});
+</script>

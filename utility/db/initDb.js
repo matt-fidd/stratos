@@ -69,7 +69,7 @@ tableCreate.set('testTemplate', `
 		testTemplateId       varchar(36)  NOT NULL    PRIMARY KEY,
 		accountId            varchar(36)  NOT NULL    ,
 		name                 varchar(100)  NOT NULL    ,
-		maxMark              int  NOT NULL,
+		maxMark              int UNSIGNED  NOT NULL,
 		gradeBoundaries      longtext
 	);
 `);
@@ -116,7 +116,7 @@ tableCreate.set('testResult', `
 		studentId            varchar(36)  NOT NULL    ,
 		testId               varchar(36)  NOT NULL    ,
 		accountId            varchar(36)  NOT NULL    ,
-		mark                 int  NOT NULL    ,
+		mark                 int UNSIGNED  NOT NULL    ,
 		time                 datetime NOT NULL        ,
 		CONSTRAINT Unq_testResult UNIQUE ( studentId, testId )
 	);

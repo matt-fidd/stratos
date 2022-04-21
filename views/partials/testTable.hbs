@@ -1,12 +1,32 @@
 {{#if tests.length}}
-	<table>
-		{{#each tests}}
-			{{> dashboardTest
-				id=id
-				name=template.name
-				date=date
-			}}
-		{{/each}}
+	<table class='tests'>
+		{{#if full}}
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Class</th>
+					<th>Subject</th>
+					<th>Date</th>
+				</tr>
+			</thead>
+			{{#each tests}}
+				{{> test
+					id=id
+					name=template.name
+					class=class.name
+					subject=class.subject.name
+					date=date
+				}}
+			{{/each}}
+		{{else}}
+			{{#each tests}}
+				{{> dashboardTest
+					id=id
+					name=template.name
+					date=date
+				}}
+			{{/each}}
+		{{/if}}
 	</table>
 {{else}}
 	No tests found

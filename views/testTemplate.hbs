@@ -1,0 +1,68 @@
+<section class='testPage'>
+	<section class='adminSection adminSection--buttons'>
+		<div class='classes__buttons'>
+			<form action='{{deleteLink}}' method='post' class='deleteForm'>
+				<input type='submit' class='btn btn--full btn--primary btn--lg' value='Delete'/>
+			</form>
+		</div>
+	</section>
+	<div class='adminSection'>
+		<div class='adminItem'>
+			<div class='adminItem__title'>
+				<h2>Test Template - {{ name }}</h2>
+				{{> button style='full' colour='primary' content='Edit' size='lg' addClasses='editButton'}}
+			</div>
+			<div>
+				<div>
+				Maximum mark: <span class='hl'>{{maxMark}}</span>
+				</div>
+			</div>
+			<div class='formContainer'>
+				<form class='editForm' method='post' action='{{editLink}}' style='display: none' >
+					<label>
+						Maximum Mark
+						<input type='number' name='maxMark' id='maxMark' min=0 max=4294967295 value='{{maxMark}}' placeholder='Max mark' required/>
+					</label>
+
+					<label>
+						Template name
+						<input type='text' name='name' id='name' value='{{name}}' placeholder='Template name' required/>
+					</label>
+
+					<input type='submit' value='Submit' class='btn btn--primary btn--full'/>
+				</form>
+			</div>
+		</div>
+	</div>
+	<div class='adminSection'>
+		<div class='adminItem'>
+			<h2>Tests based on this template</h2>
+			<div class='adminTable'>
+				{{> testTable tests=basedTests full=true }}
+			</div>
+		</div>
+	</div>
+</section>
+
+<script>
+	document.querySelector('.editButton').addEventListener('click', (e) => {
+		e.preventDefault();
+
+		const form = document.querySelector('.editForm');
+		const link = e.path[0];
+
+		link.innerText =
+			(form.style.display === 'none')
+				? 'Hide edit'
+				: 'Edit';
+
+		form.style.display =
+			(form.style.display === 'none')
+				? 'grid'
+				: 'none';
+	});
+	document.querySelector('.deleteForm').addEventListener('submit', (e) => {
+		if (!confirm('Delete test template?'))
+			e.preventDefault();
+	});
+</script>

@@ -4,7 +4,7 @@
 		<div class='formContainer'>
 			<form action='/admin/test-template/add' method='post'>
 				<input type='text' id='name' name='name' placeholder='Test name' required/>
-				<input type='number' id='mark' name='mark' placeholder='Maximum mark' step=1 required/>
+				<input type='number' id='mark' name='mark' min=0 max=4294967295 placeholder='Maximum mark' step=1 required/>
 
 				<input type='submit' class='btn btn--primary btn--full' value='Create test template'/>
 			</form>

@@ -56,6 +56,14 @@ router.get('/:id', async (req, res) => {
 	});
 });
 
+router.post('/:id/delete', async (req, res) => {
+	const t = req.test;
+	await t.delete();
+
+	res.redirect('/admin/tests');
+});
+
+
 router.get('/:id/results', async (req, res) => {
 	const t = req.test;
 	const linkRoot = `/admin/test/${t.id}/results`;

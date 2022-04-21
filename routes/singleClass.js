@@ -57,6 +57,13 @@ router.get('/:id', async (req, res) => {
 	});
 });
 
+router.post('/:id/delete', async (req, res) => {
+	const c = req.class;
+	await c.delete();
+
+	res.redirect('/admin/classes');
+});
+
 router.get('/:id/:memberType(members|teachers)', (req, res) => {
 	const c = req.class;
 	const linkRoot = `/admin/class/${c.id}`;

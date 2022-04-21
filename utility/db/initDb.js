@@ -105,8 +105,7 @@ tableCreate.set('test', `
 		testId               varchar(36)  NOT NULL    PRIMARY KEY,
 		testTemplateId       varchar(36)  NOT NULL    ,
 		classId              varchar(36)  NOT NULL    ,
-		testDate             date  NOT NULL    ,
-		CONSTRAINT Unq_test UNIQUE ( testTemplateId, classId, testDate )
+		testDate             date  NOT NULL
 	);
 `);
 

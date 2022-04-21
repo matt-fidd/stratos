@@ -2,7 +2,9 @@
 	<section class='adminSection adminSection--buttons'>
 		{{#eq userType 'account'}}
 		<div class='classes__buttons'>
-			{{> button style='full' colour='primary' to=deleteLink content='Delete Class' size='lg'}}
+			<form action='{{deleteLink}}' method='post' class='deleteForm'>
+				<input type='submit' class='btn btn--full btn--primary btn--lg' value='Delete'/>
+			</form>
 		</div>
 		{{/eq}}
 	</section>
@@ -63,3 +65,10 @@
 		</div>
 	</div>
 </section>
+
+<script>
+	document.querySelector('.deleteForm').addEventListener('submit', (e) => {
+		if (!confirm('Delete class?'))
+			e.preventDefault();
+	});
+</script>

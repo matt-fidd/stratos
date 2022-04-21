@@ -31,10 +31,7 @@
 	</div>
 	<div class='adminSection'>
 		<div class='adminItem adminStats'>
-			<div class='adminItem__title'>
-				<h2>Statistics and Reports</h2>
-				{{> button style='full' colour='primary' to=reportsLink content='View All'}}
-			</div>
+			<h2>Statistics and Reports</h2>
 			<div class='adminStats__stats'>
 				{{#each stats}}
 					{{> adminStat value=value text=text }}

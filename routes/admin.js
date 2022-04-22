@@ -38,10 +38,6 @@ router.get('/dashboard', async (req, res) => {
 				value: upcomingTests.length,
 				text: 'Upcoming Test' +
 					(upcomingTests.length !== 1 ? 's' : '')
-			},
-			{
-				value: '90%',
-				text: 'Pass rate'
 			}
 		],
 		recentTests: recentTests,

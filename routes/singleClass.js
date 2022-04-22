@@ -15,6 +15,19 @@ router.get('/:id', async (req, res) => {
 	const recentTests = await c.getTests({ range: 'before' });
 	const testCount = recentTests.length + upcomingTests.length;
 
+	const trs = (await Promise.all(recentTests.map(async t => {
+		if (req.session.userType === 'account')
+			return t.getAveragePercentage();
+
+		const tr = (await t.getTestResults())
+			.filter(tr => tr.student.id === req.session.userId);
+
+		return tr?.[0]?.percentage;
+	}))).filter(tr => typeof tr !== 'undefined');
+
+	const averagePercentage = trs
+		.reduce((a, b) => a + b, 0) / trs.length;
+
 	return res.render('class', {
 		...req.hbsContext,
 		title: `Stratos - ${c.name}`,
@@ -46,12 +59,10 @@ router.get('/:id', async (req, res) => {
 					(upcomingTests.length !== 1 ? 's' : '')
 			},
 			{
-				value: '72%',
-				text: 'Average percentage'
-			},
-			{
-				value: '50%',
-				text: 'Last percentage'
+				value: `${Math.round(averagePercentage)}%`,
+				text: (req.session.userType !== 'account' ?
+					'Your' : 'Class') +
+					' average percentage'
 			}
 		]
 	});

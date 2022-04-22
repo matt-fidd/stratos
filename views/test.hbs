@@ -69,9 +69,11 @@
 	</div>
 </section>
 
+{{#eq userType 'account'}}
 <script>
 	document.querySelector('.deleteForm').addEventListener('submit', (e) => {
 		if (!confirm('Delete test?'))
 			e.preventDefault();
 	});
 </script>
+{{/eq}}

@@ -6,6 +6,9 @@ const router = express.Router();
 const validator = require('../lib/validator');
 
 router.get('/:id', async (req, res) => {
+	if (req.session.userType !== 'account')
+		return res.redirect('/admin/test-templates');
+
 	const tt = req.tt;
 	const linkRoot = `/admin/test-template/${tt.id}`;
 
@@ -23,6 +26,9 @@ router.get('/:id', async (req, res) => {
 });
 
 router.post('/:id/edit', async (req, res) => {
+	if (req.session.userType !== 'account')
+		return res.redirect('/admin/test-templates');
+
 	const tt = req.tt;
 	const returnURL = `/admin/test-template/${tt.id}`;
 
@@ -48,6 +54,9 @@ router.post('/:id/edit', async (req, res) => {
 });
 
 router.post('/:id/delete', async (req, res) => {
+	if (req.session.userType !== 'account')
+		return res.redirect('/admin/test-templates');
+
 	const tt = req.tt;
 	await tt.delete();
 

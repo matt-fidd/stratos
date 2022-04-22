@@ -58,6 +58,9 @@ router.get('/:id', async (req, res) => {
 });
 
 router.post('/:id/delete', async (req, res) => {
+	if (req.session.userType !== 'account')
+		return res.redirect('/admin/classes');
+
 	const c = req.class;
 	await c.delete();
 
@@ -94,6 +97,9 @@ router.get('/:id/:memberType(members|teachers)', (req, res) => {
 });
 
 router.get('/:id/:userType(members|teachers)/add', (req, res) => {
+	if (req.session.userType !== 'account')
+		return res.redirect('/admin/classes');
+
 	const c = req.class;
 	const userType =
 		req.params.userType === 'teachers' ?
@@ -133,6 +139,9 @@ router.get('/:id/:userType(members|teachers)/add', (req, res) => {
 });
 
 router.post('/:id/:userType(members|teachers)/add', async (req, res) => {
+	if (req.session.userType !== 'account')
+		return res.redirect('/admin/classes');
+
 	const c = req.class;
 	const userType = req.params.userType;
 	const rejectURL = `/admin/class/${c.id}/${userType}/add`;
@@ -178,6 +187,9 @@ router.post('/:id/:userType(members|teachers)/add', async (req, res) => {
 });
 
 router.post('/:id/members/add2', async (req, res) => {
+	if (req.session.userType !== 'account')
+		return res.redirect('/admin/classes');
+
 	const c = req.class;
 	const rejectURL = `/admin/class/${c.id}/students/add`;
 
@@ -216,6 +228,9 @@ router.post('/:id/members/add2', async (req, res) => {
 
 router.get('/:id/:userType(members|teachers)/:userId/remove',
 	async (req, res) => {
+		if (req.session.userType !== 'account')
+			return res.redirect('/admin/classes');
+
 		const c = req.class;
 		const u = await new User(req.db, req.params.userId);
 
@@ -241,6 +256,9 @@ router.get('/:id/:userType(members|teachers)/:userId/remove',
 
 router.post('/:id/:userType(members|teachers)/:userId/remove',
 	async (req, res) => {
+		if (req.session.userType !== 'account')
+			return res.redirect('/admin/classes');
+
 		const c = req.class;
 		const u = await new User(req.db, req.params.userId);
 		const userType = req.params.userType;

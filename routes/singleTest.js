@@ -57,6 +57,9 @@ router.get('/:id', async (req, res) => {
 });
 
 router.post('/:id/delete', async (req, res) => {
+	if (req.session.userType !== 'account')
+		return res.redirect('/admin/tests');
+
 	const t = req.test;
 	await t.delete();
 
@@ -65,6 +68,9 @@ router.post('/:id/delete', async (req, res) => {
 
 
 router.get('/:id/results', async (req, res) => {
+	if (req.session.userType !== 'account')
+		return res.redirect('/admin/tests');
+
 	const t = req.test;
 	const linkRoot = `/admin/test/${t.id}/results`;
 
@@ -85,6 +91,9 @@ router.get('/:id/results', async (req, res) => {
 });
 
 router.post('/:id/results/:resultId/edit', async (req, res) => {
+	if (req.session.userType !== 'account')
+		return res.redirect('/admin/tests');
+
 	const t = req.test;
 	const tr = await new TestResult(req.db, req.params.resultId);
 
@@ -108,6 +117,9 @@ router.post('/:id/results/:resultId/edit', async (req, res) => {
 });
 
 router.post('/:id/results/:resultId/delete', async (req, res) => {
+	if (req.session.userType !== 'account')
+		return res.redirect('/admin/tests');
+
 	const t = req.test;
 	const tr = await new TestResult(req.db, req.params.resultId);
 	const returnURL = `/admin/test/${t.id}/results`;
@@ -118,6 +130,9 @@ router.post('/:id/results/:resultId/delete', async (req, res) => {
 });
 
 router.get('/:id/results/add', async (req, res) => {
+	if (req.session.userType !== 'account')
+		return res.redirect('/admin/tests');
+
 	const t = req.test;
 	const linkRoot = `/admin/test/${t.id}/results`;
 
@@ -139,6 +154,9 @@ router.get('/:id/results/add', async (req, res) => {
 });
 
 router.post('/:id/results/add', async (req, res) => {
+	if (req.session.userType !== 'account')
+		return res.redirect('/admin/tests');
+
 	const t = req.test;
 	const returnURL = `/admin/test/${t.id}/results`;
 

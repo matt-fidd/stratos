@@ -12,11 +12,43 @@ router.get('/:id', async (req, res) => {
 	const linkRoot = `/admin/test/${t.id}`;
 
 	let results = await t.getTestResults();
+	const resultCount = results.length;
+
+	const averageScore = await t.getAverageScore();
+	const averagePercentage = await t.getAveragePercentage();
+
+	const stats = [
+		{
+			value: `${resultCount}/${t.class.studentIds.length}`,
+			text: 'Results submitted'
+		},
+		{
+			value: `${averageScore}/${t.template.maxMark}`,
+			text: 'Average score'
+		},
+		{
+			value: `${averagePercentage}%`,
+			text: 'Average percentage'
+		}
+	];
 
 	if (req.session.userType === 'student') {
 		results = results.filter(r =>
 			r.student.id === req.session.userId
 		);
+
+		if (results.length) {
+			stats.push({
+				value: results[0].mark - averageScore,
+				text: '+- Average score'
+			});
+
+			stats.push({
+				value: `${results[0].percentage -
+					averagePercentage}%`,
+				text: '+- Average percentage'
+			});
+		}
 	}
 
 	return res.render('test', {
@@ -31,28 +63,7 @@ router.get('/:id', async (req, res) => {
 		resultsLink: `${linkRoot}/results`,
 		deleteLink: `${linkRoot}/delete`,
 		testResults: results,
-		stats: [
-			{
-				value: 19,
-				text: 'Results submitted'
-			},
-			{
-				value: '30%',
-				text: 'Average score'
-			},
-			{
-				value: 1,
-				text: 'Placeholder'
-			},
-			{
-				value: '2',
-				text: 'Placeholder'
-			},
-			{
-				value: '3',
-				text: 'Placeholder'
-			}
-		]
+		stats: stats
 	});
 });
 

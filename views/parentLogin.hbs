@@ -1,0 +1,20 @@
+<section class='adminSection'>
+	<div class='adminItem'>
+		<h2>Select a child</h2>
+		<p>Please select which one of your children you would like to log in as</p>
+		<p>To log in as a different child, please log out and log back in again to return to this screen</p>
+
+		<div class='formContainer'>
+			<form action='/admin/parent-login' method='post'>
+				<select name='child' id='child' required>
+					<option disabled hidden selected value=''>Select a child</option>
+					{{#each children}}
+						<option value='{{id}}'>{{name}}</option>
+					{{/each}}
+				</select>
+
+				<input type='submit' class='btn btn--primary btn--full' value='Log in'/>
+			</form>
+		</div>
+	</div>
+</section>

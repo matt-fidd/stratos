@@ -10,8 +10,11 @@
 	}
 
 	@include respond-to('large') {
-		margin-left: 20vw;
 		margin-top: 80px;
+
+		&:not(.adminContent--full) {
+			margin-left: 20vw;
+		}
 	}
 }
 

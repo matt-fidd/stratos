@@ -54,7 +54,22 @@ router.get('/reports', async (req, res) => {
 	});
 });
 
-router.post('/report/generate', (req, res) => {
+router.post('/report/generate', async (req, res) => {
+	const u = await new User(req.db, req.session.userId);
+
+	const classes = await u.getClasses();
+	const tests = await u.getTests();
+	const studentIds = [];
+	classes.forEach(c => studentIds.push(...c.studentIds));
+
+	const extractIds = (obj) => obj.id;
+
+	const ids = [
+		...classes.map(extractIds),
+		...tests.map(extractIds),
+		...studentIds
+	];
+
 	let fields;
 	try {
 		fields = validator.validate(req.body,
@@ -64,8 +79,8 @@ router.post('/report/generate', (req, res) => {
 			],
 			{
 				values: {
-					type: [],
-					target: []
+					type: [ 'student', 'class', 'test' ],
+					target: ids
 				}
 			}
 		).fields;

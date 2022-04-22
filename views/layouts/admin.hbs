@@ -6,8 +6,14 @@
 			const touchEvent = 'ontouchstart' in window ? 'touchstart' : 'click';
 		</script>
 		{{> adminHeader }}
-		{{> adminNav current=current name=name }}
-		<main class='adminContent'>
+
+		{{#neq userType 'parent'}}
+			{{> adminNav current=current name=name }}
+			<main class='adminContent'>
+		{{else}}
+			<main class='adminContent adminContent--full'>
+		{{/neq}}
+
 			{{{ body }}}
 		</main>
 		{{> scripts }}

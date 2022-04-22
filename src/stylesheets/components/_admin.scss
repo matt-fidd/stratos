@@ -113,13 +113,14 @@
 	@include space-contents;
 
 	&__stats {
-		display: grid;
-		grid-template-columns: 1fr 1fr;
+		display: flex;
+		flex-wrap: wrap;
 		gap: .5rem;
 
 		div {
 			display: flex;
 			flex-direction: column;
+			width: 100%;
 			align-items: center;
 			text-align: center;
 			background: $admin-bg;
@@ -141,9 +142,8 @@
 		}
 
 		@include respond-to('medium') {
-			grid-template-columns: repeat(5, 1fr);
+			flex-wrap: nowrap;
 		}
-
 	}
 
 	&__graphs {

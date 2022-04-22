@@ -17,8 +17,9 @@
 
 <script>
 	document.querySelectorAll('.classUser i').forEach(elem => {
-		elem.addEventListener('click', (e) => {
-			const userId = e.path[1].getAttribute('data-uid');
+		elem.addEventListener(touchEvent, (e) => {
+			const path = e.path || (e.composedPath && e.composedPath());
+			const userId = path[1].getAttribute('data-uid');
 			window.location.href = `${window.location.href}/${userId}/remove`;
 		});
 	});

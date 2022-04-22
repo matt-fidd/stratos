@@ -48,11 +48,12 @@
 
 {{#if edit}}
 <script>
-	document.querySelector('.testPage__testResultWrapper[data-id="{{result.id}}"] a.resultEdit').addEventListener('click', (e) => {
+	document.querySelector('.testPage__testResultWrapper[data-id="{{result.id}}"] a.resultEdit').addEventListener(touchEvent, (e) => {
 		e.preventDefault();
 
-		const form = e.path[1].childNodes[3];
-		const link = e.path[0];
+		const path = e.path || (e.composedPath && e.composedPath());
+		const form = path[1].childNodes[3];
+		const link = path[0];
 
 		link.innerText =
 			(form.style.display === 'none')

@@ -24,8 +24,9 @@
 					</tr>
 
 					<script>
-						document.querySelector('.tests tbody tr[data-id="{{id}}"]').addEventListener('click', (e) => {
-							const template = e.path[1];
+						document.querySelector('.tests tbody tr[data-id="{{id}}"]').addEventListener(touchEvent, (e) => {
+							const path = e.path || (e.composedPath && e.composedPath());
+							const template = path[1];
 							window.location.href = `/admin/test-template/${template.getAttribute('data-id')}`;
 						});
 					</script>

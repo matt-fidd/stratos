@@ -6,8 +6,9 @@
 </tr>
 
 <script>
-	document.querySelector('.tests tbody tr[data-id="{{id}}"]').addEventListener('click', (e) => {
-		const test = e.path[1];
+	document.querySelector('.tests tbody tr[data-id="{{id}}"]').addEventListener(touchEvent, (e) => {
+		const path = e.path || (e.composedPath && e.composedPath());
+		const test = path[1];
 		window.location.href = `/admin/test/${test.getAttribute('data-id')}`;
 	});
 </script>

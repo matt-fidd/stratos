@@ -2,6 +2,9 @@
 <html lang='en'>
 	{{> head title=title }}
 	<body>
+		<script>
+			const touchEvent = 'ontouchstart' in window ? 'touchstart' : 'click';
+		</script>
 		{{> adminHeader }}
 		{{> adminNav current=current name=name }}
 		<main class='adminContent'>
@@ -12,7 +15,7 @@
 			const toggle = document.querySelector('.adminNav-toggle');
 			const nav = document.querySelector('.adminNav');
 
-			toggle.addEventListener('click', () => {
+			toggle.addEventListener(touchEvent, () => {
 				nav.style.display =
 					(nav.style.display === 'flex')
 						? 'none'

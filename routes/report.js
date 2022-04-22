@@ -48,7 +48,7 @@ router.get('/reports', async (req, res) => {
 				id: t.id,
 				name: `${t.template.name} - ` +
 					`${t.class.name} - ` +
-					`${t.dateString}`
+					`${t.getDateString()}`
 			}))
 		})
 	});

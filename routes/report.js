@@ -7,6 +7,13 @@ const User = require('../lib/User');
 
 const validator = require('../lib/validator');
 
+router.all(/\/reports.*/, (req, res, next) => {
+	if (!req.session.userType === 'account')
+		return res.redirect('/admin');
+
+	next();
+});
+
 router.get('/reports', async (req, res) => {
 	const u = await new User(req.db, req.session.userId);
 	const classes = await u.getClasses();

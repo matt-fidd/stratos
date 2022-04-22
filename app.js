@@ -132,6 +132,12 @@ async function main() {
 
 		if (!allowed.includes(path) && !req.session.authenticated)
 			return res.redirect(`/login?redirect_to=${req.path}`);
+		else if (req.path !== '/admin/parent-login' &&
+			!allowed.includes(path) &&
+			req.session.userType === 'parent'
+		)
+			return res.redirect('/admin/parent-login');
+
 
 		next();
 	});

@@ -22,10 +22,6 @@
 					<h3><a href='{{membersLink}}'>Members</a></h3>
 					{{> classMembers members=members }}
 				</div>
-				<div class='adminOverview__buttons'>
-					{{> button style='full' colour='primary' to=contactLink content='Contact'}}
-					{{> button style='full' colour='primary' to=testsLink content='View Tests'}}
-				</div>
 			</div>
 		</div>
 	</div>
@@ -45,10 +41,7 @@
 	</div>
 	<div class='adminSection'>
 		<div class='adminItem classPage__tests'>
-			<div class='adminItem__title'>
-				<h2>Tests</h2>
-				{{> button style='full' colour='primary' to=testsLink content='View All'}}
-			</div>
+			<h2>Tests</h2>
 			<div class='classPage__tests__container'>
 				<div class='adminTable'>
 					<h3>Upcoming Tests</h3>

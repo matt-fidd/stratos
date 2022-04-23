@@ -138,7 +138,6 @@ async function main() {
 		)
 			return res.redirect('/admin/parent-login');
 
-
 		next();
 	});
 

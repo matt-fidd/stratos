@@ -144,6 +144,9 @@ exports.watchStyles = () => {
 // Create tables and relationships in database
 exports.dbInit = initDb;
 
+// Clean db
+exports.dbClean = cleanDb;
+
 // Clean all data and insert test data into database
 exports.dbTestData = series(initDb, cleanDb, insertTestData);
 

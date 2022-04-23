@@ -50,7 +50,7 @@ tableCreate.set('student', `
 
 tableCreate.set('studentParentLink', `
 	CREATE TABLE IF NOT EXISTS studentParentLink (
-		studentid            varchar(36)  NOT NULL    ,
+		studentId            varchar(36)  NOT NULL    ,
 		parentId             varchar(36)  NOT NULL    ,
 		CONSTRAINT pk_studentparentlink_studentid
 			PRIMARY KEY ( studentid, parentId )

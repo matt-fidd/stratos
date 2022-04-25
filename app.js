@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 const express = require('express');
 const { engine } = require('express-handlebars');
 const fs = require('fs');
+const morgan = require('morgan');
 const path = require('path');
 const session = require('express-session');
 const serveFavicon = require('serve-favicon');
@@ -84,6 +85,8 @@ async function main() {
 	// Set up parsers to allow reading of POST form data
 	app.use(bodyParser.json());
 	app.use(bodyParser.urlencoded({ extended: true }));
+
+	app.use(morgan('tiny'));
 
 	// Set up routes for static files
 	app.use(serveFavicon(path.join(__dirname,

@@ -127,6 +127,7 @@ async function main() {
 			'/register',
 			'/password-reset',
 			'/change-password',
+			'/contact',
 			'/'
 		];
 

@@ -244,6 +244,40 @@ router.post('/change-password', async (req, res) => {
 	return res.redirect('/login');
 });
 
+router.post('/contact', (req, res) => {
+	let fields;
+	try {
+		fields = validator.validate(req.body,
+			[
+				'fname',
+				'lname',
+				'email',
+				'body'
+			],
+			{
+				email: 'email'
+			}
+		).fields;
+	} catch (e) {
+		console.error(e);
+		return res.redirect('/');
+	}
+
+	const email = new EmailBuilder()
+		.setSubject('Stratos contact request')
+		.addTo([
+			`${fields.get('fname')} <${fields.get('email')}>`,
+			'Stratos <contact@stratos.com>'
+		])
+		.setBody(fields.get('body'));
+
+	const emailer = new Emailer();
+	emailer.sendEmail(email);
+
+	res.send('Thank you for your enquiry, someone will get back to you ' +
+		'shortly!');
+});
+
 module.exports = {
 	root: '/',
 	router: router

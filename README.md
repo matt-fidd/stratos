@@ -23,9 +23,9 @@
   <p align="center">
     This is my A Level Computer Science Project for the OCR NEA component
     <br />
-    ·
+    &#183;
     <a href="https://github.com/matt-fidd/stratos/issues">Report Bug</a>
-    ·
+    &#183;
     <a href="https://github.com/matt-fidd/stratos/issues">Request Feature</a>
   </p>
 </div>
